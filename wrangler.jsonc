@@ -1,6 +1,13 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "ej-antiques",
-  "compatibility_date": "2025-11-11",
-  "pages_build_output_dir": "./public"
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "ej-antiques",
+	"compatibility_date": "2025-11-11",
+	"pages_build_output_dir": "./public",
+	"d1_databases": [
+		{
+			"binding": "gallery_db",
+			"database_name": "ej-antiques",
+			"database_id": "0fe8ddbd-6707-4717-bed6-971f1f79ef69"
+		}
+	]
 }
