@@ -1,0 +1,136 @@
+/* === Cart Toggle Button === */
+.cart-toggle-btn {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.cart-toggle-btn:hover {
+  background: #2980b9;
+}
+
+/* === Cart Panel === */
+.cart-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 360px;
+  height: 100%;
+  background: #fff;
+  border-left: 2px solid #3498db;
+  padding: 25px;
+  box-shadow: -4px 0 30px rgba(0,0,0,0.1);
+  z-index: 1000;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-panel.hidden {
+  transform: translateX(100%);
+}
+
+/* === Cart Header === */
+.cart-panel h3 {
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+/* === Cart Items List === */
+.cart-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.cart-panel li {
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+/* === Cart Item Thumbnail === */
+.cart-thumb {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border-radius: 8px;
+  flex-shrink: 0;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* === Cart Item Text === */
+.cart-panel li strong {
+  display: block;
+  font-size: 1.1rem;
+  color: #2c3e50;
+}
+
+.cart-panel li em {
+  font-style: normal;
+  color: #7f8c8d;
+  font-size: 0.85rem;
+}
+
+/* === Remove Button === */
+.cart-panel li .remove-btn {
+  background: none;
+  border: none;
+  color: #e74c3c;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.cart-panel li .remove-btn:hover {
+  text-decoration: underline;
+}
+
+/* === Cart Total === */
+.cart-total {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #2c3e50;
+  text-align: right;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+}
+
+/* === Checkout Button === */
+#checkoutBtn {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background 0.3s ease;
+}
+
+#checkoutBtn:hover {
+  background: #219150;
+}
+
+/* === Responsive Cart Panel === */
+@media (max-width: 768px) {
+  .cart-panel {
+    width: 100%;
+  }
+}

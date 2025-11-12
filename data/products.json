@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "title": "Yamaha 250CC XYZ ",
+    "description": "Nice Bike, good condition, low mileage.",
+    "price": 45,
+    "category": "MTX",
+    "image": "/r2-images/bb-yam-1.jpg",
+    "images": [
+      "/r2-images/b1.jpg",
+      "/r2-images/b2.jpg",
+      "/r2-images/b3.jpg",
+      "/r2-images/b4.jpg"
+    ],
+    "longDescription": "nice bike, good condition, low mileage. Recently serviced with new tires and brake pads. Perfect for city commuting or weekend rides. Contact for more details or to arrange a viewing.",
+    "status": "active "
+
+  },
+  {
+    "id": 2,
+    "title": "Yamaha 125CC ABC",
+    "description": "Banging bike, great condition, very low mileage.",
+    "price": 30,
+    "category": "MTX",
+    "image": "/r2-images/bb-yam-2.jpg",
+    "images": [
+      "/r2-images/ben-cyr-1.jpg",
+      "/r2-images/ben-cyr-2.jpg",
+      "/r2-images/ben-cyr-3.jpg"
+    ],
+    "longDescription": "First to see will buy! This bike is in excellent condition with very low mileage. It has been well maintained and recently had a full service. Ideal for new riders or as a reliable second bike. Don't miss out on this great deal!"
+  },
+  {
+    "id": 3,
+    "title": "Honda Firenza 250CC",
+    "description": "Limited edition bike, great for the collector.",
+    "price": 25,
+    "category": "ROAD",
+    "image": "/r2-images/bb-yam-3.jpg",
+    "images": [
+      "/r2-images/r2-g2.png",
+      "/r2-images/r2-g3.png",
+      "/r2-images/r2-g4.png"
+    ],
+    "longDescription": " never been on the road, this limited edition Honda Firenza 250CC is a must-have for collectors. With only a few units ever made, it features unique styling and top-notch performance. Comes with original documentation and accessories."},
+  {
+    "id": 4,
+    "title": "KTM 300CC Adventure",
+    "description": "No better bike for the trails, ready to ride.",
+    "price": 35,
+    "category": "MTX",
+    "image": "/r2-images/bb-yam-4.jpg",
+    "images": [
+      "/r2-images/r2-g2.png",
+      "/r2-images/r2-g3.png",
+      "/r2-images/r2-g4.png"
+    ],
+    "longDescription": "Captured at dawn in Richmond Park, this macro photograph shows the intricate beauty of morning dew on a spider's web. Shot with a 100mm macro lens and printed on premium photographic paper. Comes matted and framed."
+  },
+  {
+    "id": 5,
+    "title": "THE BOLLOCKS",
+    "description": "No better bike for the trails, ready to ride.",
+    "price": 60,
+    "category": "RESTORE",
+    "image": "/r2-images/bb-yam-5.jpg",
+    "images": [
+      "/r2-images/r2-g2.png",
+      "/r2-images/r2-g3.png",
+      "/r2-images/r2-g4.png"
+    ],
+    "longDescription": "Copy goes here"
+  },
+  {
+    "id": 6,
+    "title": "Suzuki 400CC Classic",
+    "description": "Great suzuki, good condition, low mileage.",
+    "price": 40,
+    "category": "MTX",
+    "image": "/r2-images/bb-yam-6.jpg",
+    "images": [
+      "/r2-images/r2-g2.png",
+      "/r2-images/r2-g3.png",
+      "/r2-images/r2-g4.png"
+    ],
+    "longDescription": "Copy goes here"
+  },
+  {
+    "id": 7,
+    "title": "KTM 300CC Adventure",
+    "description": "KTM rules the road, great condition, low mileage.",
+    "price": 40,
+    "category": "ROAD",
+    "image": "/r2-images/bb-yam-7.jpg",
+    "images": [
+      "/r2-images/r2-g1.png",
+      "/r2-images/r2-g2.png",
+      "/r2-images/r2-g4.png"
+    ],
+    "longDescription": "Copy goes here"
+  }
+]

@@ -1,13 +1,31 @@
 {
-	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "ej-antiques",
-	"compatibility_date": "2025-11-11",
+	"name": "bens-bikes",
+	"compatibility_date": "2025-09-28",
 	"pages_build_output_dir": "./public",
+	"r2_buckets": [
+		{
+			"binding": "r2_images",
+			"bucket_name": "ej-antiques",
+			"preview_bucket_name": "ej-antiques"
+			//"binding": "r2_test",
+			//"bucket_name": "r2-test",
+			//"preview_bucket_name": "r2-test",
+			//"binding": "image_assets",
+			//"bucket_name": "image-assets",
+			//"preview_bucket_name": "image-assets"
+		}
+	],
 	"d1_databases": [
 		{
 			"binding": "gallery_db",
-			"database_name": "ej-antiques",
-			"database_id": "0fe8ddbd-6707-4717-bed6-971f1f79ef69"
+			"database_name": "gallery-db",
+			"database_id": "8a611c67-f995-4899-92af-134e12bf5461"
 		}
-	]
+	],
+	"kv_namespaces": [
+		{
+		"binding": "bens_bikes",
+		"id": "ee0baf6c00ee41c8a377c74b6fbe1ad6"
+		}
+]
 }
