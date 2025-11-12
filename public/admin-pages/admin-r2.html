@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin – Upload Images to R2</title>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/modal.css">
+  <style>
+    main {
+      margin-top: 2rem;
+    }
+    form {
+      margin-bottom: 2rem;
+    }
+    input[type="file"] {
+      margin-bottom: 1rem;
+    }
+    #status {
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+    .preview {
+      margin-top: 1rem;
+      max-width: 300px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <img src="/r2-images/BB-logo.png" alt="Ben's Bikes logo" class="logo-image" />
+          <span class="logo-text">Ben's Bikes: Admin</span>
+        </div>
+        <div id="nav-placeholder"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>📤 Upload Image to R2</h2>
+    <form id="uploadForm">
+      <label>Select Image: <input type="file" name="file" accept="image/*" required /></label><br />
+      <label>Destination Path (e.g. <code>gallery/sunset.jpg</code>):<br />
+        <input type="text" name="path" required />
+      </label><br />
+      <button type="submit">Upload Image</button>
+    </form>
+
+    <div id="status"></div>
+    <img id="preview" class="preview" src="" alt="" style="display:none;" />
+  </main>
+
+  <script src="/js/admin-r2.js"></script>
+  <script src="/js/inject-nav.js"></script>
+  <script src="/js/inject-footer.js"></script>
+</body>
+</html>

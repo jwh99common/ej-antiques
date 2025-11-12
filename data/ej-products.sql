@@ -1,8 +1,8 @@
 DELETE FROM ej_antiques_products;
 INSERT INTO ej_antiques_products (id, title, description, price, category, image, images, longDescription)
-VALUES (1, 'Yamaha 250CC XYZ ', 'Nice Bike, good condition, low mileage.', 45, 'MTX', '/ej-antiques/bb-yam-1.jpg', '["/ej-antiques/b1.jpg", "/ej-antiques/b2.jpg", "/ej-antiques/b3.jpg", "/ej-antiques/b4.jpg"]', 'nice bike, good condition, low mileage. Recently serviced with new tires and brake pads. Perfect for city commuting or weekend rides. Contact for more details or to arrange a viewing.');
+VALUES (1, 'Clarice Cliff ', 'A selection of Clarice Cliff.', 45, 'Ceramics', '/ej-antiques/cc-1.jpg', '["/ej-antiques/cc-1.jpg", "/ej-antiques/cc-2.jpg", "/ej-antiques/cc-3.jpg", "/ej-antiques/cc-4.jpg"]', '');
 INSERT INTO ej_antiques_products (id, title, description, price, category, image, images, longDescription)
-VALUES (2, 'Yamaha 125CC ABC', 'Banging bike, great condition, very low mileage.', 30, 'MTX', '/ej-antiques/bb-yam-2.jpg', '["/ej-antiques/ben-cyr-1.jpg", "/ej-antiques/ben-cyr-2.jpg", "/ej-antiques/ben-cyr-3.jpg"]', 'First to see will buy! This bike is in excellent condition with very low mileage. It has been well maintained and recently had a full service. Ideal for new riders or as a reliable second bike. Don''t miss out on this great deal!');
+VALUES (2, 'Antique Swords', 'A selection of Antique Swords', 30, 'Militaria', '/ej-antiques/sw-1.jpg', '["/ej-antiques/sw-2.jpg", "/ej-antiques/sw-3.jpg", "/ej-antiques/sw-4.jpg"]', '' );
 INSERT INTO ej_antiques_products (id, title, description, price, category, image, images, longDescription)
 VALUES (3, 'Honda Firenza 250CC', 'Limited edition bike, great for the collector.', 25, 'ROAD', '/ej-antiques/bb-yam-3.jpg', '["/ej-antiques/r2-g2.png", "/ej-antiques/r2-g3.png", "/ej-antiques/r2-g4.png"]', ' never been on the road, this limited edition Honda Firenza 250CC is a must-have for collectors. With only a few units ever made, it features unique styling and top-notch performance. Comes with original documentation and accessories.');
 INSERT INTO ej_antiques_products (id, title, description, price, category, image, images, longDescription)

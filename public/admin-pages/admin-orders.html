@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ben's Bikes – Order Dashboard</title>
+
+  <link rel="stylesheet" href="/css/base.css" />
+
+  <style>
+    main {
+      padding: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .order-columns {
+      display: flex;
+      gap: 2rem;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .order-columns section {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .order-column {
+      background: #f9f9f9;
+      padding: 1rem;
+      border-radius: 8px;
+      min-height: 200px;
+    }
+
+    .order-card {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 6px;
+      background: white;
+    }
+
+    .order-card h3 {
+      margin-top: 0;
+    }
+
+    .order-card button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .order-card button:hover {
+      background-color: #005fa3;
+    }
+
+    .order-card ul {
+      padding-left: 1.5rem; /* Adds indent to the bullet list */
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .order-card li {
+      margin-bottom: 0.25rem;
+    }
+
+
+
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>Order Dashboard</h1>
+    <div class="order-columns">
+      <section>
+        <h2>Pending</h2>
+        <div id="pending-orders" class="order-column"></div>
+      </section>
+      <section>
+        <h2>Processed</h2>
+        <div id="processed-orders" class="order-column"></div>
+      </section>
+      <section>
+        <h2>Closed</h2>
+        <div id="closed-orders" class="order-column"></div>
+      </section>
+    </div>
+  </main>
+
+  <script type="module" src="/js/orders.js"></script>
+</body>
+</html>

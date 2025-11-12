@@ -1,0 +1,10 @@
+/* local.css */
+
+.product-image {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 12px;
+  display: block;
+}

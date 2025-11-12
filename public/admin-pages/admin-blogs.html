@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin – Manage Blogs</title>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/products.css">
+  <link rel="stylesheet" href="/css/cart.css">
+  <link rel="stylesheet" href="/css/modal.css">
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    th, td {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    th {
+      background-color: #f5f5f5;
+    }
+    button {
+      margin-right: 0.5rem;
+    }
+    #blogForm {
+      margin-top: 2rem;
+    }
+    #status {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <img src="/r2-images/BB-logo.png" alt="Ben's Bikes logo" class="logo-image" />
+          <span class="logo-text">Ben's Bikes: Admin</span>
+        </div>
+        <div id="nav-placeholder"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>📚 Blog Posts</h2>
+    <button id="addNewBtn">➕ Add New Blog</button>
+
+    <table id="blogsTable">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Short</th>
+          <th>Image</th>
+          <th>Created</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <hr />
+
+    <h2>✍️ Create / Edit Blog</h2>
+    <form id="blogForm">
+      <input type="hidden" name="id" />
+      <label>Title: <input type="text" name="title" required /></label>
+      <label>Author: <input type="text" name="author" required /></label>
+      <label>Image URL: <input type="text" name="image" /></label>
+      <label>Short Content:<br />
+        <textarea name="shortcontent" rows="3" required></textarea>
+      </label>
+      <label>Long Content:<br />
+        <textarea name="longcontent" rows="6" required></textarea>
+      </label>
+      <label>Slug (optional): <input type="text" name="slug" placeholder="auto-generated if blank" /></label>
+      <button type="submit">Save Blog</button>
+    </form>
+
+    <div id="status"></div>
+  </main>
+
+  <script src="/js/admin-blogs.js"></script>
+  <script src="/js/inject-nav.js"></script>
+  <script src="/js/inject-footer.js"></script>
+</body>
+</html>

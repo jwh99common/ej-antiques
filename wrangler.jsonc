@@ -1,10 +1,10 @@
 {
-	"name": "bens-bikes",
+	"name": "ej-antiques",
 	"compatibility_date": "2025-09-28",
 	"pages_build_output_dir": "./public",
 	"r2_buckets": [
 		{
-			"binding": "r2_images",
+			"binding": "ej_antiques",
 			"bucket_name": "ej-antiques",
 			"preview_bucket_name": "ej-antiques"
 			//"binding": "r2_test",
@@ -18,14 +18,15 @@
 	"d1_databases": [
 		{
 			"binding": "gallery_db",
-			"database_name": "gallery-db",
-			"database_id": "8a611c67-f995-4899-92af-134e12bf5461"
+			"database_name": "ej-antiques",
+			"database_id": "0fe8ddbd-6707-4717-bed6-971f1f79ef69"
 		}
 	],
 	"kv_namespaces": [
 		{
-		"binding": "bens_bikes",
-		"id": "ee0baf6c00ee41c8a377c74b6fbe1ad6"
+		"binding": "ej_admin",
+		"id": "878c3390c1b54f31a2fb953d61c04568"
 		}
-]
+	]
+
 }
