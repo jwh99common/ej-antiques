@@ -19,7 +19,7 @@
         <div class="logo">
           <img src="/ej-antiques/ej-logo-2.jpg" alt="Ben's Bikes logo" class="logo-image" />
 
-          <span class="logo-text">For Sale</span>
+          <span class="logo-text"></span>
         </div>
         <button id="cartToggleBtn" class="cart-toggle-btn">🛒 Cart (<span id="cartCount">0</span>)</button>
         <div id="nav-placeholder"></div>
@@ -36,6 +36,8 @@
       <button class="filter-btn" data-category="MTX">Motocross</button>
       <button class="filter-btn" data-category="RESTORE">Restore</button>
     </div>
+
+    <div id="txt-placeholder"></div>
 
     <!-- Product Gallery -->
     <div class="gallery" id="gallery">
@@ -75,7 +77,7 @@
   <!-- JavaScript entry point -->
   
   <script type="module" src="/js/main.js?v=20251030"></script>
-
+  <script src="/js/inject-txt.js"></script>
   <script src="/js/inject-nav.js"></script>
   <script src="/js/inject-footer.js"></script>
 </body>
