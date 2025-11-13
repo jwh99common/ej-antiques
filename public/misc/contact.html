@@ -10,26 +10,46 @@
   <link rel="stylesheet" href="/css/cart.css">
   <link rel="stylesheet" href="/css/modal.css">
   <link rel="stylesheet" href="/css/blog.css">
+  <link rel="stylesheet" href="/css/navigation.css">
 
   <style>
-    .contact-map-wrapper {
-      display: flex;
-      flex-wrap: wrap;
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
       gap: 2rem;
       margin-top: 2rem;
     }
 
-    .contact-form-container,
-    .map-container {
-      flex: 1 1 400px;
-      min-width: 300px;
+    .contact-copy,
+    .visit-copy {
+      font-size: 1rem;
+      color: #333;
     }
 
-    .map-container iframe {
+    .contact-copy h2,
+    .visit-copy h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+    }
+
+    .contact-form,
+    .map-frame {
       width: 100%;
-      height: 100%;
-      min-height: 450px;
-      border: 0;
+      height: 600px;
+      border: none;
+    }
+
+    @media (max-width: 768px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto auto;
+      }
+
+      .contact-form,
+      .map-frame {
+        height: 450px;
+      }
     }
   </style>
 </head>
@@ -38,45 +58,46 @@
     <div class="container">
       <div class="header-content">
         <div class="logo">
-          <img src="/ej-antiques/ej-logo.jpg" alt="EJ's Aniques logo" class="logo-image" />
+          <img src="/ej-antiques/ej-logo.jpg" alt="EJ's Antiques logo" class="logo-image" />
           <span class="logo-text">Contact Us</span>
         </div>
         <button id="cartToggleBtn" class="cart-toggle-btn">🛒 Cart (<span id="cartCount">0</span>)</button>
-
         <div id="nav-placeholder"></div>
       </div>
     </div>
   </header>
 
   <main class="container">
-    <section class="hero">
-      <h1>Contact Us</h1>
-      <p>We’d love to hear from you. Whether you have a question, feedback,</p>
-      <p>or just want to say hello — drop us a message below.</p>
-    </section>
 
-    <section class="contact-map-wrapper">
-      <div class="contact-form-container">
-        <iframe
-          src="https://form.jotform.com/53144125373348"
-          width="100%"
-          height="600"
-          frameborder="0"
-          style="border:none;"
-          allowfullscreen>
-        </iframe>
+    <section class="contact-grid">
+      <!-- Top Row: Copy -->
+      <div class="contact-copy">
+        <h2>Contact Us</h2>
+        <p>Reach out with any questions, feedback, or inquiries. We're always happy to hear from fellow antique lovers and collectors.</p>
       </div>
 
-      <div class="map-container">
-        <!--<h2>Find Us</h2>
-        <p>We’re located at Common Rd, Kensworth, Dunstable LU6 2PH.</p>
-        -->
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9827.613278123426!2d-0.6333625470942681!3d51.990415764402584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487652e28c85f5dd%3A0x37055c5a77f68c64!2sWoburn%2C%20Milton%20Keynes!5e0!3m2!1sen!2suk!4v1762951683513!5m2!1sen!2suk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="visit-copy">
+        <h2>Visit Us in Woburn</h2>
+        <p>Our shop is nestled in the heart of Woburn, Milton Keynes — a charming village known for its antiques and heritage. Feel free to drop by and explore our collection in person.</p>
       </div>
+
+      <!-- Bottom Row: Form and Map -->
+      <iframe
+        class="contact-form"
+        src="https://form.jotform.com/253163572488061"
+        allowfullscreen>
+      </iframe>
+
+      <iframe
+        class="map-frame"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9827.613278123426!2d-0.6333625470942681!3d51.990415764402584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487652e28c85f5dd%3A0x37055c5a77f68c64!2sWoburn%2C%20Milton%20Keynes!5e0!3m2!1sen!2suk!4v1762951683513!5m2!1sen!2suk"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
     </section>
   </main>
 
-  <!-- Unified Cart Panel -->
   <div id="cartPanel" class="cart-panel hidden">
     <h3>Your Cart</h3>
     <ul id="cartItems"></ul>
@@ -84,7 +105,6 @@
   </div>
 
   <script type="module" src="/js/main.js?v=20251030"></script>
-
   <script src="/js/inject-nav.js"></script>
   <script src="/js/inject-footer.js"></script>
 </body>
