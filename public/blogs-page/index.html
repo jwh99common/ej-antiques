@@ -15,16 +15,23 @@
 
 <body data-type="blogs">
   <header>
+
+    <div class="banner"></div>
+    
     <div class="container">
       <div class="header-content">
         <div class="logo">
-          <img src="/ej-antiques/ej-logo.jpg" alt="EJ's Antiques logo" class="logo-image" />
-          <span class="logo-text">EJ's Antiques: Blog</span>
+          <!--<img src="/ej-antiques/ej-logo.jpg" alt="EJ's Antiques logo" class="logo-image" />
+          <span class="logo-text">Blog</span>-->
         </div>
+        <!-- 
         <button id="cartToggleBtn" class="cart-toggle-btn">🛒 Cart (<span id="cartCount">0</span>)</button>
+      -->
         <div id="nav-placeholder"></div>
       </div>
     </div>
+  
+
   </header>
 
   <main class="container">
@@ -41,12 +48,13 @@
   </main>
 
   <!-- Cart Panel -->
+  
   <div id="cartPanel" class="cart-panel hidden">
     <h3>Your Cart</h3>
     <ul id="cartItems"></ul>
     <button id="checkoutBtn">Checkout</button>
   </div>
-
+  
   <!-- Scripts -->
   
   <script type="module" src="/js/main.js?v=20251030"></script>
