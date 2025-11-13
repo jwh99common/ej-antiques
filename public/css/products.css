@@ -17,8 +17,8 @@
 
 .filter-btn {
   background: white;
-  border: 2px solid #3498db;
-  color: #3498db;
+  border: 2px solid #db7f34;
+  color: #dba634;
   padding: 10px 20px;
   border-radius: 25px;
   cursor: pointer;
@@ -28,7 +28,7 @@
 
 .filter-btn:hover,
 .filter-btn.active {
-  background: #3498db;
+  background: #b7db34;
   color: white;
 }
 

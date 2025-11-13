@@ -28,6 +28,7 @@ export async function onRequest(context) {
       <link rel="stylesheet" href="/css/products.css">
       <link rel="stylesheet" href="/css/cart.css">
       <link rel="stylesheet" href="/css/blog.css">
+      <link rel="stylesheet" href="/css/navigation.css">
       <link rel="stylesheet" href="/blogs-page/local.css">
     </head>
 
@@ -36,8 +37,8 @@ export async function onRequest(context) {
         <div class="container">
           <div class="header-content">
             <div class="logo">
-              <img src="/ej-antiques/ej-logo.jpg" alt="EJ's Antiques logo" class="logo-image" />
-              <span class="logo-text">EJ's Antiques: Blog</span>
+              <img src="/ej-antiques/ej-logo-2.jpg" alt="EJ's Antiques logo" class="logo-image" />
+              <span class="logo-text">Blog</span>
             </div>
             <button id="cartToggleBtn" class="cart-toggle-btn">🛒 Cart (<span id="cartCount">0</span>)</button>
             <div id="nav-placeholder"></div>

@@ -5,10 +5,14 @@ export async function onRequest({ request, env }) {
   const input = formData.get('pw');
   const stored = await env.ej_admin.get('password');
 
-  //
-  //if (input !== stored) {
-  //  return new Response("Unauthorized", { status: 403 });
-  // }
+  console.log ("EJ Antiques Admin Login Attempt:", "Input:", input, "Stored:" , stored );
+
+  const list = await env.ej_admin.list();
+  console.log("Available KV keys:", list.keys.map(k => k.name));
+
+  if (input !== stored) {
+    return new Response("Unauthorized", { status: 403 });
+   }
 
   // Create headers and set cookie BEFORE creating the response
   const headers = new Headers({ Location: "/admin-pages/admindashboard" });
