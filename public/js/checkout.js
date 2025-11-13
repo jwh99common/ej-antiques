@@ -21,7 +21,7 @@ document.getElementById('checkout-form').addEventListener('submit', async (e) =>
 
   if (response.ok) {
     alert("Thanks for your order! We'll be in touch.");
-    localStorage.removeItem('bensBikesCart');
+    localStorage.removeItem('ejAntiquesCart');
     window.location.href = '/thank-you.html'; // optional
   } else {
     alert("Something went wrong. Please try again.");

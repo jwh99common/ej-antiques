@@ -1,4 +1,4 @@
-const CART_KEY = 'bensBikesCart';
+const CART_KEY = 'ejAntiquesCart';
 
 
 export function getCart() {

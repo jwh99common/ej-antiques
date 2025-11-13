@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ben's Bikes – Checkout</title>
+
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/products.css">
+  <link rel="stylesheet" href="/css/cart.css">
+  <link rel="stylesheet" href="/css/modal.css">
+
+  <style>
+    .checkout-form {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+
+    .checkout-form h1 {
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .checkout-form input {
+      display: block;
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .checkout-form button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .checkout-form button:hover {
+      background-color: #005fa3;
+    }
+  </style>
+</head>
+
+<body data-type="checkout">
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <img src="/r2-images/BB-logo.png" alt="Ben's Bikes logo" class="logo-image" />
+          <span class="logo-text">Ben's Bikes: Checkout</span>
+        </div>
+        <div id="nav-placeholder"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <form id="checkout-form" class="checkout-form">
+      <h1>Complete Your Order</h1>
+      <input type="text" name="name" placeholder="Your name" required />
+      <input type="email" name="email" placeholder="Your email" required />
+      <input type="tel" name="phone" placeholder="Phone number (optional)" />
+      <button type="submit">Place Order</button>
+    </form>
+  </main>
+
+  <script type="module" src="/js/cart.js"></script>
+  <script type="module" src="/js/checkout.js"></script>
+  <script src="/js/inject-nav.js"></script>
+  <script src="/js/inject-footer.js"></script>
+</body>
+</html>

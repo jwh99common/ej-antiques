@@ -12,7 +12,7 @@ export async function onRequest(context) {
     price: p.price,
     category: p.category,
     image: p.image,
-    longDescription: p.long_description
+    long_description: p.long_description
   }));
 
   
