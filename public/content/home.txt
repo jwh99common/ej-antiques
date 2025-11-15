@@ -12,7 +12,7 @@ By choosing antiques, you help preserve these treasures and ensure their stories
 
 
 
-THE ABOUT 
+<h2> THE ABOUT </h2> 
 
 My name is Harry Ellerby-Jones, and I am a father living with my family in Bedfordshire. My passion for antiques began with collecting wall art, and over the years it has grown into a varied and fascinating collection that ranges from 900-year-old etchings, 18th-century watercolours to modern art.
 
