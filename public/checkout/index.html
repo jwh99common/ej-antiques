@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="/css/products.css">
   <link rel="stylesheet" href="/css/cart.css">
   <link rel="stylesheet" href="/css/modal.css">
+  <link rel="stylesheet" href="/css/navigation.css">
+
 
   <style>
     .checkout-form {
@@ -49,12 +51,12 @@
       background-color: #005fa3;
     }
   </style>
+  <div class="container">
+    <div id="nav-placeholder"></div>
+  </div>
 </head>
 
 <body data-type="checkout">
-  <header>
-    <div id="nav-placeholder"></div>
-  </header>
 
   <main class="container">
     <form id="checkout-form" class="checkout-form">
@@ -68,7 +70,7 @@
 
   <script type="module" src="/js/cart.js"></script>
   <script type="module" src="/js/checkout.js"></script>
-  <script src="/js/inject-nav.js"></script>
+  <script type="module" src="/js/inject-nav.js"></script>
   <script src="/js/inject-footer.js"></script>
 </body>
 </html>
