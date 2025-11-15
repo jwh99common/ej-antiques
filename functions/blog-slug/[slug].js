@@ -35,16 +35,10 @@ export async function onRequest(context) {
     <body data-type="blog">
       <header>
         <div class="container">
-          <div class="header-content">
-            <div class="logo">
-              <img src="/ej-antiques/ej-logo-2.jpg" alt="EJ's Antiques logo" class="logo-image" />
-              <span class="logo-text">Blog</span>
-            </div>
-            <button id="cartToggleBtn" class="cart-toggle-btn">🛒 Cart (<span id="cartCount">0</span>)</button>
             <div id="nav-placeholder"></div>
-          </div>
         </div>
       </header>
+
 
       <main class="container blog-page">
         <h1>${blog.title}</h1>
@@ -72,8 +66,7 @@ export async function onRequest(context) {
       <!-- Scripts -->
       
       <script type="module" src="/js/main.js?v=20251030"></script>
-
-      <script src="/js/inject-nav.js"></script>
+      <script type="module" src="/js/inject-nav.js"></script>
       <script src="/js/inject-footer.js"></script>
     </body>
     </html>
