@@ -41,15 +41,15 @@ function setupCart() {
   renderCartPanel();
   wireCheckoutButton(); 
   
-  const toggleBtn = document.getElementById('cartToggleBtn');
-  const cartPanel = document.getElementById('cartPanel');
+  //const toggleBtn = document.getElementById('cartToggleBtn');
+  //const cartPanel = document.getElementById('cartPanel');
 
-  if (toggleBtn && cartPanel) {
-    toggleBtn.addEventListener('click', () => {
-      cartPanel.classList.toggle('hidden');
-      renderCartPanel();
-    });
-  }
+  //if (toggleBtn && cartPanel) {
+  //  toggleBtn.addEventListener('click', () => {
+  //    cartPanel.classList.toggle('hidden');
+  //    renderCartPanel();
+  //  });
+  //}
 }
 
 function setupAddToCart(items) {
@@ -84,3 +84,19 @@ function setupModalTriggers(items) {
     }
   });
 }
+
+document.addEventListener('navReady', () => {
+  updateCartCount();
+  renderCartPanel();
+
+  const toggleBtn = document.getElementById('cartToggleBtn');
+  const cartPanel = document.getElementById('cartPanel');
+
+  if (toggleBtn && cartPanel) {
+    toggleBtn.addEventListener('click', () => {
+      cartPanel.classList.toggle('hidden');
+      renderCartPanel();
+    });
+  }
+});
+

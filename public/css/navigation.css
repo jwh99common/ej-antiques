@@ -1,18 +1,98 @@
-/* === Main Navigation Bar === */
-.main-nav {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  padding: 1rem 0;
-  width: 100%;
-  box-sizing: border-box;
-  margin: 0 auto;
-  background: none;
+/* === Sticky Header === */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05); /* optional: subtle shadow */
 }
 
-.main-nav a {
+/* === Wrapper === */
+.header-wrapper {
+  padding: 1rem 40px; /* 30pt indent */
+  box-sizing: border-box;
+}
+
+/* === Row 1: Logo + Cart (left), Follow Us (right) === */
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+/* Left side: Logo + Cart */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-image {
+  height: 48px;
+  width: auto;
+}
+
+.cart-toggle-btn {
+  background: none;
+  border: 2px solid #a94442;
+  color: #a94442;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.cart-toggle-btn:hover {
+  background-color: #f0f0f0;
+  color: black;
+}
+
+/* Right side: Follow Us */
+.follow-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.follow-label {
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.image-nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.image-nav img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.image-nav img:hover {
+  transform: scale(1.1);
+}
+
+/* === Row 2: Navigation Links (right-aligned) === */
+.nav-links {
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin: 0;
+}
+
+.nav-links a {
   color: black;
   text-decoration: none;
   font-weight: 600;
@@ -22,7 +102,7 @@
   transition: background-color 0.3s, color 0.3s;
 }
 
-.main-nav a:hover {
+.nav-links a:hover {
   background-color: #f0f0f0;
   color: #a94442;
 }

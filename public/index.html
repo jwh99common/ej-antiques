@@ -17,14 +17,7 @@
 
   <header>
     <div class="container">
-      <div class="header-content">
-        <div class="logo">
-          <img src="/ej-antiques/ej-logo-2.jpg" alt="EJ's Antiques logo" class="logo-image" />
-          <span class="logo-text"></span>
-        </div>
-        <button id="cartToggleBtn" class="cart-toggle-btn">🛒 Cart (<span id="cartCount">0</span>)</button>
         <div id="nav-placeholder"></div>
-      </div>
     </div>
   </header>
 
@@ -52,12 +45,18 @@
     </section>
   </main>
 
+  <!-- Unified Cart Panel -->
+  <div id="cartPanel" class="cart-panel hidden">
+    <h3>Your Cart</h3>
+    <ul id="cartItems"></ul>
+    <button id="checkoutBtn">Checkout</button>
+  </div>
+  
   <script type="module" src="/about.js"></script>
-  <script type="module" src="/js/main.js?v=20251030"></script>
-
-  <script src="/js/inject-nav.js"></script>
+  <script type="module" src="/js/inject-nav.js"></script>
   <script src="/js/inject-footer.js"></script>
   <script src="/js/inject-txt.js"></script>
+  <script type="module" src="/js/main.js?v=20251030"></script>
 
 </body>
 </html>
