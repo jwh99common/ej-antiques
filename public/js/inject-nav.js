@@ -1,4 +1,4 @@
-import { updateCartCount } from './cart.js';
+import { updateCartCount } from '/js/cart.js';
 
 fetch('/partials/ej-nav.html')
   .then(res => res.text())

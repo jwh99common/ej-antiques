@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Analytics Dashboard</title>
+  <link rel="stylesheet" href="./local.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+  <main class="container">
+    <section>
+      <h2>Top Pages</h2>
+        <canvas id="pagesChart" height="200"></canvas>
+    </section>
+
+    <section>
+      <h2>Top Referrers</h2>
+      <canvas id="referrersChart" height="200"></canvas>
+    </section>
+    <h1>📊 EJ Antiques Analytics</h1>
+
+    <section>
+      <h2>Overview</h2>
+      <p>Total Pageviews: <strong id="pageviews">–</strong></p>
+      <p>Unique Sessions: <strong id="sessions">–</strong></p>
+    </section>
+
+    <section>
+      <h2>Top Pages</h2>
+      <ul id="topPages"></ul>
+    </section>
+
+    <section>
+      <h2>Top Referrers</h2>
+      <ul id="topReferrers"></ul>
+    </section>
+  </main>
+
+  <script type="module" src="/js/dashboard.js"></script>
+</body>
+</html>

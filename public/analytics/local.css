@@ -1,0 +1,22 @@
+body {
+  font-family: system-ui, sans-serif;
+  background: #f9f9f9;
+  padding: 2rem;
+}
+.container {
+  max-width: 600px;
+  margin: auto;
+}
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+section {
+  margin-bottom: 2rem;
+}
+ul {
+  padding-left: 1rem;
+}
+li {
+  margin-bottom: 0.5rem;
+}

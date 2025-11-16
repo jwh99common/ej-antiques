@@ -68,6 +68,8 @@ export async function onRequest(context) {
       <script type="module" src="/js/main.js?v=20251030"></script>
       <script type="module" src="/js/inject-nav.js"></script>
       <script src="/js/inject-footer.js"></script>
+      <script type="module" src="/js/track-analytics.js"></script>
+
     </body>
     </html>
   `;
