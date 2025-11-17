@@ -1,93 +1,135 @@
 fetch('/api/metrics')
-  .then(res => res.json())
+  .then(res => {
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return res.json();
+  })
   .then(data => {
-    // Update text stats
-    document.getElementById('pageviews').textContent = data.totalPageviews;
-    document.getElementById('sessions').textContent = data.uniqueSessions;
+    console.log('Loaded metrics:', data);
 
-    // Render top pages list
+    // === Overview Metrics ===
+    const pageviewsEl = document.getElementById('pageviews');
+    const sessionsEl = document.getElementById('sessions');
+    if (pageviewsEl) pageviewsEl.textContent = data.totalPageviews || 0;
+    if (sessionsEl) sessionsEl.textContent = data.uniqueSessions || 0;
+
+    // === Top Pages List ===
     const topPages = document.getElementById('topPages');
-    data.topPages.forEach(p => {
-      const li = document.createElement('li');
-      li.textContent = `${p.url} — ${p.views} views`;
-      topPages.appendChild(li);
-    });
-
-    // Render top referrers list
-    const topReferrers = document.getElementById('topReferrers');
-    data.topReferrers.forEach(r => {
-      const li = document.createElement('li');
-      li.textContent = `${r.referrer} — ${r.count} hits`;
-      topReferrers.appendChild(li);
-    });
-
-    // ✅ Add your Chart.js code here
-
-    const viewLabels = data.productViews.map(v => v.event_type);
-const viewCounts = data.productViews.map(v => v.count);
-
-new Chart(document.getElementById('productViewsChart'), {
-  type: 'bar',
-  data: {
-    labels: viewLabels,
-    datasets: [{
-      label: 'Views',
-      data: viewCounts,
-      backgroundColor: ['#59a14f', '#edc948']
-    }]
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      legend: { display: false },
-      title: { display: false }
+    if (topPages && Array.isArray(data.topPages)) {
+      topPages.innerHTML = '';
+      data.topPages.forEach(p => {
+        const li = document.createElement('li');
+        li.textContent = `${p.url} — ${p.views} views`;
+        topPages.appendChild(li);
+      });
     }
-  }
-});
 
-    // Top Pages Chart
-    const pageLabels = data.topPages.map(p => p.url);
-    const pageViews = data.topPages.map(p => p.views);
+    // === Top Referrers List ===
+    const topReferrers = document.getElementById('topReferrers');
+    if (topReferrers && Array.isArray(data.topReferrers)) {
+      topReferrers.innerHTML = '';
+      data.topReferrers.forEach(r => {
+        const li = document.createElement('li');
+        li.textContent = `${r.referrer} — ${r.count} hits`;
+        topReferrers.appendChild(li);
+      });
+    }
 
-    new Chart(document.getElementById('pagesChart'), {
-      type: 'bar',
-      data: {
-        labels: pageLabels,
-        datasets: [{
-          label: 'Pageviews',
-          data: pageViews,
-          backgroundColor: '#4e79a7'
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: false },
-          title: { display: false }
+    // === Top Pages Chart ===
+    const pagesChartEl = document.getElementById('pagesChart');
+    if (pagesChartEl && Array.isArray(data.topPages) && data.topPages.length > 0) {
+      const labels = data.topPages.map(p => p.url);
+      const values = data.topPages.map(p => p.views);
+
+      new Chart(pagesChartEl, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Pageviews',
+            data: values,
+            backgroundColor: '#4e79a7'
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false }, title: { display: false } }
         }
-      }
-    });
+      });
+    }
 
-    // Top Referrers Chart
-    const refLabels = data.topReferrers.map(r => r.referrer);
-    const refCounts = data.topReferrers.map(r => r.count);
+    // === Top Referrers Chart ===
+    const referrersChartEl = document.getElementById('referrersChart');
+    if (referrersChartEl && Array.isArray(data.topReferrers) && data.topReferrers.length > 0) {
+      const labels = data.topReferrers.map(r => r.referrer);
+      const values = data.topReferrers.map(r => r.count);
 
-    new Chart(document.getElementById('referrersChart'), {
-      type: 'bar',
-      data: {
-        labels: refLabels,
-        datasets: [{
-          label: 'Referrals',
-          data: refCounts,
-          backgroundColor: '#f28e2b'
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: false },
-          title: { display: false }
+      new Chart(referrersChartEl, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Referrals',
+            data: values,
+            backgroundColor: '#f28e2b'
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false }, title: { display: false } }
         }
-      }
-    });
+      });
+    }
+
+    // === Product Views: Modal vs Page Chart ===
+    const productViewsChartEl = document.getElementById('productViewsChart');
+    if (productViewsChartEl && Array.isArray(data.productViews) && data.productViews.length > 0) {
+      const labels = data.productViews.map(v =>
+        v.event_type === 'productModalView' ? 'Modal Views' : 'Page Views'
+      );
+      const values = data.productViews.map(v => v.count);
+
+      new Chart(productViewsChartEl, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Views',
+            data: values,
+            backgroundColor: ['#59a14f', '#edc948']
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false }, title: { display: false } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+    }
+
+    // === Modal Views by Product Chart ===
+    const modalViewsChartEl = document.getElementById('modalViewsChart');
+    if (modalViewsChartEl && Array.isArray(data.modalViewsByProduct) && data.modalViewsByProduct.length > 0) {
+      const labels = data.modalViewsByProduct.map(p => p.title.trim());
+      const values = data.modalViewsByProduct.map(p => p.count);
+
+      new Chart(modalViewsChartEl, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Modal Views by Product',
+            data: values,
+            backgroundColor: '#76b7b2'
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false }, title: { display: false } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+    }
+  })
+  .catch(err => {
+    console.error('Error loading dashboard metrics:', err);
   });

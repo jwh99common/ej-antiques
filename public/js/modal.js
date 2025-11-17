@@ -1,3 +1,5 @@
+import { trackEvent } from './track.js';
+
 let currentImages = [];
 let currentIndex = 0;
 
@@ -6,27 +8,21 @@ export function openModal(item) {
   if (!modal) return;
 
   const type = item.type || document.body.dataset.type || 'products';
-  //console.log(`Modal Type: ${type}`);
 
   const modalImage = document.getElementById('modalImage');
   const modalTitle = document.getElementById('modalTitle');
   const modalContent = document.getElementById('modalDescription');
   const counter = document.getElementById('imageCounter');
 
-  // Blog-specific
   const modalAuthor = document.getElementById('modalAuthor');
   const modalDate = document.getElementById('modalDate');
-
-  // Product-specific
   const modalPrice = document.getElementById('modalPrice');
   const modalCategory = document.getElementById('modalCategory');
 
-  // Reset visibility
   [modalAuthor, modalDate, modalPrice, modalCategory].forEach(el => {
     if (el) el.style.display = 'none';
   });
 
-  // Shared content
   if (modalImage) {
     modalImage.src = item.image;
     modalImage.alt = item.title;
@@ -44,6 +40,9 @@ export function openModal(item) {
       modalDate.style.display = 'block';
     }
     if (counter) counter.textContent = `1 / 1`;
+
+    // 🔍 Track blog modal view
+    
   }
 
   if (['products', 'services', 'merchandise'].includes(type)) {
@@ -68,7 +67,21 @@ export function openModal(item) {
     if (counter) {
       counter.textContent = `${currentIndex + 1} / ${currentImages.length}`;
     }
+
+    // 🔍 Track product modal view
+    
   }
+
+  // 🔍 Track modal view (product or blog)
+  item.type = type;
+  console.log ('Tracking modal view:', item.title, type);
+
+  trackEvent(`${type}ModalView`, {
+    id: item.id || item.slug || null,
+    title: item.title,
+    category: item.category || null,
+    type
+  });
 
   modal.classList.add('open');
 }
@@ -90,7 +103,6 @@ export function setupModal() {
     }
   });
 
-  // Carousel navigation
   const prevBtn = document.getElementById('prevImage');
   const nextBtn = document.getElementById('nextImage');
   const modalImage = document.getElementById('modalImage');
@@ -102,7 +114,6 @@ export function setupModal() {
         currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
         if (modalImage) {
           modalImage.src = currentImages[currentIndex];
-          modalImage.alt = modalImage.alt; // Keep alt consistent
         }
         if (counter) {
           counter.textContent = `${currentIndex + 1} / ${currentImages.length}`;
@@ -117,7 +128,6 @@ export function setupModal() {
         currentIndex = (currentIndex + 1) % currentImages.length;
         if (modalImage) {
           modalImage.src = currentImages[currentIndex];
-          modalImage.alt = modalImage.alt;
         }
         if (counter) {
           counter.textContent = `${currentIndex + 1} / ${currentImages.length}`;

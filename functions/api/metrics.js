@@ -33,14 +33,36 @@ export async function onRequestGet({ env }) {
    GROUP BY event_type`
   ).all();
 
+  const viewsByDay = await db.prepare(
+  `SELECT strftime('%Y-%m-%d', timestamp) AS day, COUNT(*) AS views
+   FROM ej_antiques_analytics
+   WHERE timestamp >= datetime('now', '-7 days')
+   GROUP BY day
+   ORDER BY day ASC`
+  ).all();
+
+const modalViewsByProduct = await db.prepare(
+  `SELECT json_extract(metadata, '$.title') AS title,
+          COUNT(*) AS count
+   FROM ej_antiques_analytics
+   WHERE event_type = 'productsModalView'
+   GROUP BY title
+   ORDER BY count DESC
+   LIMIT 10`
+).all();
+
 
   return new Response(JSON.stringify({
-    totalPageviews: totalPageviews.count,
-    uniqueSessions: uniqueSessions.count,
-    topPages: topPages.results,
-    topReferrers: topReferrers.results,
-    productViews: productViewBreakdown.results
-  }), {
-    headers: { 'Content-Type': 'application/json' }
-  });
+  totalPageviews: totalPageviews?.count || 0,
+  uniqueSessions: uniqueSessions?.count || 0,
+  topPages: topPages?.results || [],
+  topReferrers: topReferrers?.results || [],
+  productViews: productViewBreakdown?.results || [],
+  viewsByDay: viewsByDay?.results || [],
+  modalViewsByProduct: modalViewsByProduct?.results || []
+
+}), {
+  headers: { 'Content-Type': 'application/json' }
+});
+
 }
