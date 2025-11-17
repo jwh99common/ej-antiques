@@ -3,20 +3,64 @@ body {
   background: #f9f9f9;
   padding: 2rem;
 }
-.container {
-  max-width: 600px;
-  margin: auto;
-}
+
 h1 {
   font-size: 2rem;
   margin-bottom: 1rem;
 }
-section {
-  margin-bottom: 2rem;
-}
+
 ul {
   padding-left: 1rem;
 }
+
 li {
   margin-bottom: 0.5rem;
+}
+
+/* === Layout === */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.dashboard-header {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.chart-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+canvas {
+  max-width: 100%;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.05);
+}
+
+/* === Optional: Section Styling === */
+section {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+label, select {
+  font-size: 1rem;
 }

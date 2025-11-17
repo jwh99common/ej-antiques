@@ -1,6 +1,7 @@
 export async function onRequestGet({ env }) {
   const db = env.gallery_db;
 
+  // Total pageviews and unique sessions (pre-aggregated)
   const totalPageviews = await db.prepare(
     `SELECT COUNT(*) AS count FROM ej_antiques_analytics`
   ).first();
@@ -9,60 +10,52 @@ export async function onRequestGet({ env }) {
     `SELECT COUNT(DISTINCT session_id) AS count FROM ej_antiques_analytics`
   ).first();
 
+  // Top pages with timestamps
   const topPages = await db.prepare(
-    `SELECT url, COUNT(*) AS views
+    `SELECT url, timestamp
      FROM ej_antiques_analytics
-     GROUP BY url
-     ORDER BY views DESC
-     LIMIT 5`
+     WHERE url IS NOT NULL`
   ).all();
 
+  // Top referrers with timestamps
   const topReferrers = await db.prepare(
-    `SELECT referrer, COUNT(*) AS count
+    `SELECT referrer, timestamp
      FROM ej_antiques_analytics
-     WHERE referrer != ''
-     GROUP BY referrer
-     ORDER BY count DESC
-     LIMIT 5`
+     WHERE referrer != ''`
   ).all();
 
-  const productViewBreakdown = await db.prepare(
-  `SELECT event_type, COUNT(*) AS count
-   FROM ej_antiques_analytics
-   WHERE event_type IN ('productModalView', 'productPageView')
-   GROUP BY event_type`
+  // Product views with timestamps
+  const productViews = await db.prepare(
+    `SELECT event_type, session_id, timestamp
+     FROM ej_antiques_analytics
+     WHERE event_type IN ('productsModalView', 'productPageView')`
   ).all();
 
+  // Modal views by product with timestamps
+  const modalViewsByProduct = await db.prepare(
+    `SELECT json_extract(metadata, '$.title') AS title, timestamp
+     FROM ej_antiques_analytics
+     WHERE event_type = 'productsModalView'`
+  ).all();
+
+  // Views by day (keep this one aggregated)
   const viewsByDay = await db.prepare(
-  `SELECT strftime('%Y-%m-%d', timestamp) AS day, COUNT(*) AS views
-   FROM ej_antiques_analytics
-   WHERE timestamp >= datetime('now', '-7 days')
-   GROUP BY day
-   ORDER BY day ASC`
+    `SELECT strftime('%Y-%m-%d', timestamp) AS day, COUNT(*) AS views
+     FROM ej_antiques_analytics
+     WHERE timestamp >= datetime('now', '-7 days')
+     GROUP BY day
+     ORDER BY day ASC`
   ).all();
-
-const modalViewsByProduct = await db.prepare(
-  `SELECT json_extract(metadata, '$.title') AS title,
-          COUNT(*) AS count
-   FROM ej_antiques_analytics
-   WHERE event_type = 'productsModalView'
-   GROUP BY title
-   ORDER BY count DESC
-   LIMIT 10`
-).all();
-
 
   return new Response(JSON.stringify({
-  totalPageviews: totalPageviews?.count || 0,
-  uniqueSessions: uniqueSessions?.count || 0,
-  topPages: topPages?.results || [],
-  topReferrers: topReferrers?.results || [],
-  productViews: productViewBreakdown?.results || [],
-  viewsByDay: viewsByDay?.results || [],
-  modalViewsByProduct: modalViewsByProduct?.results || []
-
-}), {
-  headers: { 'Content-Type': 'application/json' }
-});
-
+    totalPageviews: totalPageviews?.count || 0,
+    uniqueSessions: uniqueSessions?.count || 0,
+    topPages: topPages?.results || [],
+    topReferrers: topReferrers?.results || [],
+    productViews: productViews?.results || [],
+    modalViewsByProduct: modalViewsByProduct?.results || [],
+    viewsByDay: viewsByDay?.results || []
+  }), {
+    headers: { 'Content-Type': 'application/json' }
+  });
 }
