@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EJ's Antiques – Contact Us</title>
+
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/products.css">
+  <link rel="stylesheet" href="/css/cart.css">
+  <link rel="stylesheet" href="/css/modal.css">
+  <link rel="stylesheet" href="/css/blog.css">
+  <link rel="stylesheet" href="/css/navigation.css">
+
+  <style>
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .contact-copy,
+    .visit-copy {
+      font-size: 1rem;
+      color: #333;
+    }
+
+    .contact-copy h2,
+    .visit-copy h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+    }
+
+    .contact-form,
+    .map-frame {
+      width: 100%;
+      height: 600px;
+      border: none;
+    }
+
+    @media (max-width: 768px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto auto;
+      }
+
+      .contact-form,
+      .map-frame {
+        height: 450px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+        <div id="nav-placeholder"></div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>Privacy Notice</h1>
+    <p>
+      🔐 Privacy Policy
+Effective Date: 17 November 2025
+At EJ’s Antiques, your privacy matters. This policy outlines what data we collect, how we use it, and your rights under applicable privacy laws, including the UK GDPR.
+
+📊 What We Collect
+We collect minimal, anonymized analytics data to understand how visitors interact with our website. This includes:
+Pageviews and session counts
+Referring websites
+Device and browser types
+General location (e.g. country or region)
+
+We do not collect personal information like names, emails, or payment details through analytics.
+
+🍪 Cookies
+We do not use cookies for tracking or advertising. Our analytics are cookie-free and privacy-respecting.
+
+🔐 How We Use Data
+Analytics data helps us:
+Improve site performance and content
+Understand which pages are most popular
+Detect bugs or broken links
+We do not sell or share your data with third parties.
+
+🧾 Your Rights
+Under the UK GDPR, you have the right to:
+Request access to your data
+Ask for corrections or deletion
+Object to data processing
+To exercise these rights, contact us and we’ll respond promptly.
+    </p>
+  </main>
+
+  <div id="cartPanel" class="cart-panel hidden">
+    <h3>Your Cart</h3>
+    <ul id="cartItems"></ul>
+    <button id="checkoutBtn">Checkout</button>
+  </div>
+
+  <script type="module" src="/js/main.js?v=20251030"></script>
+  <script type="module" src="/js/inject-nav.js"></script>
+
+  <script type="module" src="/js/inject-nav.js"></script>
+  <script src="/js/inject-footer.js"></script>
+  <script type="module" src="/js/track-analytics.js"></script>
+
+</body>
+</html>

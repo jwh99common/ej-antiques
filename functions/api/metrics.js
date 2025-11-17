@@ -26,11 +26,20 @@ export async function onRequestGet({ env }) {
      LIMIT 5`
   ).all();
 
+  const productViewBreakdown = await db.prepare(
+  `SELECT event_type, COUNT(*) AS count
+   FROM ej_antiques_analytics
+   WHERE event_type IN ('productModalView', 'productPageView')
+   GROUP BY event_type`
+  ).all();
+
+
   return new Response(JSON.stringify({
     totalPageviews: totalPageviews.count,
     uniqueSessions: uniqueSessions.count,
     topPages: topPages.results,
-    topReferrers: topReferrers.results
+    topReferrers: topReferrers.results,
+    productViews: productViewBreakdown.results
   }), {
     headers: { 'Content-Type': 'application/json' }
   });

@@ -23,6 +23,28 @@ fetch('/api/metrics')
 
     // ✅ Add your Chart.js code here
 
+    const viewLabels = data.productViews.map(v => v.event_type);
+const viewCounts = data.productViews.map(v => v.count);
+
+new Chart(document.getElementById('productViewsChart'), {
+  type: 'bar',
+  data: {
+    labels: viewLabels,
+    datasets: [{
+      label: 'Views',
+      data: viewCounts,
+      backgroundColor: ['#59a14f', '#edc948']
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      title: { display: false }
+    }
+  }
+});
+
     // Top Pages Chart
     const pageLabels = data.topPages.map(p => p.url);
     const pageViews = data.topPages.map(p => p.views);
