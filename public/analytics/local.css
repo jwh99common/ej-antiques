@@ -1,3 +1,4 @@
+/* === Base Styles === */
 body {
   font-family: system-ui, sans-serif;
   background: #f9f9f9;
@@ -6,18 +7,27 @@ body {
 
 h1 {
   font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
-ul {
-  padding-left: 1rem;
-}
-
-li {
   margin-bottom: 0.5rem;
 }
 
-/* === Layout === */
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+label,
+select {
+  font-size: 1rem;
+}
+
+ul {
+  padding-left: .25rem;
+}
+
+li {
+  margin-bottom: 0.25rem;
+}
+
+/* === Layout Grid === */
 .dashboard-grid {
   display: grid;
   grid-template-columns: 1fr 2fr 2fr;
@@ -31,7 +41,7 @@ li {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
 }
 
 .column {
@@ -40,6 +50,19 @@ li {
   gap: 2rem;
 }
 
+/* === Section Styling === */
+section {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+section h2 {
+  margin-bottom: 0.25rem;
+}
+
+/* === Chart Blocks === */
 .chart-block {
   display: flex;
   flex-direction: column;
@@ -50,17 +73,32 @@ canvas {
   max-width: 100%;
   background: #fff;
   border-radius: 4px;
-  box-shadow: 0 0 4px rgba(0,0,0,0.05);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
 }
 
-/* === Optional: Section Styling === */
-section {
-  background: #fff;
-  padding: 1rem;
-  border-radius: 6px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+/* === Overview Section === */
+.column.overview p {
+  margin: 0.25rem 0;
 }
 
-label, select {
-  font-size: 1rem;
+#pageviews,
+#sessions,
+#mostViewedProduct {
+  display: inline-block;
+  margin-left: 0.25rem;
+}
+
+
+/* Tighten spacing between list and heading */
+#topPages,
+#topReferrers {
+  margin-top: 0.25rem;
+  padding-left: 1rem;
+  list-style-position: inside;
+}
+
+/* Optional: tighten list item spacing */
+#topPages li,
+#topReferrers li {
+  margin-bottom: 0.125rem;
 }
