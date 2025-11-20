@@ -39,7 +39,7 @@
     <div class="container">
       <div class="header-content">
         <div class="logo">
-          <img src="/ej-antiques/ej-logo-2.jpg" alt="Ben's Bikes logo" class="logo-image" />
+          <img src="/ej-antiques/ej-logo-2.jpg" alt="EJ's Antiques logo" class="logo-image" />
           <span class="logo-text">Admin</span>
         </div>
         <div id="nav-placeholder"></div>
@@ -74,13 +74,17 @@
       <label>Price (£): <input type="number" name="price" required /></label>
       <label>Category: <input type="text" name="category" /></label>
       <label>Image URL: <input type="text" name="image" /></label>
+      <br>
       <label>Additional Images (comma-separated): <input type="text" name="images" /></label>
-      <label>Description:<br />
-        <textarea name="description" rows="3" required></textarea>
-      </label>
-      <label>Long Description:<br />
-        <textarea name="longDescription" rows="6"></textarea>
-      </label>
+      <br>
+      <label>Short Content:</label>
+      <br>
+        <textarea name="description" rows="3" cols = "90"required></textarea>
+      <br>
+      <label>Long Content:</label>
+      <br>
+        <textarea name="longDescription" rows="6" cols = "90"></textarea>
+      
       <button type="submit">Save Product</button>
     </form>
 

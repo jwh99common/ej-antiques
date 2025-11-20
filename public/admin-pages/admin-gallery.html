@@ -72,12 +72,16 @@
       <label>Title: <input type="text" name="title" required /></label>
       <label>Price (£): <input type="number" name="price" required /></label>
       <label>Category: <input type="text" name="category" /></label>
+      <br>
       <label>Image URL: <input type="text" name="image" /></label>
-      <label>Description:<br />
-        <textarea name="description" rows="3" required></textarea>
-      </label>
-      <label>Long Description:<br />
-        <textarea name="long_description" rows="6"></textarea>
+      <br>
+      <label>Short Content:</label>
+      <br>
+        <textarea name="description" rows="3" cols = "90" required></textarea>
+      <br>
+      <label>Long Content:</label>
+      <br>
+        <textarea name="long_description" rows="6" cols = "90" ></textarea>
       </label>
       <button type="submit">Save Gallery Item</button>
     </form>

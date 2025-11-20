@@ -3,7 +3,7 @@ const body = document.querySelector('body');
 const type = body?.dataset.type;
 
 const filename = `${type}.txt`;
-const allowed = ['home', 'products', 'gallery', 'blogs', 'about'];
+const allowed = ['home', 'products', 'checkout', 'gallery', 'blogs', 'about'];
 
 if (!allowed.includes(type)) {
   console.warn(`Blocked: ${filename} not whitelisted`);

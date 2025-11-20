@@ -6,16 +6,23 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(res => res.ok ? res.json() : Promise.reject(`HTTP ${res.status}`))
     .then(data => {
       rawData = data;
-      renderDashboard('all');
+      const dateRange = document.getElementById('dateFilter').value;
+      const count = document.getElementById('countFilter').value;
+      renderDashboard(dateRange, count);
     })
     .catch(err => console.error('Error loading metrics:', err));
 
-  const filterEl = document.getElementById('dateFilter');
-  if (filterEl) {
-    filterEl.addEventListener('change', e => {
-      if (rawData) renderDashboard(e.target.value);
-    });
-  }
+  document.getElementById('dateFilter')?.addEventListener('change', () => {
+    const dateRange = document.getElementById('dateFilter').value;
+    const count = document.getElementById('countFilter').value;
+    renderDashboard(dateRange, count);
+  });
+
+  document.getElementById('countFilter')?.addEventListener('change', () => {
+    const dateRange = document.getElementById('dateFilter').value;
+    const count = document.getElementById('countFilter').value;
+    renderDashboard(dateRange, count);
+  });
 });
 
 function filterByDate(data, range) {
@@ -51,11 +58,13 @@ function clearCharts() {
   charts = [];
 }
 
-function renderDashboard(range) {
-  const filtered = filterByDate(rawData, range);
+function renderDashboard(dateRange = 'all', count = 5) {
+  const filtered = filterByDate(rawData, dateRange);
   clearCharts();
 
-  // === Aggregate Top Pages ===
+  const limit = count === 'all' ? Infinity : parseInt(count, 10);
+
+  // Top Pages
   const topPagesMap = {};
   filtered.topPages.forEach(p => {
     if (!p.url) return;
@@ -64,9 +73,9 @@ function renderDashboard(range) {
   const topPages = Object.entries(topPagesMap)
     .map(([url, views]) => ({ url, views }))
     .sort((a, b) => b.views - a.views)
-    .slice(0, 5);
+    .slice(0, limit);
 
-  // === Aggregate Top Referrers ===
+  // Top Referrers
   const refMap = {};
   filtered.topReferrers.forEach(r => {
     if (!r.referrer) return;
@@ -75,16 +84,9 @@ function renderDashboard(range) {
   const topReferrers = Object.entries(refMap)
     .map(([referrer, count]) => ({ referrer, count }))
     .sort((a, b) => b.count - a.count)
-    .slice(0, 5);
+    .slice(0, limit);
 
-  // === Aggregate Product Views ===
-  const viewCounts = {};
-  filtered.productViews.forEach(v => {
-    viewCounts[v.event_type] = (viewCounts[v.event_type] || 0) + 1;
-  });
-  const productViews = Object.entries(viewCounts).map(([event_type, count]) => ({ event_type, count }));
-
-  // === Aggregate Modal Views by Product ===
+  // Modal Views by Product
   const modalMap = {};
   filtered.modalViewsByProduct.forEach(m => {
     const title = m.title?.trim();
@@ -94,9 +96,16 @@ function renderDashboard(range) {
   const modalViewsByProduct = Object.entries(modalMap)
     .map(([title, count]) => ({ title, count }))
     .sort((a, b) => b.count - a.count)
-    .slice(0, 10);
+    .slice(0, limit);
 
-  // === Render ===
+  // Product Views
+  const viewCounts = {};
+  filtered.productViews.forEach(v => {
+    viewCounts[v.event_type] = (viewCounts[v.event_type] || 0) + 1;
+  });
+  const productViews = Object.entries(viewCounts).map(([event_type, count]) => ({ event_type, count }));
+
+  // Render
   renderOverview({ topPages, productViews: filtered.productViews });
   renderList('topPages', topPages, p => `${p.url} — ${p.views} views`);
   renderList('topReferrers', topReferrers, r => `${r.referrer} — ${r.count} hits`);
@@ -105,6 +114,7 @@ function renderDashboard(range) {
   renderChart('productsViewsChart', productViews, v => v.event_type === 'productModalView' ? 'Modal Views' : 'Page Views', v => v.count, 'Views', ['#59a14f', '#edc948']);
   renderChart('modalViewsChart', modalViewsByProduct, p => p.title, p => p.count, 'Modal Views by Product', '#76b7b2');
 }
+
 
 function renderOverview(data) {
   const pageviews = data.topPages.reduce((sum, p) => sum + (p.views || 0), 0);

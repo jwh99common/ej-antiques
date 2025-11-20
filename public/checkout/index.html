@@ -3,74 +3,62 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ben's Bikes – Checkout</title>
+  <title>Ej's Antiques - Checkout</title>
 
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/products.css">
   <link rel="stylesheet" href="/css/cart.css">
   <link rel="stylesheet" href="/css/modal.css">
   <link rel="stylesheet" href="/css/navigation.css">
+  <link rel="stylesheet" href="./local.css">
 
-
-  <style>
-    .checkout-form {
-      max-width: 600px;
-      margin: 2rem auto;
-      padding: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background-color: #f9f9f9;
-    }
-
-    .checkout-form h1 {
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
-    }
-
-    .checkout-form input {
-      display: block;
-      width: 100%;
-      margin-bottom: 1rem;
-      padding: 0.75rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    .checkout-form button {
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      background-color: #0077cc;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .checkout-form button:hover {
-      background-color: #005fa3;
-    }
-  </style>
-  <div class="container">
-    <div id="nav-placeholder"></div>
-  </div>
 </head>
 
 <body data-type="checkout">
 
+  <header>
+    <div class="container">
+        <div id="nav-placeholder"></div>
+    </div>
+  </header>
+
   <main class="container">
-    <form id="checkout-form" class="checkout-form">
-      <h1>Complete Your Order</h1>
-      <input type="text" name="name" placeholder="Your name" required />
-      <input type="email" name="email" placeholder="Your email" required />
-      <input type="tel" name="phone" placeholder="Phone number (optional)" />
-      <button type="submit">Place Order</button>
-    </form>
+    <div class="checkout-columns">
+      <div id="order-summary" class="checkout-form">
+        <h2>Your Order</h2>
+        <ul id="order-items"></ul>
+        <p><strong>Total:</strong> £<span id="order-total">0.00</span></p>
+      </div>
+
+      <form id="checkout-form" class="checkout-form">
+        <h1>Complete Your Order</h1>
+        <input type="text" name="name" placeholder="Your name" required />
+        <input type="email" name="email" placeholder="Your email" required />
+        <input type="tel" name="phone" placeholder="Phone number (optional)" />
+        <button type="submit">Place Order</button>
+      </form>
+    </div>
   </main>
 
-  <script type="module" src="/js/cart.js"></script>
+  <!-- Unified Cart Panel -->
+<div id="cartPanel" class="cart-panel hidden">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button id="closeCartBtn" class="close-cart">&times;</button>
+  </div>
+  <ul id="cartItems"></ul>
+  <button id="checkoutBtn">Checkout</button>
+</div>
+
+  <!-- JavaScript entry point -->
+  
+  <script type="module" src="/js/main.js"></script>
   <script type="module" src="/js/checkout.js"></script>
+
   <script type="module" src="/js/inject-nav.js"></script>
   <script src="/js/inject-footer.js"></script>
+
+  <script type="module" src="/js/track-analytics.js"></script>
+
 </body>
 </html>
