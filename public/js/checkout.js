@@ -1,10 +1,11 @@
 import { getCart } from './cart.js';
 
-document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+async function handleCheckoutSubmit(e) {
   e.preventDefault();
 
+  const form = e.target;
+  const formData = new FormData(form);
   const cart = getCart();
-  const formData = new FormData(e.target);
 
   const payload = {
     cart,
@@ -13,22 +14,25 @@ document.getElementById('checkout-form').addEventListener('submit', async (e) =>
     phone: formData.get('phone')
   };
 
-  const response = await fetch('/api/checkout', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
-  });
+  try {
+    const response = await fetch('/api/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
 
-  if (response.ok) {
-    alert("Thanks for your order! We'll be in touch.");
-    localStorage.removeItem('ejAntiquesCart');
-    window.location.href = '/products/index.html'; // optional
-  } else {
+    if (response.ok) {
+      alert("Thanks for your order! We'll be in touch.");
+      localStorage.removeItem('ejAntiquesCart');
+      window.location.href = '/products/index.html';
+    } else {
+      alert("Something went wrong. Please try again.");
+    }
+  } catch (err) {
+    console.error('Checkout error:', err);
     alert("Something went wrong. Please try again.");
   }
-});
-
-
+}
 
 function renderOrderSummary() {
   const cart = getCart();
@@ -67,32 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const form = document.getElementById('checkout-form');
   if (form) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const cart = getCart();
-      const formData = new FormData(form);
-
-      const payload = {
-        cart,
-        name: formData.get('name'),
-        email: formData.get('email'),
-        phone: formData.get('phone')
-      };
-
-      const response = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-
-      if (response.ok) {
-        alert("Thanks for your order! We'll be in touch.");
-        localStorage.removeItem('ejAntiquesCart');
-        window.location.href = '/products/index.html';
-      } else {
-        alert("Something went wrong. Please try again.");
-      }
-    });
+    form.addEventListener('submit', handleCheckoutSubmit);
   }
 });
