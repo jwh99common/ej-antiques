@@ -110,6 +110,15 @@ export async function onRequest(context) {
         .add-to-cart:hover {
           background-color: #444;
         }
+        .image-box:hover .main-image {
+          transform: scale(2.0);
+          transition: transform 0.3s ease;
+          cursor: zoom-in;
+        }
+      .main-image {
+        transition: transform 0.3s ease;
+      }
+
       </style>
     </head>
 
