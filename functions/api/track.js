@@ -6,12 +6,12 @@ export async function onRequest(context) {
   const country = request.headers.get('CF-IPCountry') || null;
   const city = request.headers.get('CF-IPCity') || null;
 
-  console.log('Inserting event:', {
-    eventType: data.eventType,
-    metadata: data.metadata,
-    sessionId: data.sessionId,
-    url: data.url
-  });
+  //console.log('Inserting event:', {
+  // eventType: data.eventType,
+  //  metadata: data.metadata,
+  //  sessionId: data.sessionId,
+  //  url: data.url
+  //});
 
   await env.gallery_db.prepare(`
     INSERT INTO ej_antiques_analytics (

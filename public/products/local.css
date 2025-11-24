@@ -22,3 +22,29 @@ header, footer {
 .site-footer a:hover {
   text-decoration: underline;
 }
+
+.column-thumbs {
+  max-height: 600px; /* or whatever height fits 3 thumbnails */
+  overflow-y: auto;
+  gap: 1rem;
+}
+
+.thumb-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.column-main-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 600px; /* match thumbnail stack height */
+}
+
+.main-image {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}

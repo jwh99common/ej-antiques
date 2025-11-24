@@ -14,7 +14,8 @@ export async function onRequest(context) {
     image: p.image,
     images: p.images ? JSON.parse(p.images) : [],
     longDescription: p.longDescription,
-    status: p.status
+    status: p.status,
+    slug: p.slug
   }));
 
   

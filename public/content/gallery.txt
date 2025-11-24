@@ -1,5 +1,6 @@
 <h1>Gallery</h1>
-Product copy is persuasive writing that describes a product's features 
-
+Headline: The Past, Reimagined: Our Antique Gallery
+Every antique holds a secret, a story from another time. Our gallery is a testament to the lives these objects have lived. As custodians of history, we've gathered a diverse array of pieces that represent the best of bygone eras.
+Explore our online showroom to find everything from the rustic charm of a farmhouse table to the intricate details of a Victorian brooch. When you purchase from us, you're not just buying an object; you're adopting its legacy. Find the perfect antique to start its next chapter with you.
 <br>
 <br>

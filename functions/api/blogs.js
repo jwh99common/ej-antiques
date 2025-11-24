@@ -3,7 +3,7 @@
 export async function onRequest(context) {
   const db = context.env.gallery_db;
 
-  console.log("🔍EJ's Antiques: D1 query triggered from /functions/api/blog.js");
+  //console.log("🔍EJ's Antiques: D1 query triggered from /functions/api/blog.js");
 
   const { results } = await db.prepare("SELECT * FROM ej_antiques_blogs ORDER BY createdAt DESC").all();
 

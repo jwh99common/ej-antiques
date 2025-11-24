@@ -1,5 +1,4 @@
 <h1>Blogs</h1>
-<p>Product copy is persuasive writing that describes a product's features and benefits to convince a customer to buy it. Effective copy is clear, concise, and compelling, focusing on how the product solves a customer's problem, uses customer-centric language, and is easy to scan with features like bullet points. It should also tell a story, include testimonials, and be optimized for search engines (SEO).</p> 
-
+Welcome to the EJ Antiques blog — a space where stories, insights, and curiosities come to life. Here, we explore the rich tapestry of antique history, share behind-the-scenes glimpses into our sourcing adventures, and offer tips on caring for vintage treasures. Whether you're a collector, a design enthusiast, or simply drawn to the charm of the past, our posts are crafted to inform, inspire, and spark conversation. From spotlighting rare finds to decoding the trends shaping modern antique appreciation, this is your portal into the world of timeless beauty. Settle in and enjoy the journey through eras gone by.
 <br>
-<br>
+<br><br>

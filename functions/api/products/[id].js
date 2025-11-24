@@ -3,7 +3,7 @@ export async function onRequest(context) {
   const id = context.params.id;
   const method = context.request.method;
 
-  console.log ("api/products", method, id);
+  console.log("api/products", method, id);
 
   if (!id) {
     return new Response("Missing product ID", { status: 400 });
@@ -30,13 +30,18 @@ export async function onRequest(context) {
       return new Response("Missing required fields", { status: 400 });
     }
 
+    const slug = title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-') // replace non-alphanumerics with dashes
+      .replace(/(^-|-$)/g, '');     // trim leading/trailing dashes
+
     await db
       .prepare(`
         UPDATE ej_antiques_products
-        SET title = ?, description = ?, price = ?, category = ?, image = ?, images = ?, longDescription = ?
+        SET title = ?, description = ?, price = ?, category = ?, image = ?, images = ?, longDescription = ?, slug = ?
         WHERE id = ?
       `)
-      .bind(title, description, price, category, image, images, longDescription, id)
+      .bind(title, description, price, category, image, images, longDescription, slug, id)
       .run();
 
     return new Response("Product updated", { status: 200 });

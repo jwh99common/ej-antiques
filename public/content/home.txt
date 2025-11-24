@@ -1,8 +1,6 @@
 <h1>Welcome to EJ's Antiques</h1>
 
-
-
-At Ellerby-Jones Antiques and Collectables, we believe antiques, art and collectables are more than objects — they are expressions of taste, character, and a meaningful connection to the past.
+<i><b>At Ellerby-Jones Antiques and Collectables<b></i>, we believe antiques, art and collectables are more than objects — they are expressions of taste, character, and a meaningful connection to the past.
 
 We curate and offer a selection of rare and unique pieces, each chosen for its craftsmanship, beauty, and historical significance.
 

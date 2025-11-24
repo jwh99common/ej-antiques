@@ -1,22 +1,34 @@
-
 const body = document.querySelector('body');
 const type = body?.dataset.type;
-
-const filename = `${type}.txt`;
 const allowed = ['home', 'products', 'checkout', 'gallery', 'blogs', 'about'];
+const container = document.getElementById('txt-placeholder');
 
-if (!allowed.includes(type)) {
-  console.warn(`Blocked: ${filename} not whitelisted`);
+console.log ( 'inject-txt running for type:', type, body );
+
+if (!type || !allowed.includes(type)) {
+  console.warn(`Blocked or missing type: ${type}`);
+  if (container) {
+    container.innerHTML = `<div class="fallback-message">This section is currently unavailable.</div>`;
+  }
 } else {
-  fetch(`/content/${filename}`)
+  const filename = `${type}.txt`;
+
+  fetch(`/ej-antiques/content/${filename}`)
     .then(res => {
       if (!res.ok) throw new Error(`Failed to load ${filename}`);
       return res.text();
     })
     .then(text => {
-      const container = document.getElementById('txt-placeholder');
-      if (!container) throw new Error(`Missing #txt-placeholder`);
-      container.innerHTML = text;
+      if (!text.trim()) {
+        container.innerHTML = `<div class="fallback-message">This section is currently empty. Please check back soon.</div>`;
+      } else {
+        container.innerHTML = text;
+      }
     })
-    .catch(err => console.error('injectTxt error:', err));
+    .catch(err => {
+      console.error('injectTxt error:', err);
+      if (container) {
+        container.innerHTML = `<div class="fallback-message">Sorry, we couldn't load this content right now.</div>`;
+      }
+    });
 }

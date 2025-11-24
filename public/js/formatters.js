@@ -1,7 +1,33 @@
 // formatters.js
-
 export function formatProduct(item) {
+  const formattedPrice = (item.price / 100).toFixed(2);
 
+  return `
+    <img src="${item.image}" alt="${item.title}" class="product-image" />
+    <div class="product-info">
+      <h3>${item.title}</h3>
+      <p>${item.description}</p>
+      <div class="product-details">
+        <span class="product-price">£${formattedPrice}</span>
+        <span class="product-category">${item.category}</span>
+        <span class="product-category">${item.image}</span>
+      </div>
+      <a href="/product-slug/${item.slug}" class="view-details">View Details →</a>
+      <button class="add-to-cart"
+        data-id="${item.id}"
+        data-title="${item.title}"
+        data-price="${formattedPrice}"
+        data-image="${item.image}"
+        data-type="product"
+      >
+        Add to Cart
+      </button>
+    </div>
+  `;
+}
+
+
+export function formatProductSave(item) {
 
   //console.log("Blog Debug:", {
   //  title: item.title,
