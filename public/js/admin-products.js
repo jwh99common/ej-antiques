@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>${product.title}</td>
-        <td>£${(product.price / 100).toFixed(2)}</td>
+        <td>£${(product.price).toFixed(2)}</td>
         <td>${product.category}</td>
         <td>${product.image}</td>
         <td>${product.description}</td>

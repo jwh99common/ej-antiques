@@ -14,7 +14,7 @@ export async function onRequest(context) {
   }
 
   const product = results[0];
-  const formattedPrice = (product.price / 100).toFixed(2);
+  const formattedPrice = (product.price);
   const images = product.images ? JSON.parse(product.images) : [];
 
   if (!images.includes(product.image)) {

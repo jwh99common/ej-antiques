@@ -1,6 +1,6 @@
 // formatters.js
 export function formatProduct(item) {
-  const formattedPrice = (item.price / 100).toFixed(2);
+  const formattedPrice = (item.price );
 
   return `
     <img src="${item.image}" alt="${item.title}" class="product-image" />
@@ -34,7 +34,7 @@ export function formatProductSave(item) {
   //  author: item.author,
   //  shortcontent: item.shortcontent?.slice(0, 100) || ''
   //});
-  const formattedPrice = (item.price / 100).toFixed(2);
+  const formattedPrice = (item.price );
 
   return `
     <img src="${item.image}" alt="${item.title}" class="product-image" />
@@ -61,7 +61,7 @@ export function formatProductSave(item) {
 
 export function formatService(item) {
 
-  const formattedPrice = (item.price / 100).toFixed(2);
+  const formattedPrice = (item.price);
 
   return `
     <img src="${item.image}" alt="${item.title}" class="product-image" />
@@ -87,7 +87,7 @@ export function formatService(item) {
 
 export function formatMerchandise(item) {
 
-  const formattedPrice = (item.price / 100).toFixed(2);
+  const formattedPrice = (item.price );
 
   return `
     <img src="${item.image}" alt="${item.title}" class="product-image" />
