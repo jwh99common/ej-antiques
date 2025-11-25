@@ -1,0 +1,50 @@
+header, footer {
+  background-color: #fdf6e3; /* Light cream tone */
+  color: #333;               /* Dark text for contrast */
+  padding: 1rem 2rem;
+  border-top: 1px solid #e0dccc;
+  border-bottom: 1px solid #e0dccc;
+}
+.site-footer {
+  background-color: #fdf6e3; /* light cream */
+  color: #333;
+  padding: 2rem 1rem;
+  border-top: 1px solid #e0dccc;
+  text-align: center;
+}
+
+.site-footer a {
+  color: #555;
+  text-decoration: none;
+  margin: 0 0.5rem;
+}
+
+.site-footer a:hover {
+  text-decoration: underline;
+}
+
+.column-thumbs {
+  max-height: 600px; /* or whatever height fits 3 thumbnails */
+  overflow-y: auto;
+  gap: 1rem;
+}
+
+.thumb-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.column-main-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 600px; /* match thumbnail stack height */
+}
+
+.main-image {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}

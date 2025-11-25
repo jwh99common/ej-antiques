@@ -29,7 +29,10 @@ export async function onRequest(context) {
       <link rel="stylesheet" href="/css/cart.css">
       <link rel="stylesheet" href="/css/blog.css">
       <link rel="stylesheet" href="/css/navigation.css">
+      <link rel="stylesheet" href="/css/hf.css">
       <link rel="stylesheet" href="/blogs-page/local.css">
+
+
     </head>
 
     <body data-type="blog">
@@ -59,9 +62,8 @@ export async function onRequest(context) {
         <button id="checkoutBtn">Checkout</button>
       </div>
 
-      <footer>
-        <div id="footer-placeholder"></div>
-      </footer>
+
+      <div id="footer-placeholder"></div>
 
       <!-- Scripts -->
       

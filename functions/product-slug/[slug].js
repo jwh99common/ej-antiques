@@ -33,7 +33,7 @@ export async function onRequest(context) {
       <link rel="stylesheet" href="/css/products.css">
       <link rel="stylesheet" href="/css/cart.css">
       <link rel="stylesheet" href="/css/navigation.css">
-      <link rel="stylesheet" href="/products/local.css">
+      <link rel="stylesheet" href="/css/hf.css">
       <style>
         .three-column-layout {
           display: grid;
@@ -182,9 +182,7 @@ export async function onRequest(context) {
         <button id="checkoutBtn">Checkout</button>
       </div>
 
-      <footer>
-        <div id="footer-placeholder"></div>
-      </footer>
+      <div id="footer-placeholder"></div>
 
       <script type="module" src="/js/main.js?v=20251030"></script>
       <script type="module" src="/js/inject-nav.js"></script>
