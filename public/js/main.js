@@ -10,8 +10,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Always run cart setup
   setupCart();
 
-  // Always wire up add-to-cart buttons (works for both gallery and product-slug pages)
-  setupAddToCart();
 
   // Only run gallery logic if #gallery exists
   const galleryEl = document.getElementById('gallery');
@@ -22,6 +20,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupModal();
     setupModalTriggers(items);
   }
+    // Always wire up add-to-cart buttons (works for both gallery and product-slug pages)
+  setupAddToCart();
+
 });
 
 function setupCart() {

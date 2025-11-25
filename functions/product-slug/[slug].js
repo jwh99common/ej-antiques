@@ -184,21 +184,27 @@ export async function onRequest(context) {
 
       <div id="footer-placeholder"></div>
 
-      <script type="module" src="/js/main.js?v=20251030"></script>
+      <script type="module" src="/js/main.js"></script>
       <script type="module" src="/js/inject-nav.js"></script>
       <script src="/js/inject-footer.js"></script>
       <script type="module" src="/js/track-analytics.js"></script>
 
-      <script>
-        document.addEventListener('DOMContentLoaded', () => {
-          const mainImage = document.querySelector('.main-image');
-          document.querySelectorAll('.thumb-image').forEach(img => {
-            img.addEventListener('click', () => {
-              mainImage.src = img.src;
-            });
+    <script type="module">
+      import { setupAddToCart } from '/js/main.js';
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const mainImage = document.querySelector('.main-image');
+        document.querySelectorAll('.thumb-image').forEach(img => {
+          img.addEventListener('click', () => {
+            mainImage.src = img.src;
           });
         });
-      </script>
+
+        // ✅ Ensure add-to-cart buttons are wired up
+        setupAddToCart();
+      });
+    </script>
+ 
     </body>
     </html>
   `;
