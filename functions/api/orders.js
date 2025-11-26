@@ -9,7 +9,7 @@ export async function onRequest(context) {
 
   if (request.method === 'POST') {
     const { id, status } = await request.json();
-    await db.prepare("UPDATE ej_antiquescd_orders SET status = ? WHERE id = ?").bind(status, id).run();
+    await db.prepare("UPDATE ej_antiques_orders SET status = ? WHERE id = ?").bind(status, id).run();
     return new Response("Order updated", { status: 200 });
   }
 

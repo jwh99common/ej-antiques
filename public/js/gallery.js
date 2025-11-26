@@ -37,9 +37,15 @@ export function renderGallery(items, type = 'product') {
   const gallery = document.getElementById('gallery');
   const format = formatterMap[type] || formatProduct;
 
-  const filtered = currentCategory === 'all'
-    ? items
-    : items.filter(i => i.category === currentCategory);
+  const filtered = items
+    .filter(item => {
+      // Only apply is_published filter for products
+      if (type === 'products') {
+        return item.is_published;
+      }
+      return true;
+    })
+    .filter(item => currentCategory === 'all' || item.category === currentCategory);
 
   gallery.innerHTML = filtered.map(item => `
     <div class="product-card" data-id="${item.id}" data-type="${type}">
@@ -47,6 +53,8 @@ export function renderGallery(items, type = 'product') {
     </div>
   `).join('');
 }
+
+
 
 export function setupFilters(items, type) {
   const filterBar = document.getElementById('categoryFilters');

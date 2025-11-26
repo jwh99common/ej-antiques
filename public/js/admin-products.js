@@ -36,53 +36,81 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function getFormData(form) {
-    return {
-      id: form.id.value || null,
-      title: form.title.value.trim(),
-      price: parseInt(form.price.value, 10),
-      category: form.category.value.trim(),
-      image: form.image.value.trim(),
-      images: form.images.value.trim(),
-      description: form.description.value.trim(),
-      longDescription: form.longDescription.value.trim()
-    };
-  }
-
-  async function loadProducts() {
-    const res = await fetch('/api/products');
-    const products = await res.json();
-    tableBody.innerHTML = '';
-
-    products.forEach(product => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${product.title}</td>
-        <td>£${(product.price).toFixed(2)}</td>
-        <td>${product.category}</td>
-        <td>${product.image}</td>
-        <td>${product.description}</td>
-        <td>
-          <button onclick="editProduct(${product.id})">✏️</button>
-          <button onclick="deleteProduct(${product.id})">🗑️</button>
-        </td>
-      `;
-      tableBody.appendChild(tr);
-    });
-  }
-
-  window.editProduct = async function(id) {
-    const res = await fetch(`/api/products/${id}`);
-    const product = await res.json();
-    form.id.value = product.id;
-    form.title.value = product.title;
-    form.price.value = product.price;
-    form.category.value = product.category;
-    form.image.value = product.image;
-    form.images.value = product.images;
-    form.description.value = product.description;
-    form.longDescription.value = product.longDescription;
-    status.textContent = `✏️ Editing product: ${product.title}`;
+  return {
+    id: form.id.value || null,
+    title: form.title.value.trim(),
+    price: parseInt(form.price.value, 10),
+    category: form.category.value.trim(),
+    image: form.image.value.trim(),
+    images: form.images.value.trim(),
+    description: form.description.value.trim(),
+    longDescription: form.longDescription.value.trim(),
+    status: form.status.value,
+    slug: form.slug.value.trim(),
+    quantity: parseInt(form.quantity.value, 10),
+    is_published: form.is_published.value === 'true',
+    is_sold: form.is_sold.value === 'true',
+    sold_at: form.sold_at.value || null
   };
+}
+
+async function loadProducts() {
+  const res = await fetch('/api/products');
+  const products = await res.json();
+  tableBody.innerHTML = '';
+
+  products.forEach(product => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${product.title}</td>
+      <td>£${(product.price).toFixed(2)}</td>
+      <td>${product.category}</td>
+      <td>${product.image}</td>
+      <td>${product.description}</td>
+      <td>${product.status || ''}</td>
+      <td>${product.is_published ? '✅' : '❌'}</td>
+      <td>${product.is_sold ? '✅' : '❌'}</td>
+      <td>${product.quantity ?? 1}</td>
+      <td>${product.created_at ? new Date(product.created_at).toLocaleDateString() : ''}</td>
+      <td>
+        <button onclick="editProduct(${product.id})">✏️</button>
+        <button onclick="deleteProduct(${product.id})">🗑️</button>
+      </td>
+    `;
+    tableBody.appendChild(tr);
+  });
+}
+
+window.editProduct = async function(id) {
+  const res = await fetch(`/api/products/${id}`);
+  const product = await res.json();
+
+  form.id.value = product.id;
+  form.title.value = product.title;
+  form.price.value = product.price;
+  form.category.value = product.category;
+  form.image.value = product.image;
+  form.images.value = product.images;
+  form.description.value = product.description;
+  form.longDescription.value = product.longDescription;
+
+  // ✅ New fields
+  form.status.value = product.status || 'active';
+  form.slug.value = product.slug || '';
+  form.quantity.value = product.quantity ?? 1;
+  form.is_published.value = product.is_published ? 'true' : 'false';
+  form.is_sold.value = product.is_sold ? 'true' : 'false';
+
+  // Format sold_at for datetime-local input
+  form.sold_at.value = product.sold_at
+    ? new Date(product.sold_at).toISOString().slice(0, 16)
+    : '';
+
+  // Read-only created_at
+  form.created_at.value = product.created_at || '';
+
+  status.textContent = `✏️ Editing product: ${product.title}`;
+};
 
   window.deleteProduct = async function(id) {
     if (!confirm("Delete this product?")) return;

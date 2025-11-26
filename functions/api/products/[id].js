@@ -3,8 +3,6 @@ export async function onRequest(context) {
   const id = context.params.id;
   const method = context.request.method;
 
-  console.log("api/products", method, id);
-
   if (!id) {
     return new Response("Missing product ID", { status: 400 });
   }
@@ -24,25 +22,52 @@ export async function onRequest(context) {
 
   if (method === "PUT" || method === "POST") {
     const body = await context.request.json();
-    const { title, description, price, category, image, images, longDescription } = body;
+    const {
+      title,
+      description,
+      price,
+      category,
+      image,
+      images,
+      longDescription,
+      status,
+      slug: customSlug,
+      is_published,
+      is_sold,
+      sold_at,
+      quantity
+    } = body;
 
     if (!title || !description || !price) {
       return new Response("Missing required fields", { status: 400 });
     }
 
-    const slug = title
+    const slug = customSlug || title
       .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-') // replace non-alphanumerics with dashes
-      .replace(/(^-|-$)/g, '');     // trim leading/trailing dashes
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
 
-    await db
-      .prepare(`
-        UPDATE ej_antiques_products
-        SET title = ?, description = ?, price = ?, category = ?, image = ?, images = ?, longDescription = ?, slug = ?
-        WHERE id = ?
-      `)
-      .bind(title, description, price, category, image, images, longDescription, slug, id)
-      .run();
+    await db.prepare(`
+      UPDATE ej_antiques_products SET
+        title = ?, description = ?, price = ?, category = ?, image = ?, images = ?, longDescription = ?,
+        status = ?, slug = ?, is_published = ?, is_sold = ?, sold_at = ?, quantity = ?
+      WHERE id = ?
+    `).bind(
+      title,
+      description,
+      price,
+      category,
+      image,
+      images,
+      longDescription,
+      status,
+      slug,
+      is_published ? 1 : 0,
+      is_sold ? 1 : 0,
+      sold_at || null,
+      quantity ?? 1,
+      id
+    ).run();
 
     return new Response("Product updated", { status: 200 });
   }

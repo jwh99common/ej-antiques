@@ -32,9 +32,25 @@
       margin-top: 1rem;
       font-weight: bold;
     }
+    label {
+      display: block;
+      margin: 0.5rem 0;
+    }
+.form-meta-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: end;
+}
+.form-meta-row label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+}
   </style>
 </head>
-<body>
+<body data-type="products">
   <header>
     <div class="container">
       <div class="header-content">
@@ -59,6 +75,11 @@
           <th>Category</th>
           <th>Image</th>
           <th>Description</th>
+          <th>Status</th>
+          <th>Published</th>
+          <th>Sold</th>
+          <th>Quantity</th>
+          <th>Created</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -70,21 +91,51 @@
     <h2>✍️ Create / Edit Product</h2>
     <form id="productForm">
       <input type="hidden" name="id" />
+
+      <div class="form-meta-row">
+        <label>Status:
+          <select name="status">
+            <option value="active">Active</option>
+            <option value="archived">Archived</option>
+            <option value="draft">Draft</option>
+          </select>
+        </label>
+
+        <label>Slug: <input type="text" name="slug" /></label>
+
+        <label>Quantity: <input type="number" name="quantity" min="0" /></label>
+
+        <label>Is Published:
+          <select name="is_published">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+        </label>
+
+        <label>Is Sold:
+          <select name="is_sold">
+            <option value="false" selected>No</option>
+            <option value="true">Yes</option>
+          </select>
+        </label>
+
+        <label>Sold At: <input type="datetime-local" name="sold_at" /></label>
+
+        <label>Created At: <input type="text" name="created_at" readonly /></label>
+      </div>
+
       <label>Title: <input type="text" name="title" required /></label>
       <label>Price (£): <input type="number" name="price" required /></label>
       <label>Category: <input type="text" name="category" /></label>
       <label>Image URL: <input type="text" name="image" /></label>
-      <br>
       <label>Additional Images (comma-separated): <input type="text" name="images" /></label>
-      <br>
+
       <label>Short Content:</label>
-      <br>
-        <textarea name="description" rows="3" cols = "90"required></textarea>
-      <br>
+      <textarea name="description" rows="3" cols="90" required></textarea>
+
       <label>Long Content:</label>
-      <br>
-        <textarea name="longDescription" rows="6" cols = "90"></textarea>
-      
+      <textarea name="longDescription" rows="6" cols="90"></textarea>
+
       <button type="submit">Save Product</button>
     </form>
 
