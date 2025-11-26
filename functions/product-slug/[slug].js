@@ -189,21 +189,18 @@ export async function onRequest(context) {
       <script src="/js/inject-footer.js"></script>
       <script type="module" src="/js/track-analytics.js"></script>
 
-    <script type="module">
-      import { setupAddToCart } from '/js/main.js';
-
-      document.addEventListener('DOMContentLoaded', () => {
-        const mainImage = document.querySelector('.main-image');
-        document.querySelectorAll('.thumb-image').forEach(img => {
-          img.addEventListener('click', () => {
-            mainImage.src = img.src;
-          });
-        });
-
-        // ✅ Ensure add-to-cart buttons are wired up
-        setupAddToCart();
+<script type="module">
+  document.addEventListener('DOMContentLoaded', () => {
+    const mainImage = document.querySelector('.column-main-image .main-image');
+    document.querySelectorAll('.thumb-image').forEach(img => {
+      img.addEventListener('click', () => {
+        if (mainImage && img.src) {
+          mainImage.src = img.src;
+        }
       });
-    </script>
+    });
+  });
+</script>
  
     </body>
     </html>
