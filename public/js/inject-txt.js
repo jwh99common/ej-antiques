@@ -3,7 +3,6 @@ const type = body?.dataset.type;
 const allowed = ['home', 'products', 'checkout', 'gallery', 'blogs', 'about'];
 const container = document.getElementById('txt-placeholder');
 
-alert ( 'inject-txt running for type:', type, body );
 
 if (!type || !allowed.includes(type)) {
   console.warn(`Blocked or missing type: ${type}`);
