@@ -6,6 +6,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   loadProducts();
 
+  // Then add this:
+  const titleInput = form.title;
+  const slugInput = form.slug;
+
+  titleInput.addEventListener('input', () => {
+    const slug = titleInput.value
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
+    slugInput.value = slug;
+  });
+  
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -35,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     status.textContent = '';
   });
 
-  function getFormData(form) {
+function getFormData(form) {
   return {
     id: form.id.value || null,
     title: form.title.value.trim(),
@@ -46,13 +59,15 @@ document.addEventListener('DOMContentLoaded', () => {
     description: form.description.value.trim(),
     longDescription: form.longDescription.value.trim(),
     status: form.status.value,
-    slug: form.slug.value.trim(),
+    slug: form.slug.value.trim(), // ✅ always send the slug
     quantity: parseInt(form.quantity.value, 10),
     is_published: form.is_published.value === 'true',
     is_sold: form.is_sold.value === 'true',
     sold_at: form.sold_at.value || null
   };
 }
+
+
 
 async function loadProducts() {
   const res = await fetch('/api/products');
