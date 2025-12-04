@@ -1,0 +1,21 @@
+.product-card-inner {
+  position: relative;
+}
+
+.sold-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 0, 0, 0.4); /* semi-transparent red */
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 10;
+  text-transform: uppercase;
+}

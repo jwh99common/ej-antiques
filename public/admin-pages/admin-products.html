@@ -93,6 +93,14 @@
       <input type="hidden" name="id" />
 
       <div class="form-meta-row">
+
+        <label>Title: <input type="text" name="title" required /></label>
+        <label>Price (£): <input type="number" name="price" required /></label>
+        <label>Category: <input type="text" name="category" /></label>
+
+        <label>Slug: <input type="text" name="slug" /></label>
+
+        <label>Quantity: <input type="number" name="quantity" min="0" /></label>
         <label>Status:
           <select name="status">
             <option value="active">Active</option>
@@ -100,10 +108,6 @@
             <option value="draft">Draft</option>
           </select>
         </label>
-
-        <label>Slug: <input type="text" name="slug" /></label>
-
-        <label>Quantity: <input type="number" name="quantity" min="0" /></label>
 
         <label>Is Published:
           <select name="is_published">
@@ -122,14 +126,14 @@
         <label>Sold At: <input type="datetime-local" name="sold_at" /></label>
 
         <label>Created At: <input type="text" name="created_at" readonly /></label>
+
       </div>
+      <div class="form-meta-row">
 
-      <label>Title: <input type="text" name="title" required /></label>
-      <label>Price (£): <input type="number" name="price" required /></label>
-      <label>Category: <input type="text" name="category" /></label>
-      <label>Image URL: <input type="text" name="image" /></label>
-      <label>Additional Images (comma-separated): <input type="text" name="images" /></label>
-
+        <label>Image URL: <input type="text" name="image" size = "90" /></label>
+        <label>Additional Images (comma-separated): <input type="text" name="images" size = "90" /></label>
+      </div>
+      
       <label>Short Content:</label>
       <textarea name="description" rows="3" cols="90" required></textarea>
 

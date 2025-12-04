@@ -48,3 +48,9 @@ header, footer {
   max-width: 100%;
   object-fit: contain;
 }
+button.add-to-cart[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #ccc;
+  color: #666;
+}

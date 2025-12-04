@@ -1,6 +1,20 @@
 // formatters.js
 export function formatProduct(item) {
-  const formattedPrice = (item.price );
+  const formattedPrice = item.price;
+
+  const addToCartButton = item.is_sold
+    ? `<button class="add-to-cart" disabled style="opacity: 0.5; cursor: not-allowed;">
+         Sold
+       </button>`
+    : `<button class="add-to-cart"
+         data-id="${item.id}"
+         data-title="${item.title}"
+         data-price="${formattedPrice}"
+         data-image="${item.image}"
+         data-type="product"
+       >
+         Add to Cart
+       </button>`;
 
   return `
     <img src="${item.image}" alt="${item.title}" class="product-image" />
@@ -13,18 +27,11 @@ export function formatProduct(item) {
         <span class="product-category">${item.image}</span>
       </div>
       <a href="/product-slug/${item.slug}" class="view-details">View Details →</a>
-      <button class="add-to-cart"
-        data-id="${item.id}"
-        data-title="${item.title}"
-        data-price="${formattedPrice}"
-        data-image="${item.image}"
-        data-type="product"
-      >
-        Add to Cart
-      </button>
+      ${addToCartButton}
     </div>
   `;
 }
+
 
 
 export function formatProductSave(item) {

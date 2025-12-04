@@ -1,11 +1,16 @@
 <h1>For Sale</h1>
-Welcome to our curated collection of timeless treasures. At EJ Antiques, every piece tells a story — 
+Welcome to our curated collection <b>of timeless treasures.</b> At EJ Antiques, every piece tells a story — 
 
-from ornate Victorian mirrors to mid-century modern curiosities, 
+from ornate <h2>Victorian mirrors</h2> to mid-century modern curiosities, 
+
 our handpicked selection celebrates craftsmanship, character, and charm. 
+
 Whether you're a seasoned collector or discovering antiques for the first time, 
+
 you'll find items that spark nostalgia, elevate your space, and connect you to the past. 
-We source with care, ensuring authenticity and quality in every item. Browse our gallery, explore the details, and imagine the history behind each piece. These aren’t just products — they’re heirlooms waiting for their next chapter with you.
+
+We source with care, 
+<b>ensuring authenticity and quality in every item. Browse our gallery, explore the details, and imagine the history behind each piece. These aren’t just products — they’re heirlooms waiting for their next chapter with you.</b>
 
 <br>
 <br>
