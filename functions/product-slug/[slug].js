@@ -164,7 +164,7 @@ export async function onRequest(context) {
             data-image="${product.image}"
             data-type="product"
           >
-            Add to Cart
+          I'm Interested
           </button>
 
           <p class="back-link">

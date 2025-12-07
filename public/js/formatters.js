@@ -2,19 +2,41 @@
 export function formatProduct(item) {
   const formattedPrice = item.price;
 
-  const addToCartButton = item.is_sold
-    ? `<button class="add-to-cart" disabled style="opacity: 0.5; cursor: not-allowed;">
-         Sold
-       </button>`
-    : `<button class="add-to-cart"
-         data-id="${item.id}"
-         data-title="${item.title}"
-         data-price="${formattedPrice}"
-         data-image="${item.image}"
-         data-type="product"
-       >
-         Add to Cart
-       </button>`;
+const addToCartButton = `<button class="add-to-cart"
+  data-id="${item.id}"
+  data-title="${item.title}"
+  data-price="${formattedPrice}"
+  data-image="${item.image}"
+  data-type="product"
+>
+  I'm Interested
+</button>`;
+
+return `
+  <img src="${item.image}" alt="${item.title}" class="product-image" />
+  <div class="product-info">
+    <h3>${item.title}</h3>
+    <p>${item.description}</p>
+    <div class="product-details">
+      <span class="product-price">£${formattedPrice}</span>
+      <span class="product-category">${item.category}</span>
+    </div>
+    ${addToCartButton}
+  </div>
+`;}
+
+export function formatSoldProduct(item) {
+  const formattedPrice = item.price;
+
+  const addToCartButton = `<button class="add-to-cart"
+    data-id="${item.id}"
+    data-title="${item.title}"
+    data-price="${formattedPrice}"
+    data-image="${item.image}"
+    data-type="product"
+  >
+    I'm Interested
+  </button>`;
 
   return `
     <img src="${item.image}" alt="${item.title}" class="product-image" />
@@ -24,14 +46,12 @@ export function formatProduct(item) {
       <div class="product-details">
         <span class="product-price">£${formattedPrice}</span>
         <span class="product-category">${item.category}</span>
-        <span class="product-category">${item.image}</span>
       </div>
-      <a href="/product-slug/${item.slug}" class="view-details">View Details →</a>
+      <span class="sold-label">Sold</span>
       ${addToCartButton}
     </div>
   `;
 }
-
 
 
 export function formatProductSave(item) {
@@ -60,7 +80,7 @@ export function formatProductSave(item) {
         data-image="${item.image}"
         data-type="product"
       >
-        Add to Cart
+        I'm Interested
       </button>
     </div>
   `;
@@ -86,7 +106,7 @@ export function formatService(item) {
         data-image="${item.image}"
         data-type="service"
       >
-        Add to Cart
+        I'm Interested
       </button>
     </div>
   `;
@@ -112,7 +132,7 @@ export function formatMerchandise(item) {
         data-image="${item.image}"
         data-type="merchandise"
       >
-        Add to Cart
+        I'm Interested
       </button>
     </div>
   `;

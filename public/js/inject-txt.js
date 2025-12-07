@@ -1,6 +1,6 @@
 const body = document.querySelector('body');
 const type = body?.dataset.type;
-const allowed = ['home', 'products', 'checkout', 'gallery', 'blogs', 'about'];
+const allowed = ['home', 'products', 'soldproducts', 'checkout', 'gallery', 'blogs', 'about'];
 const container = document.getElementById('txt-placeholder');
 
 
