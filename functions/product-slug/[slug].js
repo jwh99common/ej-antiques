@@ -157,6 +157,7 @@ export async function onRequest(context) {
     <!-- Column 3: Details -->
     <div class="column column-details">
       <h1>${product.title}</h1>
+      ${product.is_sold ? '<p class="sold-label">Sold</p>' : ''}
       <p class="product-price">£${formattedPrice}</p>
       <p class="product-category">${product.category}</p>
 

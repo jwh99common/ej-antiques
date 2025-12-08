@@ -149,3 +149,9 @@
 .contact-us-btn:hover {
   background: #2980b9;
 }
+.sold-label {
+  color: red;
+  font-size: 30px;
+  font-weight: bold;
+}
+
