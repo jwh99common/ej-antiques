@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const items = await loadGallery(type);
     renderGallery(items, type);
     setupFilters(items, type);
+    setupModal();
+    setupModalTriggers(items);
   }
   setupCart(); // Always wire cart
   setupAddToCart(); // ✅ For static buttons (e.g. [slug], About)
