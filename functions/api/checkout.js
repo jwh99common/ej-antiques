@@ -6,13 +6,13 @@ export async function onRequest(context) {
   }
 
   const db = env.gallery_db;
-  const { cart, name, email, phone } = await request.json();
+  const { cart, name, email, phone, address } = await request.json();
 
   const stmt = db.prepare(`
-    INSERT INTO ej_antiques_orders (cart, name, email, phone)
-    VALUES (?, ?, ?, ?)
+    INSERT INTO ej_antiques_orders (cart, name, email, phone, address)
+    VALUES (?, ?, ?, ?, ?)
   `);
-  await stmt.bind(JSON.stringify(cart), name, email, phone).run();
+  await stmt.bind(JSON.stringify(cart), name, email, phone, address).run();
 
   return new Response("Order saved", { status: 200 });
 }

@@ -21,19 +21,24 @@ const formatterMap = {
 };
 
 export async function loadGallery(type = 'products') {
+  const endpoint = (type === 'products' || type === 'soldproducts')
+    ? '/api/products'
+    : `/api/${type}`;
+
   try {
-    const response = await fetch(`/api/products`, {
+    const response = await fetch(endpoint, {
       headers: { 'Content-Type': 'application/json' },
       cache: 'no-store'
     });
-    if (!response.ok) throw new Error(`Failed to load products`);
+    if (!response.ok) throw new Error(`Failed to load ${type}`);
     const items = await response.json();
     return Array.isArray(items) ? items : [];
   } catch (err) {
-    console.error(`❌ Error loading products:`, err);
+    console.error(`❌ Error loading ${type}:`, err);
     return [];
   }
 }
+
 
 
 export function renderGallery(items, type = 'products') {

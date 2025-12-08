@@ -11,7 +11,8 @@ async function handleCheckoutSubmit(e) {
     cart,
     name: formData.get('name'),
     email: formData.get('email'),
-    phone: formData.get('phone')
+    phone: formData.get('phone'),
+    address: formData.get('address')
   };
 
   try {

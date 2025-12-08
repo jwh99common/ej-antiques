@@ -35,7 +35,7 @@ export function formatSoldProduct(item) {
     data-image="${item.image}"
     data-type="product"
   >
-    I'm Interested
+    I'd like you to find something similar
   </button>`;
 
   return `

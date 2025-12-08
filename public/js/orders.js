@@ -18,6 +18,8 @@ async function loadOrders() {
       <h3>Order #${order.id} — ${order.status}</h3>
       <p><strong>${order.name}</strong> (${order.email})</p>
       <p>Phone: ${order.phone || '—'}</p>
+      <p>Address: ${order.address || '—'}</p>
+
       <ul>
         ${JSON.parse(order.cart).map(item => `
           <li>${item.title} × ${item.quantity} — £${item.price}</li>

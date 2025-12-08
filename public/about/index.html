@@ -22,8 +22,15 @@
         <div id="nav-placeholder"></div>
     </div>
   </header>
+  
+
 
   <main class="container">
+
+      <!-- Product Gallery -->
+  <div class="gallery" id="gallery">
+      <!-- Products will be inserted here by JavaScript -->
+  </div>
 
     <section class="about-section">
       <div class="about-grid">
@@ -47,18 +54,22 @@
     </section>
   </main>
 
-  <!-- Unified Cart Panel -->
-  <div id="cartPanel" class="cart-panel hidden">
+<!-- Unified Cart Panel -->
+<div id="cartPanel" class="cart-panel hidden">
+  <div class="cart-header">
     <h3>Your Cart</h3>
-    <ul id="cartItems"></ul>
-    <button id="checkoutBtn">Checkout</button>
+    <button id="closeCartBtn" class="close-cart">&times;</button>
   </div>
-  
+  <ul id="cartItems"></ul>
+  <button id="checkoutBtn">Contact Us</button>
+</div>
+
+  <!-- Scripts -->
   <script type="module" src="/js/about-car.js"></script>
+  <script type="module" src="/js/main.js?v=20251030"></script>
   <script type="module" src="/js/inject-nav.js"></script>
   <script src="/js/inject-footer.js"></script>
   <script src="/js/inject-txt.js"></script>
-  <script type="module" src="/js/main.js?v=20251030"></script>
   <script type="module" src="/js/track-analytics.js"></script>
 
 </body>

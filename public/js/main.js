@@ -7,24 +7,20 @@ import { addToCart, updateCartCount, renderCartPanel, wireCheckoutButton } from 
 document.addEventListener('DOMContentLoaded', async () => {
   const type = document.body.dataset.type || 'products';
 
-  // Always run cart setup
-  setupCart();
 
-
-  // Only run gallery logic if #gallery exists
   const galleryEl = document.getElementById('gallery');
   if (galleryEl) {
     const items = await loadGallery(type);
     renderGallery(items, type);
     setupFilters(items, type);
-    setupModal();
-    setupModalTriggers(items);
   }
-    // Always wire up add-to-cart buttons (works for both gallery and product-slug pages)
-  setupAddToCart();
+  setupCart(); // Always wire cart
+  setupAddToCart(); // ✅ For static buttons (e.g. [slug], About)
 
 });
 
+
+// Core cart setup logic
 function setupCart() {
   updateCartCount();
   renderCartPanel();
@@ -48,10 +44,15 @@ function setupCart() {
   }
 }
 
-function setupAddToCart() {
-  document.querySelectorAll('.add-to-cart').forEach(btn => {
+// Bind add-to-cart buttons
+export function setupAddToCart() {
+  const buttons = document.querySelectorAll('.add-to-cart');
+
+  buttons.forEach(btn => {
+    console.log('🛠️ Binding button:', btn.dataset.title);
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
+      console.log('🛒 Clicked:', btn.dataset.title);
       const item = {
         id: parseInt(btn.dataset.id),
         title: btn.dataset.title,
@@ -66,6 +67,7 @@ function setupAddToCart() {
   });
 }
 
+// Bind modal triggers on gallery cards
 function setupModalTriggers(items) {
   const gallery = document.getElementById('gallery');
   if (!gallery) return;
@@ -81,17 +83,14 @@ function setupModalTriggers(items) {
   });
 }
 
+// Re-run cart setup after nav is injected
 document.addEventListener('navReady', () => {
-  updateCartCount();
-  renderCartPanel();
-
-  const toggleBtn = document.getElementById('cartToggleBtn');
-  const cartPanel = document.getElementById('cartPanel');
-
-  if (toggleBtn && cartPanel) {
-    toggleBtn.addEventListener('click', () => {
-      cartPanel.classList.toggle('hidden');
-      renderCartPanel();
-    });
-  }
+  console.log('🧭 navReady received — re-running setupCart');
+  setupCart();
 });
+
+// Fallback: if nav already injected before main.js loaded
+if (document.getElementById('cartToggleBtn')) {
+  console.log('🧭 nav already present — running setupCart immediately');
+  setupCart();
+}

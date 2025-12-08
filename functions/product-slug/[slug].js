@@ -129,7 +129,13 @@ export async function onRequest(context) {
         </div>
       </header>
 
+              <div class="gallery" id="gallery">
+          <!-- Products will be inserted here by JavaScript -->
+        </div>
+
       <main class="container product-page three-column-layout">
+        <!-- Product Gallery -->
+
         <!-- Column 1: Thumbnails -->
         <div class="column column-thumbs">
           ${images
@@ -190,19 +196,32 @@ export async function onRequest(context) {
       <script type="module" src="/js/track-analytics.js"></script>
 
 <script type="module">
+  import { addToCart, updateCartCount, renderCartPanel } from '/js/cart.js';
+
   document.addEventListener('DOMContentLoaded', () => {
-    const mainImage = document.querySelector('.column-main-image .main-image');
-    document.querySelectorAll('.thumb-image').forEach(img => {
-      img.addEventListener('click', () => {
-        if (mainImage && img.src) {
-          mainImage.src = img.src;
-        }
+    const btn = document.querySelector('.add-to-cart');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const item = {
+          id: parseInt(btn.dataset.id),
+          title: btn.dataset.title,
+          price: parseFloat(btn.dataset.price),
+          image: btn.dataset.image,
+          type: btn.dataset.type
+        };
+        addToCart(item);
+        updateCartCount();
+        renderCartPanel();
       });
-    });
+    }
   });
 </script>
+
+
+
  
     </body>
+
     </html>
   `;
 

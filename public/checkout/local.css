@@ -61,3 +61,11 @@
 .checkout-form button:hover {
   background-color: #005fa3;
 }
+.checkout-form input,
+.checkout-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5em;
+  font-size: 1rem;
+  margin-bottom: 1em;
+}
