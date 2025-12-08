@@ -200,13 +200,30 @@ export async function onRequest(context) {
 
   <div id="footer-placeholder"></div>
 
+
+  <script type="module">
+ 
+    document.addEventListener('DOMContentLoaded', () => {
+ 
+      const mainImage = document.querySelector('.main-image');
+      const thumbnails = document.querySelectorAll('.thumb-image');
+
+      thumbnails.forEach(thumb => {
+        thumb.addEventListener('click', () => {
+          if (mainImage && thumb.src) {
+            mainImage.src = thumb.src;
+            mainImage.alt = thumb.alt;
+          }
+        });
+      });
+    });
+  </script>
   <script type="module" src="/js/main.js"></script>
   <script type="module" src="/js/inject-nav.js"></script>
   <script src="/js/inject-footer.js"></script>
   <script type="module" src="/js/track-analytics.js"></script>
 
-  
-</body>
+  </body>
 </html>
 `;
 
