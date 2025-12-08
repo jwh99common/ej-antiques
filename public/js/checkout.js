@@ -12,7 +12,9 @@ async function handleCheckoutSubmit(e) {
     name: formData.get('name'),
     email: formData.get('email'),
     phone: formData.get('phone'),
-    address: formData.get('address')
+    address: formData.get('address'),
+    notes: formData.get('notes'),
+
   };
 
   try {

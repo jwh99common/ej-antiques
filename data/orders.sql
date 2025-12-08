@@ -1,2 +1,2 @@
 ALTER TABLE ej_antiques_orders
-ADD COLUMN address TEXT;
+ADD COLUMN notes  TEXT;

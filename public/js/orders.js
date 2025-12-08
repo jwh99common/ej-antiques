@@ -19,6 +19,8 @@ async function loadOrders() {
       <p><strong>${order.name}</strong> (${order.email})</p>
       <p>Phone: ${order.phone || '—'}</p>
       <p>Address: ${order.address || '—'}</p>
+      <p>Notes: ${order.notes || '—'}</p>
+
 
       <ul>
         ${JSON.parse(order.cart).map(item => `

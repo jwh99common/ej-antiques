@@ -216,7 +216,21 @@ export async function onRequest(context) {
     }
   });
 </script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const mainImage = document.querySelector('.main-image');
+    const thumbnails = document.querySelectorAll('.thumb-image');
 
+    thumbnails.forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        if (mainImage && thumb.src) {
+          mainImage.src = thumb.src;
+          mainImage.alt = thumb.alt;
+        }
+      });
+    });
+  });
+</script>
 
 
  

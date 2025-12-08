@@ -7,6 +7,8 @@ import { addToCart, updateCartCount, renderCartPanel, wireCheckoutButton } from 
 document.addEventListener('DOMContentLoaded', async () => {
   const type = document.body.dataset.type || 'products';
 
+    setupCart(); // Always wire cart
+
 
   const galleryEl = document.getElementById('gallery');
   if (galleryEl) {
@@ -16,7 +18,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupModal();
     setupModalTriggers(items);
   }
-  setupCart(); // Always wire cart
   setupAddToCart(); // ✅ For static buttons (e.g. [slug], About)
 
 });
