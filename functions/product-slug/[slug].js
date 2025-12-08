@@ -120,6 +120,8 @@ export async function onRequest(context) {
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     }
   </style>
+  <link rel="stylesheet" href="/css/mobile.css">
+
 </head>
 
 <body data-type="product">
