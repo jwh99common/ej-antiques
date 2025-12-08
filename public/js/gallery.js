@@ -85,10 +85,25 @@ export function setupFilters(items, type) {
   const filterBar = document.getElementById('categoryFilters');
   if (!filterBar) return;
 
-  const categories = [...new Set(items.map(i => i.category))];
+  // Apply the same filtering logic used in renderGallery
+  const visibleItems = items.filter(item => {
+    if (type === 'products') {
+      return item.is_published && !item.is_sold;
+    }
+    if (type === 'soldproducts') {
+      return item.is_published && item.is_sold;
+    }
+    return true;
+  });
+
+  // Extract only categories from visible items
+  const categories = [...new Set(visibleItems.map(i => i.category))];
+
+  // Render filter buttons
   filterBar.innerHTML = `<button class="filter-btn active" data-category="all">All</button>` +
     categories.map(cat => `<button class="filter-btn" data-category="${cat}">${cat}</button>`).join('');
 
+  // Set up click handlers
   filterBar.addEventListener('click', e => {
     if (!e.target.classList.contains('filter-btn')) return;
     document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
