@@ -205,39 +205,7 @@ export async function onRequest(context) {
   <script src="/js/inject-footer.js"></script>
   <script type="module" src="/js/track-analytics.js"></script>
 
-  <script type="module">
-    import { addToCart, updateCartCount, renderCartPanel } from '/js/cart.js';
-
-    document.addEventListener('DOMContentLoaded', () => {
-      const btn = document.querySelector('.add-to-cart');
-      if (btn) {
-        btn.addEventListener('click', () => {
-          const item = {
-            id: parseInt(btn.dataset.id),
-            title: btn.dataset.title,
-            price: parseFloat(btn.dataset.price),
-            image: btn.dataset.image,
-            type: btn.dataset.type
-          };
-          addToCart(item);
-          updateCartCount();
-          renderCartPanel();
-        });
-      }
-
-      const mainImage = document.querySelector('.main-image');
-      const thumbnails = document.querySelectorAll('.thumb-image');
-
-      thumbnails.forEach(thumb => {
-        thumb.addEventListener('click', () => {
-          if (mainImage && thumb.src) {
-            mainImage.src = thumb.src;
-            mainImage.alt = thumb.alt;
-          }
-        });
-      });
-    });
-  </script>
+  
 </body>
 </html>
 `;
