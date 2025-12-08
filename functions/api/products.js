@@ -18,7 +18,8 @@ export async function onRequest(context) {
     is_sold: p.is_sold,
     sold_at: p.sold_at,
     quantity: p.quantity,
-    created_at: p.created_at
+    created_at: p.created_at,
+    background: p.background
   }));
 
   return Response.json(products);

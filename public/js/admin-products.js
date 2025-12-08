@@ -19,28 +19,39 @@ document.addEventListener('DOMContentLoaded', () => {
     slugInput.value = slug;
   });
   
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-    const payload = getFormData(form);
-    const method = payload.id ? 'PUT' : 'POST';
-    const endpoint = payload.id ? `/api/products/${payload.id}` : '/api/admin-products';
+  // ✅ Ensure slug is set before collecting form data
+  if (!form.slug.value.trim()) {
+    const slug = form.title.value
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
+    form.slug.value = slug;
+  }
 
-    const res = await fetch(endpoint, {
-      method,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
+  const payload = getFormData(form);
+  const method = payload.id ? 'PUT' : 'POST';
+  const endpoint = payload.id ? `/api/products/${payload.id}` : '/api/admin-products';
 
-    if (res.ok) {
-      status.textContent = `✅ Product ${payload.id ? 'updated' : 'posted'}: ${payload.title}`;
-      form.reset();
-      form.id.value = '';
-      loadProducts();
-    } else {
-      status.textContent = `❌ Failed to ${payload.id ? 'update' : 'post'} product.`;
-    }
+  const res = await fetch(endpoint, {
+    method,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
   });
+
+  if (res.ok) {
+    status.textContent = `✅ Product ${payload.id ? 'updated' : 'posted'}: ${payload.title}`;
+    form.reset();
+    form.id.value = '';
+    loadProducts();
+  } else {
+    status.textContent = `❌ Failed to ${payload.id ? 'update' : 'post'} product.`;
+  }
+});
+
 
   addNewBtn.addEventListener('click', () => {
     form.reset();
@@ -49,9 +60,18 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 function getFormData(form) {
+  const title = form.title.value.trim();
+  const rawSlug = form.slug.value.trim();
+
+
+  const slug = rawSlug || title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+
   return {
     id: form.id.value || null,
-    title: form.title.value.trim(),
+    title,
     price: parseInt(form.price.value, 10),
     category: form.category.value.trim(),
     image: form.image.value.trim(),
@@ -59,13 +79,15 @@ function getFormData(form) {
     description: form.description.value.trim(),
     longDescription: form.longDescription.value.trim(),
     status: form.status.value,
-    slug: form.slug.value.trim(), // ✅ always send the slug
+    slug, // ✅ now guaranteed to be generated if blank
     quantity: parseInt(form.quantity.value, 10),
     is_published: form.is_published.value === 'true',
     is_sold: form.is_sold.value === 'true',
-    sold_at: form.sold_at.value || null
+    sold_at: form.sold_at.value || null,
+    background: form.background.value.trim(),
   };
 }
+
 
 
 
@@ -78,6 +100,7 @@ async function loadProducts() {
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${product.title}</td>
+      <td>${product.slug}</td> <!-- ✅ New slug column -->
       <td>£${(product.price).toFixed(2)}</td>
       <td>${product.category}</td>
       <td>${product.image}</td>
@@ -108,6 +131,7 @@ window.editProduct = async function(id) {
   form.images.value = product.images;
   form.description.value = product.description;
   form.longDescription.value = product.longDescription;
+  form.background.value = product.background;
 
   // ✅ New fields
   form.status.value = product.status || 'active';

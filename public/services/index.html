@@ -13,44 +13,45 @@
   <link rel="stylesheet" href="/css/blog.css">
   <link rel="stylesheet" href="/css/navigation.css">
   <link rel="stylesheet" href="/css/hf.css">
+ 
 </head>
-<body data-type="about">
+<body data-type="services">
 
   <header>
     <div class="container">
-      <div id="nav-placeholder"></div>
+        <div id="nav-placeholder"></div>
     </div>
   </header>
+  
+
 
   <main class="container">
+
+
     <section class="about-section">
       <div class="about-grid">
-        <div class="about-text">
+        <div class="services">
           <div id="txt-placeholder"></div>
         </div>
 
-        <div class="fade-carousel">
-          <div class="fade-track" id="carouselTrack">
-            <!-- Product images will be injected here -->
-          </div>
-        </div>
       </div>
     </section>
-
-    <div class="gallery" id="gallery">
+        <!-- Product Gallery -->
+  <div class="gallery" id="gallery">
       <!-- Products will be inserted here by JavaScript -->
-    </div>
+  </div>
+
   </main>
 
-  <!-- Unified Cart Panel -->
-  <div id="cartPanel" class="cart-panel hidden">
-    <div class="cart-header">
-      <h3>Your Cart</h3>
-      <button id="closeCartBtn" class="close-cart">&times;</button>
-    </div>
-    <ul id="cartItems"></ul>
-    <button id="checkoutBtn">Contact Us</button>
+<!-- Unified Cart Panel -->
+<div id="cartPanel" class="cart-panel hidden">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button id="closeCartBtn" class="close-cart">&times;</button>
   </div>
+  <ul id="cartItems"></ul>
+  <button id="checkoutBtn">Contact Us</button>
+</div>
 
   <!-- Scripts -->
   <script type="module" src="/js/about-car.js"></script>
@@ -59,5 +60,6 @@
   <script src="/js/inject-footer.js"></script>
   <script src="/js/inject-txt.js"></script>
   <script type="module" src="/js/track-analytics.js"></script>
+
 </body>
 </html>

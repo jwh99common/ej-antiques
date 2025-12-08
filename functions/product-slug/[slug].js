@@ -14,7 +14,7 @@ export async function onRequest(context) {
   }
 
   const product = results[0];
-  const formattedPrice = (product.price);
+  const formattedPrice = product.price;
   const images = product.images ? JSON.parse(product.images) : [];
 
   if (!images.includes(product.image)) {
@@ -80,6 +80,11 @@ export async function onRequest(context) {
           max-height: 100%;
           max-width: 100%;
           object-fit: contain;
+          transition: transform 0.3s ease;
+        }
+        .image-box:hover .main-image {
+          transform: scale(2.0);
+          cursor: zoom-in;
         }
         .column-details h1 {
           margin-top: 0;
@@ -94,10 +99,6 @@ export async function onRequest(context) {
           color: #666;
           margin-bottom: 1rem;
         }
-        .product-description,
-        .product-long-description {
-          margin-bottom: 1rem;
-        }
         .add-to-cart {
           padding: 0.75rem 1.5rem;
           background-color: #222;
@@ -110,15 +111,14 @@ export async function onRequest(context) {
         .add-to-cart:hover {
           background-color: #444;
         }
-        .image-box:hover .main-image {
-          transform: scale(2.0);
-          transition: transform 0.3s ease;
-          cursor: zoom-in;
+        .lightbox {
+          background-color: #fff;
+          border: 1px solid #ccc;
+          border-radius: 10px;
+          padding: 1rem;
+          margin-bottom: 1.5rem;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
         }
-      .main-image {
-        transition: transform 0.3s ease;
-      }
-
       </style>
     </head>
 
@@ -129,13 +129,9 @@ export async function onRequest(context) {
         </div>
       </header>
 
-              <div class="gallery" id="gallery">
-          <!-- Products will be inserted here by JavaScript -->
-        </div>
+      <div class="gallery" id="gallery"></div>
 
       <main class="container product-page three-column-layout">
-        <!-- Product Gallery -->
-
         <!-- Column 1: Thumbnails -->
         <div class="column column-thumbs">
           ${images
@@ -160,8 +156,18 @@ export async function onRequest(context) {
           <h1>${product.title}</h1>
           <p class="product-price">£${formattedPrice}</p>
           <p class="product-category">${product.category}</p>
-          <p class="product-description">${product.description}</p>
-          <div class="product-long-description">${product.longDescription || ''}</div>
+
+          <div class="lightbox">
+            <p class="product-description">${product.description}</p>
+          </div>
+
+          <div class="lightbox">
+            <p class="product-description">${product.background}</p>
+          </div>
+
+          <div class="lightbox product-long-description">
+            ${product.longDescription || ''}
+          </div>
 
           <button class="add-to-cart"
             data-id="${product.id}"
@@ -170,7 +176,7 @@ export async function onRequest(context) {
             data-image="${product.image}"
             data-type="product"
           >
-          I'm Interested
+            I'm Interested
           </button>
 
           <p class="back-link">
@@ -185,7 +191,7 @@ export async function onRequest(context) {
           <button id="closeCartBtn" class="close-cart">&times;</button>
         </div>
         <ul id="cartItems"></ul>
-        <button id="checkoutBtn">Checkout</button>
+        <button id="checkoutBtn">Get In Touch</button>
       </div>
 
       <div id="footer-placeholder"></div>
@@ -194,48 +200,8 @@ export async function onRequest(context) {
       <script type="module" src="/js/inject-nav.js"></script>
       <script src="/js/inject-footer.js"></script>
       <script type="module" src="/js/track-analytics.js"></script>
-
-<script type="module">
-  import { addToCart, updateCartCount, renderCartPanel } from '/js/cart.js';
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const btn = document.querySelector('.add-to-cart');
-    if (btn) {
-      btn.addEventListener('click', () => {
-        const item = {
-          id: parseInt(btn.dataset.id),
-          title: btn.dataset.title,
-          price: parseFloat(btn.dataset.price),
-          image: btn.dataset.image,
-          type: btn.dataset.type
-        };
-        addToCart(item);
-        updateCartCount();
-        renderCartPanel();
-      });
-    }
-  });
-</script>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const mainImage = document.querySelector('.main-image');
-    const thumbnails = document.querySelectorAll('.thumb-image');
-
-    thumbnails.forEach(thumb => {
-      thumb.addEventListener('click', () => {
-        if (mainImage && thumb.src) {
-          mainImage.src = thumb.src;
-          mainImage.alt = thumb.alt;
-        }
-      });
-    });
-  });
-</script>
-
-
- 
+      <script type="module" src="/js/product-page.js"></script>
     </body>
-
     </html>
   `;
 

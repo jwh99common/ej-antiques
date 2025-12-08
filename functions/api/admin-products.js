@@ -5,22 +5,18 @@ export async function onRequest(context) {
   const db = env.gallery_db;
   const method = request.method;
 
-  // Debug: log method and cookie
   console.log("Method:", method);
   console.log("Cookie:", request.headers.get("Cookie"));
 
-  // Auth check
   if (!isAuthorized(request)) {
     console.warn("Unauthorized access attempt to admin-products API:", request.url);
     return new Response("Unauthorized", { status: 403 });
   }
 
-  // Method check
   if (method !== "POST") {
     return new Response("Method Not Allowed", { status: 405 });
   }
 
-  // Parse and validate body
   let body;
   try {
     body = await request.json();
@@ -36,25 +32,57 @@ export async function onRequest(context) {
     category,
     image,
     images,
-    longDescription
+    longDescription,
+    status,
+    slug,
+    is_published,
+    is_sold,
+    sold_at,
+    quantity,
+    background
   } = body;
-
-  console.log("Received product data:", { title, description, price });
 
   if (!title || !description || !price) {
     return new Response("Missing required fields", { status: 400 });
   }
 
-  // Insert into DB
-  await db
-    .prepare(`
-      INSERT INTO ej_antiques_products (title, description, price, category, image, images, longDescription)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
-    `)
-    .bind(title, description, price, category, image, images, longDescription)
-    .run();
+  // Fallback slug generation if missing or empty
+  const safeSlug = (slug && slug.trim()) || title
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
 
-  console.log("Product inserted successfully:", title);
+  try {
+    await db.prepare(`
+      INSERT INTO ej_antiques_products (
+        title, description, price, category, image, images, longDescription,
+        status, slug, is_published, is_sold, sold_at, quantity, background
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `).bind(
+      title,
+      description,
+      price,
+      category,
+      image,
+      images,
+      longDescription,
+      status,
+      safeSlug,
+      is_published ? 1 : 0,
+      is_sold ? 1 : 0,
+      sold_at || null,
+      quantity ?? 1,
+      background
+    ).run();
 
-  return new Response("Product created", { status: 201 });
+    console.log("Product inserted successfully:", safeSlug);
+    return new Response("Product created", { status: 201 });
+  } catch (err) {
+    if (err.message.includes("UNIQUE constraint failed: ej_antiques_products.slug")) {
+      return new Response("Slug already exists", { status: 409 });
+    }
+    console.error("Database insert error:", err);
+    return new Response("Internal Server Error", { status: 500 });
+  }
 }

@@ -1,2 +1,2 @@
-ALTER TABLE ej_antiques_orders
-ADD COLUMN notes  TEXT;
+ALTER TABLE ej_antiques_products
+ADD COLUMN background  TEXT;

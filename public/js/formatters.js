@@ -2,31 +2,10 @@
 export function formatProduct(item) {
   const formattedPrice = item.price;
 
-const addToCartButton = `<button class="add-to-cart"
-  data-id="${item.id}"
-  data-title="${item.title}"
-  data-price="${formattedPrice}"
-  data-image="${item.image}"
-  data-type="product"
->
-  I'm Interested
-</button>`;
-
-return `
-  <img src="${item.image}" alt="${item.title}" class="product-image" />
-  <div class="product-info">
-    <h3>${item.title}</h3>
-    <p>${item.description}</p>
-    <div class="product-details">
-      <span class="product-price">£${formattedPrice}</span>
-      <span class="product-category">${item.category}</span>
-    </div>
-    ${addToCartButton}
-  </div>
-`;}
-
-export function formatSoldProduct(item) {
-  const formattedPrice = item.price;
+  const trimmedDescription =
+    item.description.length > 30
+      ? item.description.slice(0, 30) + '…'
+      : item.description;
 
   const addToCartButton = `<button class="add-to-cart"
     data-id="${item.id}"
@@ -35,14 +14,46 @@ export function formatSoldProduct(item) {
     data-image="${item.image}"
     data-type="product"
   >
-    I'd like you to find something similar
+    I'm Interested
   </button>`;
 
   return `
     <img src="${item.image}" alt="${item.title}" class="product-image" />
     <div class="product-info">
       <h3>${item.title}</h3>
-      <p>${item.description}</p>
+      <p>${trimmedDescription}</p>
+      <div class="product-details">
+        <span class="product-price">£${formattedPrice}</span>
+        <span class="product-category">${item.category}</span>
+      </div>
+      ${addToCartButton}
+    </div>
+  `;
+}
+
+export function formatSoldProduct(item) {
+  const formattedPrice = item.price;
+
+  const trimmedDescription =
+    item.description.length > 30
+      ? item.description.slice(0, 30) + '…'
+      : item.description;
+
+  const addToCartButton = `<button class="add-to-cart"
+    data-id="${item.id}"
+    data-title="${item.title}"
+    data-price="${formattedPrice}"
+    data-image="${item.image}"
+    data-type="product"
+  >
+    Find something similar
+  </button>`;
+
+  return `
+    <img src="${item.image}" alt="${item.title}" class="product-image" />
+    <div class="product-info">
+      <h3>${item.title}</h3>
+      <p>${trimmedDescription}</p>
       <div class="product-details">
         <span class="product-price">£${formattedPrice}</span>
         <span class="product-category">${item.category}</span>
@@ -52,6 +63,7 @@ export function formatSoldProduct(item) {
     </div>
   `;
 }
+
 
 
 export function formatProductSave(item) {

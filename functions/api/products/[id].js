@@ -24,24 +24,22 @@ export async function onRequest(context) {
     const body = await context.request.json();
     const {
       title, description, price, category, image, images,
-      longDescription, status, slug: customSlug,
-      is_published, is_sold, sold_at, quantity
+      longDescription, status, slug, is_published, is_sold, sold_at, quantity, background
     } = body;
 
     if (!title || !description || !price) {
       return new Response("Missing required fields", { status: 400 });
     }
 
-    const slug = customSlug.trim();
 
     await db.prepare(`
       UPDATE ej_antiques_products SET
         title = ?, description = ?, price = ?, category = ?, image = ?, images = ?, longDescription = ?,
-        status = ?, slug = ?, is_published = ?, is_sold = ?, sold_at = ?, quantity = ?
+        status = ?, slug = ?, is_published = ?, is_sold = ?, sold_at = ?, quantity = ?, background = ?
       WHERE id = ?
     `).bind(
       title, description, price, category, image, images, longDescription,
-      status, slug, is_published ? 1 : 0, is_sold ? 1 : 0, sold_at || null, quantity ?? 1, id
+      status, slug, is_published ? 1 : 0, is_sold ? 1 : 0, sold_at || null, quantity ?? 1, background, id
     ).run();
 
     return new Response("Product updated", { status: 200 });
@@ -51,15 +49,13 @@ export async function onRequest(context) {
     const body = await context.request.json();
     const {
       title, description, price, category, image, images,
-      longDescription, status, slug: customSlug,
+      longDescription, status, slug,
       is_published, is_sold, sold_at, quantity
     } = body;
 
     if (!title || !description || !price) {
       return new Response("Missing required fields", { status: 400 });
     }
-
-    const slug = customSlug.trim();
 
     try {
       await db.prepare(`
