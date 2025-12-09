@@ -136,25 +136,26 @@
   overflow-x: hidden;
   padding: 1rem;
   box-sizing: border-box;
-}
-
-.injected-copy img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 1rem auto;
+  font-family: inherit;
+  color: inherit;
 }
 
 .injected-copy p,
-.injected-copy h1,
-.injected-copy h2,
-.injected-copy h3,
 .injected-copy li {
   font-size: 1rem;
   line-height: 1.6;
   word-wrap: break-word;
-  color: #333;
 }
+
+.injected-copy h1,
+.injected-copy h2,
+.injected-copy h3 {
+  font-size: inherit;
+  line-height: inherit;
+  font-family: inherit;
+  color: inherit;
+}
+
 
 .injected-copy table {
   display: block;
