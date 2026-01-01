@@ -83,7 +83,9 @@ document.addEventListener('DOMContentLoaded', () => {
         <td>${product.created_at ? new Date(product.created_at).toLocaleDateString() : ''}</td>
         <td>
           <button onclick="editProduct(${product.id})">✏️</button>
+          
           <button onclick="deleteProduct(${product.id})">🗑️</button>
+          
         </td>
       `;
       tableBody.appendChild(tr);

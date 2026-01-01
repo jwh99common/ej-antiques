@@ -19,11 +19,6 @@
     font-size: 1.2rem;
   }
 
-  .logo-image {
-    max-width: 120px;
-    height: auto;
-  }
-
   .follow-section {
     display: flex;
     flex-direction: column;

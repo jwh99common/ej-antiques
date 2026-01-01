@@ -29,11 +29,6 @@ header {
   gap: 1rem;
 }
 
-.logo-image {
-  height: 64px;
-  width: auto;
-}
-
 .cart-toggle-btn {
   background: none;
   border: 2px solid #a94442;

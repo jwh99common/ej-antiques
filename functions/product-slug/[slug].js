@@ -119,6 +119,77 @@ export async function onRequest(context) {
       margin-bottom: 1.5rem;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     }
+    .product-header {
+      margin-bottom: 2rem;
+    }
+    .product-header h1 {
+      margin-bottom: 0.25rem;
+    }
+.product-title-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.product-title-line h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.product-title-line .product-price {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.product-title-line .product-category {
+  font-style: italic;
+  color: #666;
+}
+
+.sold-label {
+  color: #c00;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.product-title-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.product-title-line h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.product-title-line h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.product-price {
+  color: #333;
+}
+
+.sold-label {
+  color: #c00;
+  font-size: 2rem;
+
+}
+
+.product-category {
+  font-style: italic;
+  color: #666;
+}
+
+
   </style>
   <link rel="stylesheet" href="/css/mobile.css">
 
@@ -130,12 +201,24 @@ export async function onRequest(context) {
       <div id="nav-placeholder"></div>
     </div>
   </header>
-              <div class="gallery" id="gallery">
-          <!-- Products will be inserted here by JavaScript -->
-        </div>
+
+  <div class="gallery" id="gallery">
+    <!-- Products will be inserted here by JavaScript -->
+  </div>
+  
+  <main class="container product-page">
+    <div class="product-header">
+      <div class="product-title-line">
+        <h1>${product.title}</h1>
+        <h1>£${formattedPrice}</h1>
+        ${product.is_sold ? '<h1 class="sold-label">Sold</h1>' : ''}
+        <span class="product-category">${product.category}</span>
+      </div>
+    </div>
 
   <main class="container product-page three-column-layout">
-    <!-- Column 1: Thumbnails -->
+
+  <!-- Column 1: Thumbnails -->
     <div class="column column-thumbs">
       ${images
         .map(
@@ -157,7 +240,7 @@ export async function onRequest(context) {
     <!-- Column 3: Details -->
     <div class="column column-details">
       <h1>${product.title}</h1>
-      ${product.is_sold ? '<p class="sold-label">Sold</p>' : ''}
+      ${product.is_sold ? '<h1 class="sold-label">Sold</h1>' : ''}
       <p class="product-price">£${formattedPrice}</p>
       <p class="product-category">${product.category}</p>
 
