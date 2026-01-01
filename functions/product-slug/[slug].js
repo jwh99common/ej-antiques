@@ -208,12 +208,14 @@ export async function onRequest(context) {
   
   <main class="container product-page">
     <div class="product-header">
+      <!--
       <div class="product-title-line">
         <h1>${product.title}</h1>
         <h1>£${formattedPrice}</h1>
         ${product.is_sold ? '<h1 class="sold-label">Sold</h1>' : ''}
         <span class="product-category">${product.category}</span>
       </div>
+      -->
     </div>
 
   <main class="container product-page three-column-layout">
@@ -305,7 +307,19 @@ export async function onRequest(context) {
   <script type="module" src="/js/inject-nav.js"></script>
   <script src="/js/inject-footer.js"></script>
   <script type="module" src="/js/track-analytics.js"></script>
-
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/69458465aa24931987c8198a/1jcroqbsg';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
   </body>
 </html>
 `;
