@@ -31,11 +31,11 @@ export async function onRequestGet({ env }) {
      WHERE event_type IN ('productsModalView', 'productPageView')`
   ).all();
 
-  // Modal views by product with timestamps
+  // Prodcts views by product with timestamps
   const modalViewsByProduct = await db.prepare(
     `SELECT json_extract(metadata, '$.title') AS title, timestamp
      FROM ej_antiques_analytics
-     WHERE event_type = 'productsModalView'`
+     WHERE event_type IN ('productsModalView', 'productPageView')`
   ).all();
 
   // Views by day (keep this one aggregated)
