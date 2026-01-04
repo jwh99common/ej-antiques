@@ -13,15 +13,17 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch(err => console.error('Error loading metrics:', err));
 
   document.getElementById('dateFilter')?.addEventListener('change', () => {
-    const dateRange = document.getElementById('dateFilter').value;
-    const count = document.getElementById('countFilter').value;
-    renderDashboard(dateRange, count);
+    renderDashboard(
+      document.getElementById('dateFilter').value,
+      document.getElementById('countFilter').value
+    );
   });
 
   document.getElementById('countFilter')?.addEventListener('change', () => {
-    const dateRange = document.getElementById('dateFilter').value;
-    const count = document.getElementById('countFilter').value;
-    renderDashboard(dateRange, count);
+    renderDashboard(
+      document.getElementById('dateFilter').value,
+      document.getElementById('countFilter').value
+    );
   });
 });
 
@@ -47,8 +49,7 @@ function filterByDate(data, range) {
   return {
     topPages: data.topPages?.filter(p => filterFn(p.timestamp)) || [],
     topReferrers: data.topReferrers?.filter(r => filterFn(r.timestamp)) || [],
-    productViews: data.productViews?.filter(v => filterFn(v.timestamp)) || [],
-    modalViewsByProduct: data.modalViewsByProduct?.filter(m => filterFn(m.timestamp)) || [],
+    productPageViews: data.productPageViews?.filter(v => filterFn(v.timestamp)) || [],
     viewsByDay: data.viewsByDay || []
   };
 }
@@ -86,39 +87,33 @@ function renderDashboard(dateRange = 'all', count = 5) {
     .sort((a, b) => b.count - a.count)
     .slice(0, limit);
 
-  // Modal Views by Product
-  const modalMap = {};
-  filtered.modalViewsByProduct.forEach(m => {
-    const title = m.title?.trim();
-    if (!title) return;
-    modalMap[title] = (modalMap[title] || 0) + 1;
+  // Product Views (derived from URL)
+  const productMap = {};
+  filtered.productPageViews.forEach(v => {
+    const match = v.url.match(/^\/product-slug\/(.+)/);
+    if (!match) return;
+    const slug = match[1];
+    productMap[slug] = (productMap[slug] || 0) + 1;
   });
-  const modalViewsByProduct = Object.entries(modalMap)
-    .map(([title, count]) => ({ title, count }))
+
+  const productViews = Object.entries(productMap)
+    .map(([product, count]) => ({ product, count }))
     .sort((a, b) => b.count - a.count)
     .slice(0, limit);
 
-  // Product Views
-  const viewCounts = {};
-  filtered.productViews.forEach(v => {
-    viewCounts[v.event_type] = (viewCounts[v.event_type] || 0) + 1;
-  });
-  const productViews = Object.entries(viewCounts).map(([event_type, count]) => ({ event_type, count }));
-
   // Render
-  renderOverview({ topPages, productViews: filtered.productViews });
+  renderOverview({ topPages, productPageViews: filtered.productPageViews });
   renderList('topPages', topPages, p => `${p.url} — ${p.views} views`);
   renderList('topReferrers', topReferrers, r => `${r.referrer} — ${r.count} hits`);
+
   renderChart('pagesChart', topPages, p => p.url, p => p.views, 'Pageviews', '#4e79a7');
   renderChart('referrersChart', topReferrers, r => r.referrer, r => r.count, 'Referrals', '#f28e2b');
-  renderChart('productsViewsChart', productViews, v => v.event_type === 'pageView' ? 'Product Views' : 'Page Views', v => v.count, 'Views', ['#59a14f', '#edc948']);
-  renderChart('modalViewsChart', modalViewsByProduct, p => p.title, p => p.count, 'Modal Views by Product', '#76b7b2');
+  renderChart('productsViewsChart', productViews, p => p.product, p => p.count, 'Product Views', '#59a14f');
 }
-
 
 function renderOverview(data) {
   const pageviews = data.topPages.reduce((sum, p) => sum + (p.views || 0), 0);
-  const sessions = new Set(data.productViews.map(v => v.session_id)).size;
+  const sessions = new Set(data.productPageViews.map(v => v.session_id)).size;
 
   const pageviewsEl = document.getElementById('pageviews');
   const sessionsEl = document.getElementById('sessions');

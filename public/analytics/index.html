@@ -11,6 +11,7 @@
 
     <header class="dashboard-header">
       <h1>📊 EJ Antiques Analytics</h1>
+
       <label for="dateFilter">Date Range:</label>
       <select id="dateFilter">
         <option value="today">Today</option>
@@ -26,7 +27,6 @@
         <option value="10">Top 10</option>
         <option value="all">All</option>
       </select>
-
     </header>
 
     <!-- Left Column: Overview -->
@@ -37,30 +37,28 @@
 
       <h2>Top Referrers</h2>
       <ul id="topReferrers"></ul>
-
     </section>
 
-    <!-- Middle Column: Modal Views -->
-    <section class="column modal-views">
-
-        <h2>Top Pages</h2>
-        <canvas id="pagesChart" height="200"></canvas>
-        <ul id="topPages"></ul>
-        
+    <!-- Middle Column: Top Pages -->
+    <section class="column">
+      <h2>Top Pages</h2>
+      <canvas id="pagesChart" height="200"></canvas>
+      <ul id="topPages"></ul>
     </section>
 
-    <!-- Right Column: Top Pages & Referrers -->
+    <!-- Right Column: Product Views + Referrers Chart -->
     <section class="column right-column">
-      <div class="chart-block">
-      <h2>Top Product Views</h2>
-      <canvas id="modalViewsChart" width="400" height="200"></canvas>
 
+      <div class="chart-block">
+        <h2>Top Product Views</h2>
+        <canvas id="productsViewsChart" width="400" height="200"></canvas>
       </div>
 
       <div class="chart-block">
         <h2>Top Referrers</h2>
         <canvas id="referrersChart" height="200"></canvas>
       </div>
+
     </section>
 
   </main>
