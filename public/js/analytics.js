@@ -111,7 +111,7 @@ function renderDashboard(dateRange = 'all', count = 5) {
   renderList('topReferrers', topReferrers, r => `${r.referrer} — ${r.count} hits`);
   renderChart('pagesChart', topPages, p => p.url, p => p.views, 'Pageviews', '#4e79a7');
   renderChart('referrersChart', topReferrers, r => r.referrer, r => r.count, 'Referrals', '#f28e2b');
-  renderChart('productsViewsChart', productViews, v => v.event_type === 'productModalView' ? 'Modal Views' : 'Page Views', v => v.count, 'Views', ['#59a14f', '#edc948']);
+  renderChart('productsViewsChart', productViews, v => v.event_type === 'pageView' ? 'Product Views' : 'Page Views', v => v.count, 'Views', ['#59a14f', '#edc948']);
   renderChart('modalViewsChart', modalViewsByProduct, p => p.title, p => p.count, 'Modal Views by Product', '#76b7b2');
 }
 
