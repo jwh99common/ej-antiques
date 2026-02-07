@@ -22,10 +22,7 @@ export function formatProduct(item) {
     <div class="product-info">
       <h3>${item.title}</h3>
       <p>${trimmedDescription}</p>
-      <div class="product-details">
         <span class="product-price">£${formattedPrice}</span>
-        <span class="product-category">${item.category}</span>
-      </div>
       ${addToCartButton}
     </div>
   `;

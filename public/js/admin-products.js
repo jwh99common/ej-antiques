@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('productForm');
-  const status = document.getElementById('status');
+  const status = document.getElementById('statusMessage');
   const addNewBtn = document.getElementById('addNewBtn');
   const tableBody = document.querySelector('#productsTable tbody');
 
@@ -28,6 +28,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // Form submission
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+// Validate JSON in images field only if not empty
+const rawImages = imagesInput.value.trim();
+if (rawImages) {
+  try {
+    const parsed = JSON.parse(rawImages);
+    if (!Array.isArray(parsed)) {
+      throw new Error('Images must be a JSON array.');
+    }
+  } catch (err) {
+    statusMessage.textContent = `❌ Invalid JSON in "images": ${err.message}`;
+    imagesInput.classList.add('input-error');
+    return;
+  }
+}
 
     // Ensure slug is set
     if (!form.slug.value.trim()) {
@@ -45,12 +59,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if (res.ok) {
-      status.textContent = `✅ Product ${payload.id ? 'updated' : 'posted'}: ${payload.title}`;
+      statusMessage.textContent = `✅ Product ${payload.id ? 'updated' : 'posted'}: ${payload.title}`;
       form.reset();
       form.id.value = '';
       loadProducts();
     } else {
-      status.textContent = `❌ Failed to ${payload.id ? 'update' : 'post'} product.`;
+      statusMessage.textContent = `❌ Failed to ${payload.id ? 'update' : 'post'} product.`;
     }
   });
 
@@ -58,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
   addNewBtn.addEventListener('click', () => {
     form.reset();
     form.id.value = '';
-    status.textContent = '';
+    statusMessage.textContent = '';
   });
 
   // Load products into table
@@ -116,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
       : '';
     form.created_at.value = product.created_at || '';
 
-    status.textContent = `✏️ Editing product: ${product.title}`;
+    statusMessage.textContent = `✏️ Editing product: ${product.title}`;
   };
 
   // Delete product
@@ -124,10 +138,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!confirm("Delete this product?")) return;
     const res = await fetch(`/api/products/${id}`, { method: 'DELETE' });
     if (res.ok) {
-      status.textContent = `🗑️ Product deleted`;
+      statusMessage.textContent = `🗑️ Product deleted`;
       loadProducts();
     } else {
-      status.textContent = `❌ Failed to delete product.`;
+      statusMessage.textContent = `❌ Failed to delete product.`;
     }
   };
 

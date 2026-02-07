@@ -175,13 +175,20 @@ export async function onRequestGet({ env }) {
   // === TOP REFERRERS ===
   const topReferrers = await db.prepare(`
     SELECT 
-      referrer,
+      CASE 
+        WHEN referrer IS NULL OR referrer = '' THEN 'Direct'
+        ELSE referrer
+      END AS referrer,
       COUNT(*) AS views,
       COUNT(DISTINCT session_id) AS sessions,
       COUNT(CASE WHEN event_type = 'add_to_cart' THEN 1 END) AS addToCarts
     FROM ej_antiques_analytics
-    WHERE referrer IS NOT NULL AND referrer != '' AND referrer NOT LIKE '%ej-antiques%'
-    GROUP BY referrer
+    WHERE referrer NOT LIKE '%ej-antiques%' OR referrer IS NULL OR referrer = ''
+    GROUP BY 
+      CASE 
+        WHEN referrer IS NULL OR referrer = '' THEN 'Direct'
+        ELSE referrer
+      END
     ORDER BY views DESC
     LIMIT 15
   `).all();

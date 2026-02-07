@@ -11,7 +11,7 @@ body {
   color: #333;
   background: #f8f9fa;
 }
-
+/*
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -19,9 +19,17 @@ body {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem;
   box-sizing: border-box;
 }
+*/
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding-left: 1rem;  /* or 0 */
+  padding-right: 1rem; /* or 0 */
+  box-sizing: border-box;
+}
+
 
 
 /* === Header === */
@@ -30,6 +38,11 @@ header {
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   padding: 20px 0;
   margin-bottom: 40px;
+}
+
+h3 {
+  font-size: 25px;
+  margin-top: -1.5rem; /* or try 0 for no space at all */
 }
 
 .header-content {

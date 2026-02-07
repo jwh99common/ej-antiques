@@ -2,14 +2,55 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Analytics Dashboard v2</title>
-  <link rel="stylesheet" href="/analytics/local.css">
+  <title>Analytics Dashboard</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
+      display: flex;
+      height: 100vh;
+    }
+
+    .sidebar {
+      width: 260px;
+      background-color: #1e1e2f;
+      color: #fff;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .sidebar h1 {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+
+    .sidebar label {
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .sidebar select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.25rem;
+      border-radius: 6px;
+      border: none;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+
     .dashboard-wrapper {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 20px;
     }
 
     .dashboard-header {
@@ -30,31 +71,14 @@
     }
 
     .dashboard-header h1 {
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
 
-    .dashboard-controls {
-      display: flex;
-      gap: 20px;
-      margin-top: 15px;
-      flex-wrap: wrap;
+    .dashboard-header p {
+      color: #666;
+      margin: 0;
     }
 
-    .dashboard-controls label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 500;
-    }
-
-    .dashboard-controls select {
-      padding: 8px 12px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      font-size: 0.95rem;
-    }
-
-    /* KPI Section */
     .kpi-row {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -85,12 +109,11 @@
 
     .dashboard-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 20px;
       margin-bottom: 30px;
     }
 
-    /* Card Styling */
     .card {
       background: white;
       border-radius: 8px;
@@ -125,97 +148,116 @@
       border-bottom: none;
     }
 
-    /* Responsive */
-    @media (max-width: 1200px) {
-      .dashboard-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
     @media (max-width: 768px) {
-      .dashboard-grid,
-      .dashboard-row-2 {
-        grid-template-columns: 1fr;
+      .sidebar {
+        display: none;
       }
-      .dashboard-controls {
-        flex-direction: column;
+
+      .dashboard-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
-  <div class="dashboard-wrapper">
-    
-    <!-- Header -->
-    <div class="dashboard-header">
-      <h1>📊 EJ Antiques Analytics v2 <span class="v2-badge">NEW</span></h1>
-      <p style="color: #666; margin-top: 8px; margin-bottom: 0;">Enhanced user behavior tracking with pageviews, engagement metrics, and traffic sources</p>
-      
-      <div class="dashboard-controls">
-        <label for="dateFilter">
-          Date Range:
-          <select id="dateFilter">
-            <option value="today">Today</option>
-            <option value="yesterday">Yesterday</option>
-            <option value="last7">Last 7 Days</option>
-            <option value="last30">Last 30 Days</option>
-            <option value="all" selected>All Time</option>
-          </select>
-        </label>
 
-        <label for="countFilter">
-          Show:
-          <select id="countFilter">
-            <option value="5" selected>Top 5</option>
-            <option value="10">Top 10</option>
-            <option value="all">All</option>
-          </select>
-        </label>
+  <aside class="sidebar">
+    <h1>📊 EJ Analytics</h1>
+
+    <label for="dateFilter">Date Range</label>
+    <select id="dateFilter">
+      <option value="today">Today</option>
+      <option value="yesterday">Yesterday</option>
+      <option value="last7">Last 7 Days</option>
+      <option value="last30">Last 30 Days</option>
+      <option value="all" selected>All Time</option>
+    </select>
+
+    <label for="countFilter">Show</label>
+    <select id="countFilter">
+      <option value="5" selected>Top 5</option>
+      <option value="10">Top 10</option>
+      <option value="all">All</option>
+    </select>
+
+    <label for="sourceFilter">Traffic Source</label>
+    <select id="sourceFilter">
+      <option value="all" selected>All Sources</option>
+      <option value="direct">Direct</option>
+      <option value="organic">Organic Search</option>
+      <option value="social">Social Media</option>
+      <option value="referral">Referral</option>
+      <option value="email">Email</option>
+    </select>
+
+    <label for="deviceFilter">Device Type</label>
+    <select id="deviceFilter">
+      <option value="all" selected>All Devices</option>
+      <option value="desktop">Desktop</option>
+      <option value="mobile">Mobile</option>
+      <option value="tablet">Tablet</option>
+    </select>
+
+    <label for="regionFilter">Region</label>
+    <select id="regionFilter">
+      <option value="all" selected>All Regions</option>
+      <option value="uk">United Kingdom</option>
+      <option value="us">United States</option>
+      <option value="eu">Europe</option>
+      <option value="custom">Custom</option>
+    </select>
+  </aside>
+
+  <main class="main-content">
+    <div class="dashboard-wrapper">
+
+      <div class="dashboard-header">
+        <h1>📊 EJ Antiques Analytics v2 <span class="v2-badge">NEW</span></h1>
+        <p>Enhanced user behavior tracking with pageviews, engagement metrics, and traffic sources</p>
       </div>
+
+      <div class="kpi-row" id="kpis">
+        <!-- KPI cards will be injected here -->
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="card">
+          <h2>Top Pages</h2>
+          <canvas id="pagesChart" height="180"></canvas>
+          <ul id="topPages"></ul>
+        </div>
+
+        <div class="card">
+          <h2>Top Products</h2>
+          <canvas id="productsChart" height="180"></canvas>
+          <ul id="topProducts"></ul>
+        </div>
+
+        <div class="card">
+          <h2>Top Referrers</h2>
+          <canvas id="referrersChart" height="180"></canvas>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="card">
+          <h2>Traffic Trends (30d)</h2>
+          <canvas id="trendsChart" height="200"></canvas>
+        </div>
+
+        <div class="card">
+          <h2>By Device</h2>
+          <canvas id="deviceChart" height="200"></canvas>
+        </div>
+
+        <div class="card">
+          <h2>Avg Time On Page</h2>
+          <ul id="avgTimeOnPage"></ul>
+        </div>
+      </div>
+
     </div>
-
-    <!-- KPIs -->
-    <div class="kpi-row" id="kpis"></div>
-
-    <!-- Row 1: Top Pages, Top Products, Top Referrers (3 columns) -->
-    <div class="dashboard-grid">
-      <div class="card">
-        <h2>Top Pages</h2>
-        <canvas id="pagesChart" height="180"></canvas>
-        <ul id="topPages"></ul>
-      </div>
-
-      <div class="card">
-        <h2>Top Products</h2>
-        <canvas id="productsChart" height="180"></canvas>
-        <ul id="topProducts"></ul>
-      </div>
-
-      <div class="card">
-        <h2>Top Referrers</h2>
-        <canvas id="referrersChart" height="180"></canvas>
-      </div>
-    </div>
-
-    <!-- Row 2: Daily Trends, By Device, Scroll Depth (3 columns) -->
-    <div class="dashboard-grid">
-      <div class="card">
-        <h2>Traffic Trends (30d)</h2>
-        <canvas id="trendsChart" height="200"></canvas>
-      </div>
-
-      <div class="card">
-        <h2>By Device</h2>
-        <canvas id="deviceChart" height="200"></canvas>
-      </div>
-
-      <div class="card">
-        <h2>Avg Time On Page</h2>
-        <ul id="avgTimeOnPage"></ul>
-      </div>
-    </div>
-
-  </div>
+  </main>
 
   <script type="module" src="/js/analytics-v2.js"></script>
 </body>

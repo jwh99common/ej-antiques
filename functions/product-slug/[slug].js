@@ -14,12 +14,19 @@ export async function onRequest(context) {
   }
 
   const product = results[0];
-  const formattedPrice = product.price;
-  const images = product.images ? JSON.parse(product.images) : [];
+  const formattedPrice = parseFloat(product.price).toFixed(2);
+  let images = [];
+  try {
+    images = product.images ? JSON.parse(product.images) : [];
+  } catch (e) {
+    console.error("Invalid images JSON for product", product.id, e);
+  }
 
+  
   if (!images.includes(product.image)) {
     images.unshift(product.image);
   }
+
 
   const html = `
 <!DOCTYPE html>
@@ -28,6 +35,9 @@ export async function onRequest(context) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${product.title} – EJ's Antiques</title>
+
+  <meta name="description" content="${product.description}">
+  <meta property="og:image" content="${product.image}">
 
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/products.css">
@@ -125,71 +135,6 @@ export async function onRequest(context) {
     .product-header h1 {
       margin-bottom: 0.25rem;
     }
-.product-title-line {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.product-title-line h1 {
-  margin: 0;
-  font-size: 2rem;
-}
-
-.product-title-line .product-price {
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: #333;
-}
-
-.product-title-line .product-category {
-  font-style: italic;
-  color: #666;
-}
-
-.sold-label {
-  color: #c00;
-  font-weight: bold;
-  font-size: 1rem;
-}
-
-.product-title-line {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.product-title-line h1 {
-  margin: 0;
-  font-size: 2rem;
-}
-
-.product-title-line h2 {
-  margin: 0;
-  font-size: 1.25rem;
-  font-weight: bold;
-}
-
-.product-price {
-  color: #333;
-}
-
-.sold-label {
-  color: #c00;
-  font-size: 2rem;
-
-}
-
-.product-category {
-  font-style: italic;
-  color: #666;
-}
-
-
   </style>
   <link rel="stylesheet" href="/css/mobile.css">
 
@@ -208,14 +153,6 @@ export async function onRequest(context) {
   
   <main class="container product-page">
     <div class="product-header">
-      <!--
-      <div class="product-title-line">
-        <h1>${product.title}</h1>
-        <h1>£${formattedPrice}</h1>
-        ${product.is_sold ? '<h1 class="sold-label">Sold</h1>' : ''}
-        <span class="product-category">${product.category}</span>
-      </div>
-      -->
     </div>
 
   <main class="container product-page three-column-layout">
@@ -242,7 +179,7 @@ export async function onRequest(context) {
     <!-- Column 3: Details -->
     <div class="column column-details">
       <h1>${product.title}</h1>
-      ${product.is_sold ? '<h1 class="sold-label">Sold</h1>' : ''}
+      ${!!product.is_sold ? '<h1 class="sold-label">Sold</h1>' : ''}
       <p class="product-price">£${formattedPrice}</p>
       <p class="product-category">${product.category}</p>
 
@@ -293,14 +230,16 @@ export async function onRequest(context) {
       const mainImage = document.querySelector('.main-image');
       const thumbnails = document.querySelectorAll('.thumb-image');
 
-      thumbnails.forEach(thumb => {
-        thumb.addEventListener('click', () => {
-          if (mainImage && thumb.src) {
-            mainImage.src = thumb.src;
-            mainImage.alt = thumb.alt;
-          }
+      if (mainImage) {
+        thumbnails.forEach(thumb => {
+          thumb.addEventListener('click', () => {
+            if (thumb.src) {
+              mainImage.src = thumb.src;
+              mainImage.alt = thumb.alt;
+            }
+          });
         });
-      });
+      }
     });
   </script>
   <script type="module" src="/js/main.js"></script>
