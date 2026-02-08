@@ -472,3 +472,24 @@
 }
 
 }
+@media (max-width: 768px) {
+  .dashboard-header,
+  .filter-bar,
+  .header-top {
+    position: static !important;
+  }
+}
+@media (max-width: 768px) {
+  .dashboard-header {
+    background: white;
+    padding-bottom: 1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    z-index: 1;
+  }
+}
+@media (max-width: 768px) {
+  .filter-bar,
+  #categoryFilters {
+    display: none !important;
+  }
+}
