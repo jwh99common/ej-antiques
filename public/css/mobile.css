@@ -472,73 +472,62 @@
 }
 
 }
-@media (max-width: 768px) {
-  .dashboard-header,
-  .filter-bar,
-  .header-top {
-    position: static !important;
+@media (max-width: 1024px) {
+  html, body {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: auto;
   }
-}
-@media (max-width: 768px) {
-  .dashboard-header {
-    background: white;
-    padding-bottom: 1rem;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+
+  .dashboard-header,
+  .header-top {
+    position: relative !important;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: visible;
     z-index: 1;
   }
+
+  .filter-bar,
+  #categoryFilters {
+    position: relative !important;
+    width: 100%;
+    overflow-x: auto;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    box-sizing: border-box;
+  }
+
+  .filter-btn {
+    flex: 0 0 auto;
+  }
+
+  .container,
+  .nav-container {
+    position: static !important;
+    overflow: visible !important;
+    height: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
 }
 @media (max-width: 768px) {
   .filter-bar,
   #categoryFilters {
-    display: none !important;
-  }
-}
-@media (min-width: 769px) and (max-width: 1024px) {
-  .header-top {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-  }
-
-  .logo-image {
-    width: 180px;
-  }
-
-  .filter-bar {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-wrap: wrap; /* allow wrapping to new lines */
     gap: 0.5rem;
-  }
-}
-@media (max-width: 900px) {
-  /* Adjust layout for tablets and smaller */
-  .header-top,
-  .filter-bar,
-  .dashboard-header {
-    position: static !important;
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem;
-    gap: 1rem;
+    padding: 0.5rem 1rem;
+    overflow-x: visible; /* remove horizontal scroll */
+    box-sizing: border-box;
+    width: 100%;
   }
 
-  .logo-image {
-    width: 160px;
-    max-width: 80%;
-    height: auto;
-    object-fit: contain;
-  }
-
-  .filter-bar,
-  #categoryFilters {
-    display: none; /* or adjust layout if you want to show them differently */
-  }
-}
-@media (max-width: 1080px) {
-  .filter-bar,
-  #categoryFilters {
-    display: none !important;
+  .filter-btn {
+    flex: 1 1 auto; /* allow buttons to grow and wrap */
+    min-width: 100px; /* optional: set a sensible min width */
   }
 }
