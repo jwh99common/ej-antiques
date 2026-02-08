@@ -183,10 +183,7 @@ export async function onRequest(context) {
       <p class="product-price">£${formattedPrice}</p>
       <p class="product-category">${product.category}</p>
 
-      <div class="lightbox">
-        <p class="product-description">${product.description}</p>
-      </div>
-      
+     
       <div class="lightbox product-long-description">
         ${product.longDescription || ''}
       </div>
