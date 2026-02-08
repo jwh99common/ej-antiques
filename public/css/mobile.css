@@ -531,3 +531,20 @@
     min-width: 100px; /* optional: set a sensible min width */
   }
 }
+@media (max-width: 1024px) {
+  .filter-bar,
+  #categoryFilters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    overflow-x: visible;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .filter-btn {
+    flex: 1 1 auto;
+    min-width: 120px; /* adjust as needed */
+  }
+}
