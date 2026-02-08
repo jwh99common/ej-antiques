@@ -11,6 +11,26 @@ body {
   color: #333;
   background: #f8f9fa;
 }
+
+body {
+  font-family: 'Cormorant Garamond', 'EB Garamond', 'Crimson Pro', Georgia, serif;
+  line-height: 1.7;
+  color: #333;
+  background: #f8f9fa;
+}
+body {
+  font-family: 'Cormorant Garamond', 'EB Garamond', 'Crimson Pro', Georgia, serif;
+  line-height: 1.7;
+  color: #333;
+  background: #f8f9fa;
+}
+body {
+  font-family: 'Work Sans', 'Inter', 'Open Sans', 'Helvetica Neue', sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #f8f9fa;
+}
+
 /*
 .container {
   max-width: 1200px;
