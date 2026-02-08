@@ -536,3 +536,9 @@
     display: none; /* or adjust layout if you want to show them differently */
   }
 }
+@media (max-width: 1080px) {
+  .filter-bar,
+  #categoryFilters {
+    display: none !important;
+  }
+}
