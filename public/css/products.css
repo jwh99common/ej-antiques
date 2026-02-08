@@ -200,7 +200,7 @@
 }
 
 /* === Product Cards === */
-/*.product-card {
+.product-card {
   background: white;
   border-radius: 15px;
   overflow: hidden;
@@ -214,8 +214,8 @@
   transition: all 0.3s ease;
   cursor: pointer;
   height: 100%;
-}*/
-
+}
+/*
 .product-card {
   background: none;
   border: none;
@@ -231,7 +231,7 @@
   cursor: default;
   height: auto;
 }
-
+*/
 .product-card:hover {
   transform: translateY(-5px);
   border-color: #27ae60;
