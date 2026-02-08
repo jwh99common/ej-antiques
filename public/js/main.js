@@ -7,8 +7,7 @@ import { addToCart, updateCartCount, renderCartPanel, wireCheckoutButton } from 
 document.addEventListener('DOMContentLoaded', async () => {
   const type = document.body.dataset.type || 'products';
 
-    setupCart(); // Always wire cart
-
+  setupCart(); // Always wire cart
 
   const galleryEl = document.getElementById('gallery');
   if (galleryEl) {
@@ -17,11 +16,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupFilters(items, type);
     setupModal();
     setupModalTriggers(items);
+    setupAddToCartDelegated(); // ✅ Delegated handler for dynamic buttons
   }
-  setupAddToCart(); // ✅ For static buttons (e.g. [slug], About)
-
 });
-
 
 // Core cart setup logic
 function setupCart() {
@@ -47,28 +44,26 @@ function setupCart() {
   }
 }
 
-// Bind add-to-cart buttons
-export function setupAddToCart() {
-  const buttons = document.querySelectorAll('.add-to-cart');
+// Delegated handler for all add-to-cart buttons, static or dynamic
+function setupAddToCartDelegated() {
+  document.body.addEventListener('click', (e) => {
+    const btn = e.target.closest('.add-to-cart');
+    if (!btn) return;
 
-  buttons.forEach(btn => {
-    console.log('🛠️ Binding button:', btn.dataset.title);
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      console.log('🛒 Clicked:', btn.dataset.title);
-      const item = {
-        id: parseInt(btn.dataset.id),
-        title: btn.dataset.title,
-        price: parseFloat(btn.dataset.price),
-        image: btn.dataset.image,
-        type: btn.dataset.type
-      };
-      addToCart(item);
-      updateCartCount();
-      renderCartPanel();
-    });
+    e.stopPropagation();
+    const item = {
+      id: parseInt(btn.dataset.id),
+      title: btn.dataset.title,
+      price: parseFloat(btn.dataset.price),
+      image: btn.dataset.image,
+      type: btn.dataset.type
+    };
+    addToCart(item);
+    updateCartCount();
+    renderCartPanel();
   });
 }
+
 
 // Bind modal triggers on gallery cards
 function setupModalTriggers(items) {
