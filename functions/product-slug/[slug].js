@@ -211,7 +211,7 @@ export async function onRequest(context) {
 
   <div id="cartPanel" class="cart-panel hidden">
     <div class="cart-header">
-      <h3>Your Cart</h3>
+      <h3>Your Enquiry</h3>
       <button id="closeCartBtn" class="close-cart">&times;</button>
     </div>
     <ul id="cartItems"></ul>
