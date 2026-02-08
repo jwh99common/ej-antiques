@@ -205,7 +205,7 @@
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  border: 1px solid #ddd;
+  border: 2px solid #141212;
   padding: 15px;
   display: flex;
   flex-direction: column;
