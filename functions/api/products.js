@@ -1,7 +1,13 @@
 export async function onRequest(context) {
   const db = context.env.gallery_db;
 
-  const { results } = await db.prepare("SELECT * FROM ej_antiques_products").all();
+  //const { results } = await db.prepare("SELECT * FROM ej_antiques_products").all();
+  const { results } = await db
+  .prepare(`
+    SELECT * FROM ej_antiques_products
+    ORDER BY category ASC, created_at DESC
+  `)
+  .all();
 
   const products = results.map(p => ({
     id: p.id,
