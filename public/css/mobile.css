@@ -548,3 +548,45 @@
     min-width: 120px; /* adjust as needed */
   }
 }
+/* === Pill Style Category Filters (Centered) === */
+#categoryFilters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  justify-content: center;   /* ⭐ Center the pills */
+}
+
+#categoryFilters .filter-btn {
+  padding: 0.45rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid #ccc;
+  background: #f7f7f7;
+  color: #333;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+#categoryFilters .filter-btn:hover {
+  background: #eaeaea;
+}
+
+#categoryFilters .filter-btn.active {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+#categoryFilters {
+  margin-top: -0.75rem;   /* pull upward */
+  margin-bottom: -0.25rem; /* tighten below */
+}
+
+body[data-type="products"],
+body[data-type="soldproducts"]
+ {
+  background: url('/css/pl.png') repeat;
+  background-size: 400px;
+  background-position: top center;
+}
