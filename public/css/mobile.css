@@ -583,10 +583,21 @@
   margin-bottom: -0.25rem; /* tighten below */
 }
 
-body[data-type="products"],
-body[data-type="soldproducts"]
+body
  {
   background: url('/css/pl.png') repeat;
   background-size: 400px;
   background-position: top center;
 }
+
+/* Global styling for all injected text blocks */
+#txt-placeholder {
+  background: rgba(255, 255, 255, 0.85);
+  padding: 2rem;
+  width: 100%;
+  margin: 0;
+  border-radius: 0;
+  backdrop-filter: blur(2px);
+}
+
+
