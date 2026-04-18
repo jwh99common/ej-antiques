@@ -71,6 +71,10 @@ function renderAll() {
 
   renderKPIs(safeGet(()=>RAW.overview, {}));
 
+  // Funnel & retention
+  renderFunnel(safeGet(()=>RAW.funnel, {}));
+  renderRetention(safeGet(()=>RAW.retention, {}));
+
   renderList('topPages', (data.topPages||[]).slice(0,count), p => `<strong>${p.url||p.path||p.label||'/'}</strong> — ${p.views||p.count||1} views`);
   renderBar('pagesChart', (data.topPages||[]).slice(0,count), i=>i.url||i.path||i.label, i=>i.views||i.count||0, 'Pageviews', '#3498db');
 
@@ -100,6 +104,31 @@ function renderKPIs(overview) {
 function renderList(id, items, fmt) {
   const el = document.getElementById(id); if (!el) return; el.innerHTML = '';
   items.forEach(it => { const li = document.createElement('li'); li.innerHTML = fmt(it); el.appendChild(li); });
+}
+
+function renderFunnel(f) {
+  const el = document.getElementById('funnelSummary'); if (!el) return;
+  const total = f.totalSessions || 0;
+  const pv = f.productViewSessions || 0;
+  const atc = f.addToCartSessions || 0;
+  const co = f.checkoutSessions || 0;
+  el.innerHTML = `
+    <div class="funnel-kpis">
+      <div><strong>Total sessions:</strong> ${total}</div>
+      <div><strong>Product views:</strong> ${pv}</div>
+      <div><strong>Add to cart:</strong> ${atc} (${f.pvToAtcRate || 0}%)</div>
+      <div><strong>Checkouts:</strong> ${co} (${f.atcToCheckoutRate || 0}% of ATC, ${f.pvToCheckoutRate || 0}% of PV)</div>
+    </div>
+  `;
+}
+
+function renderRetention(r) {
+  const el = document.getElementById('retentionSummary'); if (!el) return;
+  const list = document.getElementById('retentionList'); if (list) list.innerHTML = '';
+  const newVis = r.newVisitors || 0;
+  const retained = r.retained || 0;
+  const rate = (typeof r.retentionRate !== 'undefined') ? r.retentionRate : (newVis ? Math.round(retained*1000/newVis)/10 : 0);
+  el.innerHTML = `<div><strong>New visitors (30d):</strong> ${newVis}</div><div><strong>Retained (any repeat session):</strong> ${retained} (${rate}%)</div>`;
 }
 
 function renderBar(id, items, labelFn, valueFn, label, color) {

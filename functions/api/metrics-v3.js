@@ -109,6 +109,35 @@ export async function onRequestGet({ env }) {
     LIMIT 10
   `).all();
 
+  // Funnel metrics (session-based)
+  const funnelRaw = await db.prepare(`
+    WITH per_session AS (
+      SELECT
+        session_id,
+        MAX(CASE WHEN event_type = 'product_view' THEN 1 ELSE 0 END) AS has_pv,
+        MAX(CASE WHEN event_type = 'add_to_cart' THEN 1 ELSE 0 END) AS has_atc,
+        MAX(CASE WHEN event_type = 'form_submit' THEN 1 ELSE 0 END) AS has_checkout
+      FROM ej_antiques_analytics
+      GROUP BY session_id
+    )
+    SELECT
+      COUNT(*) AS totalSessions,
+      SUM(has_pv) AS pvSessions,
+      SUM(has_atc) AS atcSessions,
+      SUM(has_checkout) AS checkoutSessions
+    FROM per_session
+  `).first();
+
+  const funnel = {
+    totalSessions: funnelRaw?.totalSessions || 0,
+    productViewSessions: funnelRaw?.pvSessions || 0,
+    addToCartSessions: funnelRaw?.atcSessions || 0,
+    checkoutSessions: funnelRaw?.checkoutSessions || 0,
+    pvToAtcRate: funnelRaw && funnelRaw.pvSessions ? Math.round((funnelRaw.atcSessions / funnelRaw.pvSessions) * 1000) / 10 : 0,
+    atcToCheckoutRate: funnelRaw && funnelRaw.atcSessions ? Math.round((funnelRaw.checkoutSessions / funnelRaw.atcSessions) * 1000) / 10 : 0,
+    pvToCheckoutRate: funnelRaw && funnelRaw.pvSessions ? Math.round((funnelRaw.checkoutSessions / funnelRaw.pvSessions) * 1000) / 10 : 0
+  };
+
   // Daily trends (30d)
   const dailyTrends = await db.prepare(`
     SELECT 
@@ -168,6 +197,26 @@ export async function onRequestGet({ env }) {
     LIMIT 10
   `).all();
 
+  // Simple retention: looks for visitorId in metadata and computes 30-day retention for new visitors
+  const retention = await db.prepare(`
+    WITH visitors AS (
+      SELECT
+        json_extract(metadata, '$.visitorId') AS vid,
+        COUNT(DISTINCT session_id) AS sessions,
+        DATE(MIN(timestamp)) AS first_seen
+      FROM ej_antiques_analytics
+      WHERE json_extract(metadata, '$.visitorId') IS NOT NULL
+      GROUP BY vid
+    ), cohorts AS (
+      SELECT * FROM visitors WHERE first_seen >= DATE('now','-30 days')
+    )
+    SELECT
+      COUNT(*) AS newVisitors,
+      SUM(CASE WHEN sessions > 1 THEN 1 ELSE 0 END) AS retained,
+      ROUND(SUM(CASE WHEN sessions > 1 THEN 1 ELSE 0 END) * 100.0 / NULLIF(COUNT(*),0), 1) AS retentionRate
+    FROM cohorts
+  `).first();
+
   // Top referrers
   const topReferrers = await db.prepare(`
     SELECT 
@@ -208,6 +257,9 @@ export async function onRequestGet({ env }) {
     byDevice: byDevice?.results || [],
     avgTimeOnPage: avgTimeOnPage?.results || [],
     topReferrers: topReferrers?.results || []
+    ,
+    funnel,
+    retention: retention || { newVisitors: 0, retained: 0, retentionRate: 0 }
   }, null, 2), {
     headers: { 'Content-Type': 'application/json' }
   });
