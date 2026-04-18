@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>EJ Analytics v3</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="/analytics/local.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <h1>📊 EJ Analytics</h1>
+    <label for="dateFilter">Date Range</label>
+    <select id="dateFilter">
+      <option value="today">Today</option>
+      <option value="yesterday">Yesterday</option>
+      <option value="last7">Last 7 Days</option>
+      <option value="last30">Last 30 Days</option>
+      <option value="all" selected>All Time</option>
+    </select>
+
+    <label for="countFilter">Show</label>
+    <select id="countFilter">
+      <option value="5" selected>Top 5</option>
+      <option value="10">Top 10</option>
+      <option value="all">All</option>
+    </select>
+
+    <label for="sourceFilter">Traffic Source</label>
+    <select id="sourceFilter">
+      <option value="all" selected>All Sources</option>
+      <option value="direct">Direct</option>
+      <option value="organic">Organic Search</option>
+      <option value="social">Social Media</option>
+      <option value="referral">Referral</option>
+      <option value="email">Email</option>
+    </select>
+  </aside>
+
+  <main class="main-content">
+    <div class="dashboard-wrapper">
+      <div class="dashboard-header">
+        <h1>📊 EJ Antiques Analytics v3</h1>
+        <p>Consolidated, resilient dashboard combining v1 + v2 features</p>
+      </div>
+
+      <div class="kpi-row" id="kpis"></div>
+
+      <div class="dashboard-grid">
+        <div class="card">
+          <h2>Top Pages</h2>
+          <canvas id="pagesChart" height="180"></canvas>
+          <ul id="topPages"></ul>
+        </div>
+
+        <div class="card">
+          <h2>Top Products</h2>
+          <canvas id="productsChart" height="180"></canvas>
+          <ul id="topProducts"></ul>
+        </div>
+
+        <div class="card">
+          <h2>Top Referrers</h2>
+          <canvas id="referrersChart" height="180"></canvas>
+          <ul id="topReferrers"></ul>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="card">
+          <h2>Traffic Trends (30d)</h2>
+          <canvas id="trendsChart" height="200"></canvas>
+        </div>
+
+        <div class="card">
+          <h2>By Device</h2>
+          <canvas id="deviceChart" height="200"></canvas>
+        </div>
+
+        <div class="card">
+          <h2>Avg Time On Page</h2>
+          <ul id="avgTimeOnPage"></ul>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script type="module" src="/js/analytics-v3.js"></script>
+</body>
+</html>
