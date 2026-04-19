@@ -10,7 +10,10 @@ export async function onRequest(context) {
     `${BASE_URL}/`,
     `${BASE_URL}/products`,
     `${BASE_URL}/contact`,
-    `${BASE_URL}/about`
+    `${BASE_URL}/about`,
+    `${BASE_URL}/sold`
+    `${BASE_URL}/services`
+
   ];
 
   /* -------------------------------------------------------
