@@ -15,18 +15,36 @@ export async function onRequest(context) {
 
   const product = results[0];
   const formattedPrice = parseFloat(product.price).toFixed(2);
+
+  /* -------------------------------------------------------
+     SAFE IMAGE ARRAY HANDLING
+     ------------------------------------------------------- */
   let images = [];
+
   try {
-    images = product.images ? JSON.parse(product.images) : [];
+    if (product.images) {
+      const parsed = JSON.parse(product.images);
+      if (Array.isArray(parsed)) {
+        images = parsed;
+      }
+    }
   } catch (e) {
     console.error("Invalid images JSON for product", product.id, e);
   }
 
-  
-  if (!images.includes(product.image)) {
+  // Guarantee images is ALWAYS an array
+  if (!Array.isArray(images)) {
+    images = [];
+  }
+
+  // Ensure main image is always first
+  if (product.image && !images.includes(product.image)) {
     images.unshift(product.image);
   }
 
+  /* -------------------------------------------------------
+     HTML OUTPUT
+     ------------------------------------------------------- */
 
   const html = `
 <!DOCTYPE html>
@@ -147,17 +165,14 @@ export async function onRequest(context) {
     </div>
   </header>
 
-  <div class="gallery" id="gallery">
-    <!-- Products will be inserted here by JavaScript -->
-  </div>
+  <div class="gallery" id="gallery"></div>
   
   <main class="container product-page">
-    <div class="product-header">
-    </div>
+    <div class="product-header"></div>
 
   <main class="container product-page three-column-layout">
 
-  <!-- Column 1: Thumbnails -->
+    <!-- Column 1: Thumbnails -->
     <div class="column column-thumbs">
       ${images
         .map(
@@ -183,7 +198,6 @@ export async function onRequest(context) {
       <p class="product-price">£${formattedPrice}</p>
       <p class="product-category">${product.category}</p>
 
-     
       <div class="lightbox product-long-description">
         ${product.longDescription || ''}
       </div>
@@ -191,7 +205,6 @@ export async function onRequest(context) {
       <div class="lightbox">
         <p class="product-description">${product.background}</p>
       </div>
-
 
       <button class="add-to-cart"
         data-id="${product.id}"
@@ -220,11 +233,8 @@ export async function onRequest(context) {
 
   <div id="footer-placeholder"></div>
 
-
   <script type="module">
- 
     document.addEventListener('DOMContentLoaded', () => {
- 
       const mainImage = document.querySelector('.main-image');
       const thumbnails = document.querySelectorAll('.thumb-image');
 
@@ -240,25 +250,26 @@ export async function onRequest(context) {
       }
     });
   </script>
+
   <script type="module" src="/js/main.js"></script>
   <script type="module" src="/js/inject-nav.js"></script>
   <script src="/js/inject-footer.js"></script>
   <script type="module" src="/js/track-analytics.js"></script>
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/6945831867652e1987569a35/1jcrog67n';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
-<!--End of Tawk.to Script-->
-  </body>
+
+  <!-- Tawk.to -->
+  <script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/6945831867652e1987569a35/1jcrog67n';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script>
+
+</body>
 </html>
 `;
 

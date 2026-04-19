@@ -1,17 +1,51 @@
-export async function onRequestGet({ env }) {
+export async function onRequestGet({ env, request }) {
   const db = env.gallery_db;
+  const url = new URL(request.url);
+  const range = url.searchParams.get('range') || 'all';
+
+  // build time filters
+  let timeWherePrefix = '';
+  let timeAnd = '';
+  // Use DATE() comparisons for day ranges, datetime for multi-day windows
+  switch(range) {
+    case 'today':
+      timeWherePrefix = "WHERE DATE(timestamp) = DATE('now')";
+      timeAnd = "AND DATE(timestamp) = DATE('now')";
+      break;
+    case 'yesterday':
+      timeWherePrefix = "WHERE DATE(timestamp) = DATE('now', '-1 day')";
+      timeAnd = "AND DATE(timestamp) = DATE('now', '-1 day')";
+      break;
+    case 'last7':
+      timeWherePrefix = "WHERE timestamp >= datetime('now', '-6 days')";
+      timeAnd = "AND timestamp >= datetime('now', '-6 days')";
+      break;
+    case 'last30':
+      timeWherePrefix = "WHERE timestamp >= datetime('now', '-29 days')";
+      timeAnd = "AND timestamp >= datetime('now', '-29 days')";
+      break;
+    default:
+      timeWherePrefix = '';
+      timeAnd = '';
+  }
 
   // Overview
   const totalPageviews = await db.prepare(
-    `SELECT COUNT(*) AS count FROM ej_antiques_analytics WHERE event_type = 'pageview'`
+    `SELECT COUNT(*) AS count FROM ej_antiques_analytics WHERE event_type = 'pageview' ${timeAnd}`
   ).first();
 
+  // Quick recent counts so admin UIs always have accurate recent totals
+  const pageviewsToday = await db.prepare(`SELECT COUNT(*) AS count FROM ej_antiques_analytics WHERE event_type = 'pageview' AND DATE(timestamp)=DATE('now')`).first();
+  const pageviewsYesterday = await db.prepare(`SELECT COUNT(*) AS count FROM ej_antiques_analytics WHERE event_type = 'pageview' AND DATE(timestamp)=DATE('now','-1 day')`).first();
+  const pageviewsLast7 = await db.prepare(`SELECT COUNT(*) AS count FROM ej_antiques_analytics WHERE event_type = 'pageview' AND timestamp >= datetime('now','-6 days')`).first();
+  const pageviewsLast30 = await db.prepare(`SELECT COUNT(*) AS count FROM ej_antiques_analytics WHERE event_type = 'pageview' AND timestamp >= datetime('now','-29 days')`).first();
+
   const uniqueSessions = await db.prepare(
-    `SELECT COUNT(DISTINCT session_id) AS count FROM ej_antiques_analytics`
+    `SELECT COUNT(DISTINCT session_id) AS count FROM ej_antiques_analytics ${timeWherePrefix}`
   ).first();
 
   const uniqueCountries = await db.prepare(
-    `SELECT COUNT(DISTINCT country) AS count FROM ej_antiques_analytics WHERE country IS NOT NULL`
+    `SELECT COUNT(DISTINCT country) AS count FROM ej_antiques_analytics WHERE country IS NOT NULL ${timeAnd}`
   ).first();
 
   // Bounce rate
@@ -20,6 +54,7 @@ export async function onRequestGet({ env }) {
       COUNT(*) AS total_sessions,
       COUNT(CASE WHEN event_type = 'session_end' AND json_extract(metadata, '$.isBounce') = 1 THEN 1 END) AS bounces
     FROM ej_antiques_analytics
+    ${timeWherePrefix}
   `).first();
   const bounceRate = bounceMetrics ? Math.round((bounceMetrics.bounces / bounceMetrics.total_sessions) * 100) : 0;
 
@@ -28,7 +63,7 @@ export async function onRequestGet({ env }) {
     SELECT 
       ROUND(AVG(CAST(json_extract(metadata, '$.sessionDuration') AS FLOAT)), 1) AS avgSeconds
     FROM ej_antiques_analytics
-    WHERE event_type = 'session_end' AND json_extract(metadata, '$.sessionDuration') IS NOT NULL
+    WHERE event_type = 'session_end' AND json_extract(metadata, '$.sessionDuration') IS NOT NULL ${timeAnd}
   `).first();
 
   // Visitor types
@@ -37,7 +72,7 @@ export async function onRequestGet({ env }) {
       CASE WHEN json_extract(metadata, '$.isNewVisitor') = 1 THEN 'New' ELSE 'Returning' END AS type,
       COUNT(DISTINCT session_id) AS sessions
     FROM ej_antiques_analytics
-    WHERE event_type = 'pageview'
+    WHERE event_type = 'pageview' ${timeAnd}
     GROUP BY type
   `).all();
 
@@ -49,7 +84,7 @@ export async function onRequestGet({ env }) {
       COUNT(CASE WHEN event_type = 'session_end' AND json_extract(metadata, '$.isBounce') = 1 THEN 1 END) AS bounces,
       COUNT(DISTINCT session_id) AS sessions
     FROM ej_antiques_analytics
-    WHERE url IS NOT NULL
+    WHERE url IS NOT NULL ${timeAnd}
     GROUP BY url
     ORDER BY views DESC
     LIMIT 10
@@ -62,7 +97,7 @@ export async function onRequestGet({ env }) {
       json_extract(metadata, '$.ctaText') AS ctaText,
       COUNT(*) AS clicks
     FROM ej_antiques_analytics
-    WHERE event_type = 'cta_click'
+    WHERE event_type = 'cta_click' ${timeAnd}
     GROUP BY json_extract(metadata, '$.ctaName')
     ORDER BY clicks DESC
     LIMIT 10
@@ -74,7 +109,7 @@ export async function onRequestGet({ env }) {
       json_extract(metadata, '$.formName') AS form,
       COUNT(*) AS submissions
     FROM ej_antiques_analytics
-    WHERE event_type = 'form_submit'
+    WHERE event_type = 'form_submit' ${timeAnd}
     GROUP BY json_extract(metadata, '$.formName')
     ORDER BY submissions DESC
     LIMIT 10
@@ -87,7 +122,7 @@ export async function onRequestGet({ env }) {
       ROUND(AVG(CAST(json_extract(metadata, '$.maxDepth') AS FLOAT)), 1) AS avgDepth,
       COUNT(*) AS pageviews
     FROM ej_antiques_analytics
-    WHERE event_type = 'scroll_depth' AND url IS NOT NULL
+    WHERE event_type = 'scroll_depth' AND url IS NOT NULL ${timeAnd}
     GROUP BY url
     ORDER BY pageviews DESC
     LIMIT 10
@@ -103,7 +138,7 @@ export async function onRequestGet({ env }) {
       ROUND(COUNT(CASE WHEN event_type = 'add_to_cart' THEN 1 END) * 100.0 / 
             NULLIF(COUNT(CASE WHEN event_type = 'product_view' THEN 1 END), 0), 1) AS conversionRate
     FROM ej_antiques_analytics
-    WHERE event_type IN ('product_view', 'add_to_cart') AND json_extract(metadata, '$.slug') IS NOT NULL
+    WHERE event_type IN ('product_view', 'add_to_cart') AND json_extract(metadata, '$.slug') IS NOT NULL ${timeAnd}
     GROUP BY json_extract(metadata, '$.slug')
     ORDER BY views DESC
     LIMIT 10
@@ -118,6 +153,7 @@ export async function onRequestGet({ env }) {
         MAX(CASE WHEN event_type = 'add_to_cart' THEN 1 ELSE 0 END) AS has_atc,
         MAX(CASE WHEN event_type = 'form_submit' THEN 1 ELSE 0 END) AS has_checkout
       FROM ej_antiques_analytics
+      ${timeWherePrefix}
       GROUP BY session_id
     )
     SELECT
@@ -149,7 +185,7 @@ export async function onRequestGet({ env }) {
       COUNT(CASE WHEN event_type = 'cta_click' THEN 1 END) AS ctaClicks,
       COUNT(CASE WHEN event_type = 'form_submit' THEN 1 END) AS formSubmits
     FROM ej_antiques_analytics
-    WHERE timestamp >= datetime('now', '-30 days')
+    ${timeWherePrefix || "WHERE timestamp >= datetime('now', '-30 days')"}
     GROUP BY date
     ORDER BY date DESC
   `).all();
@@ -162,7 +198,7 @@ export async function onRequestGet({ env }) {
       COUNT(DISTINCT session_id) AS sessions,
       COUNT(CASE WHEN event_type = 'add_to_cart' THEN 1 END) AS addToCarts
     FROM ej_antiques_analytics
-    WHERE country IS NOT NULL AND country != ''
+    WHERE country IS NOT NULL AND country != '' ${timeAnd}
     GROUP BY country
     ORDER BY views DESC
     LIMIT 15
@@ -180,6 +216,7 @@ export async function onRequestGet({ env }) {
       COUNT(DISTINCT session_id) AS sessions,
       COUNT(CASE WHEN event_type = 'add_to_cart' THEN 1 END) AS addToCarts
     FROM ej_antiques_analytics
+    ${timeWherePrefix}
     GROUP BY device
     ORDER BY views DESC
   `).all();
@@ -191,7 +228,7 @@ export async function onRequestGet({ env }) {
       COUNT(*) AS visits,
       ROUND(AVG(CAST(json_extract(metadata, '$.seconds') AS FLOAT)), 1) AS avgSeconds
     FROM ej_antiques_analytics
-    WHERE event_type = 'time_on_page' AND url IS NOT NULL
+    WHERE event_type = 'time_on_page' AND url IS NOT NULL ${timeAnd}
     GROUP BY url
     ORDER BY visits DESC
     LIMIT 10
@@ -228,7 +265,7 @@ export async function onRequestGet({ env }) {
       COUNT(DISTINCT session_id) AS sessions,
       COUNT(CASE WHEN event_type = 'add_to_cart' THEN 1 END) AS addToCarts
     FROM ej_antiques_analytics
-    WHERE referrer NOT LIKE '%ej-antiques%' OR referrer IS NULL OR referrer = ''
+    WHERE referrer NOT LIKE '%ej-antiques%' OR referrer IS NULL OR referrer = '' ${timeAnd}
     GROUP BY 
       CASE 
         WHEN referrer IS NULL OR referrer = '' THEN 'Direct'
@@ -238,6 +275,15 @@ export async function onRequestGet({ env }) {
     LIMIT 15
   `).all();
 
+  // Recent raw events (last 30 days) for client-side filtering and diagnostics
+  const rawEvents = await db.prepare(`
+    SELECT timestamp, event_type, url, session_id, metadata
+    FROM ej_antiques_analytics
+    ${timeWherePrefix || "WHERE timestamp >= datetime('now','-29 days')"}
+    ORDER BY timestamp DESC
+    LIMIT 10000
+  `).all();
+
   return new Response(JSON.stringify({
     overview: {
       totalPageviews: totalPageviews?.count || 0,
@@ -245,7 +291,11 @@ export async function onRequestGet({ env }) {
       uniqueCountries: uniqueCountries?.count || 0,
       bounceRate,
       avgSessionDuration: avgSessionDuration?.avgSeconds || 0,
-      visitorTypes: visitorTypes?.results || []
+      visitorTypes: visitorTypes?.results || [],
+      pageviewsToday: pageviewsToday?.count || 0,
+      pageviewsYesterday: pageviewsYesterday?.count || 0,
+      pageviewsLast7: pageviewsLast7?.count || 0,
+      pageviewsLast30: pageviewsLast30?.count || 0
     },
     topPages: topPages?.results || [],
     topCTAs: topCTAs?.results || [],
@@ -259,7 +309,8 @@ export async function onRequestGet({ env }) {
     topReferrers: topReferrers?.results || []
     ,
     funnel,
-    retention: retention || { newVisitors: 0, retained: 0, retentionRate: 0 }
+    retention: retention || { newVisitors: 0, retained: 0, retentionRate: 0 },
+    rawEvents: rawEvents?.results || []
   }, null, 2), {
     headers: { 'Content-Type': 'application/json' }
   });
