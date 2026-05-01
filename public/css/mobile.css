@@ -595,7 +595,7 @@ body
 /* Global styling for all injected text blocks */
 /* Global styling for all injected text blocks */
 /* Global styling for all injected text blocks */
-/*
+
 #txt-placeholder,
 #txt-placeholder h1 {
   background: rgba(255, 255, 255, 0.85);
@@ -611,4 +611,7 @@ body[data-type="services"] #txt-placeholder h1 {
   padding: 0 !important;
   backdrop-filter: none !important;
 }
-*/
+body[data-type="admin-products"] {
+  background: none !important;
+  background-color: #f9f9f9 !important;
+}

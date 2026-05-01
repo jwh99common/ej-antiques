@@ -21,7 +21,7 @@ const formatterMap = {
 };
 
 export async function loadGallery(type = 'products') {
-  const endpoint = (type === 'products' || type === 'soldproducts')
+  const endpoint = (type === 'products' || type === 'soldproducts' || type === 'services' || type === 'merchandise' || type ==="admin-products")
     ? '/api/products'
     : `/api/${type}`;
 
