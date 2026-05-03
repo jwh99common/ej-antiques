@@ -29,21 +29,41 @@ export async function onRequest(context) {
     const availability = p.is_sold ? "out_of_stock" : "in_stock";
     const condition = "used"; // antiques
 
+    // Build main image URL
+    const mainImageUrl = p.image
+      ? `${BASE_URL}/ej-antiques/${p.image}`
+      : null;
+
+    // Build additional images (if stored as CSV)
+    let additionalImages = [];
+    if (p.images) {
+      additionalImages = p.images
+        .split(",")
+        .map(img => img.trim())
+        .filter(Boolean)
+        .map(img => `${BASE_URL}/ej-antiques/${img}`);
+    }
+
     xml += `  <item>\n`;
     xml += `    <g:id>${p.id}</g:id>\n`;
     xml += `    <g:title><![CDATA[${p.title}]]></g:title>\n`;
     xml += `    <g:description><![CDATA[${p.longDescription || p.description || ""}]]></g:description>\n`;
     xml += `    <g:link>${link}</g:link>\n`;
 
-    if (p.image) {
-      xml += `    <g:image_link>${p.image}</g:image_link>\n`;
+    // Main image
+    if (mainImageUrl) {
+      xml += `    <g:image_link>${mainImageUrl}</g:image_link>\n`;
+    }
+
+    // Additional images
+    for (const img of additionalImages) {
+      xml += `    <g:additional_image_link>${img}</g:additional_image_link>\n`;
     }
 
     xml += `    <g:price>${price}</g:price>\n`;
     xml += `    <g:availability>${availability}</g:availability>\n`;
     xml += `    <g:condition>${condition}</g:condition>\n`;
 
-    // Optional but recommended
     if (p.category) {
       xml += `    <g:product_type><![CDATA[${p.category}]]></g:product_type>\n`;
     }
