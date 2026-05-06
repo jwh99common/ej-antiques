@@ -33,21 +33,25 @@
 
 <style>
   /* HEADER WITH BANNER BACKGROUND */
- .header-top {
-  width: 100vw;              /* force full viewport width */
-  margin-left: calc(50% - 50vw); /* break out of any centered container */
-
+.header-top {
   background-image: url('/ej-antiques/ej-banner.jpeg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 
-  padding-top: 80px;         /* your chosen banner depth */
+  padding-top: 80px;     /* banner depth */
   padding-bottom: 20px;
+
+  padding-left: 1rem;    /* indent left */
+  padding-right: 1rem;   /* indent right */
+
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
 
   position: relative;
   z-index: 1;
 }
+
 
 
 </style>
