@@ -654,6 +654,24 @@ body[data-type="admin-products"] {
     z-index: 1;
   }
 }
+.header-top {
+  background-image: url('/ej-antiques/ej-banner.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  padding-top: 80px;
+  padding-bottom: 20px;
+
+  padding-left: 4rem;
+  padding-right: 4rem;
+
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+
+  position: relative;
+  z-index: 1;
+}
 
 @media (max-width: 768px) {
   .header-top {
