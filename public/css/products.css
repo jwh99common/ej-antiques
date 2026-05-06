@@ -11,33 +11,7 @@
   gap: 1rem;
 }
 
-/* === Filter Buttons === */
-.filter-bar {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-  /*margin-top: -3.5rem*/
-}
 
-.filter-btn {
-  background: white;
-  border: 2px solid #0a0a09;
-  color: #0a0a09;
-  padding: 10px 10px;
-  /*border-radius: 25px;*/
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.filter-btn:hover,
-.filter-btn.active {
-  background: #b7db34;
-  color: white;
-}
 
 /* === Product Cards === */
 .product-card {
