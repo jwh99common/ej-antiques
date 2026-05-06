@@ -629,6 +629,7 @@ body[data-type="admin-products"] {
     cursor: pointer;
   }
 }
+
 @media (max-width: 768px) {
   .header-top {
     width: 100vw;
