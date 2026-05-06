@@ -34,16 +34,20 @@
 <style>
   /* HEADER WITH BANNER BACKGROUND */
  .header-top {
+  width: 100vw;              /* force full viewport width */
+  margin-left: calc(50% - 50vw); /* break out of any centered container */
+
   background-image: url('/ej-antiques/ej-banner.jpeg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 
-  padding-top: 80px;   /* reduce depth */
+  padding-top: 80px;         /* your chosen banner depth */
   padding-bottom: 20px;
 
   position: relative;
   z-index: 1;
 }
+
 
 </style>
