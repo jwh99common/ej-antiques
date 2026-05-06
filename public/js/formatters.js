@@ -18,7 +18,7 @@ export function formatProduct(item) {
   </button>`;
 
   return `
-    <img src="${item.image}" alt="${item.title}" class="product-image" />
+    <img src="${item.image}" alt="${item.title}" loading="lazy" class="product-image" />
     <div class="product-info">
       <h3>${item.title}</h3>
       <p>${trimmedDescription}</p>
