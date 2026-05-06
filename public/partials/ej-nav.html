@@ -34,23 +34,22 @@
   </div>
 </div>
 
-
 <style>
-  /* Make the banner a background layer */
+  /* Make header a positioning context */
+  .header-top {
+    position: relative;
+    z-index: 2; 
+    padding-top: 120px; /* space for the banner behind */
+  }
+
+  /* Make the banner sit BEHIND everything */
   .header-banner {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 180px; /* adjust to your banner height */
+    height: 120px; /* match padding-top */
     object-fit: cover;
-    z-index: 1; /* behind */
-  }
-
-  /* Pull the header content up over the banner */
-  .header-top {
-    position: relative;
-    z-index: 2; /* above the banner */
-    padding-top: 40px; /* space for the banner behind */
+    z-index: 1; /* behind header content */
   }
 </style>
