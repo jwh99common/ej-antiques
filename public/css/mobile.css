@@ -615,75 +615,25 @@ body[data-type="admin-products"] {
   background: none !important;
   background-color: #f9f9f9 !important;
 }
-@media (max-width: 768px) {
-  .header-top {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
 
+@media (max-width: 768px) {
+  #hamburger {
     background-image: url('/ej-antiques/ej-banner.jpeg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 
-    padding-top: 80px;   /* banner depth */
-    padding-bottom: 20px;
-    padding-left: 1rem;  /* indent */
-    padding-right: 1rem; /* indent */
+    width: 60px;   /* adjust as needed */
+    height: 60px;  /* adjust as needed */
+    border-radius: 50%; /* optional: makes it look like a floating button */
 
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    justify-content: center;
 
-    position: relative;
-    z-index: 1;
-  }
-}
-@media (max-width: 768px) {
-  .header-top {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-
-    background-image: url('/ej-antiques/ej-banner.jpeg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-
-    padding-top: 80px;   /* banner depth */
-    padding-bottom: 20px;
-    padding-left: 1rem;  /* indent */
-    padding-right: 1rem; /* indent */
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-
-    position: relative;
-    z-index: 1;
-  }
-}
-@media (max-width: 768px) {
-  .header-top {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-
-    background-image: url('/ej-antiques/ej-banner.jpeg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-
-    padding-top: 80px;   /* banner depth */
-    padding-bottom: 20px;
-    padding-left: 1rem;  /* indent */
-    padding-right: 1rem; /* indent */
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-
-    position: relative;
-    z-index: 1;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1002;
   }
 }
