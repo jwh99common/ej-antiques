@@ -1,4 +1,6 @@
 <div class="header-top">
+  <img src="/ej-antiques/ej-banner.jpeg" alt="Banner" class="header-banner" />
+
   <img src="/ej-antiques/ej-logo-2.jpg" alt="EJ's Antiques logo" class="logo-image" />
 
 
@@ -33,3 +35,16 @@
 </div>
 
 
+<style>
+  .header-banner {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .header-top {
+    position: relative;
+    z-index: 2;          /* ensures header sits on top of banner */
+    margin-top: -120px;  /* pull header upward over the banner */
+  }
+</style>
