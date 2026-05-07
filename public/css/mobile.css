@@ -1,3 +1,22 @@
+/* NUCLEAR HEADER FIX */
+header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+
+  /* Make the sticky header ALWAYS have the banner */
+  background-image: url('/ej-antiques/ej-banner.jpeg') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+
+  /* Remove all the junk from other CSS files */
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
 
 
 /* === Base Mobile Layout === */
