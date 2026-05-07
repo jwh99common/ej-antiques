@@ -60,7 +60,7 @@
     top: 1rem;
     right: 1rem;
     font-size: 1.5rem;
-    background: none;
+    background: white;
     border: none;
     z-index: 1001;
     cursor: pointer;
@@ -625,7 +625,7 @@ body[data-type="admin-products"] {
     top: 1rem;
     right: 1rem;
     font-size: 1.8rem;
-    background: none;
+    background: white;
     border: none;
     z-index: 10;
     cursor: pointer;

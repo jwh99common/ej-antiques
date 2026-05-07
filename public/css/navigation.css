@@ -4,7 +4,7 @@ header {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: white;
+  /*background: white;*/
   background-image: url('/ej-antiques/ej-banner.jpeg');
   background-size: cover;
   background-position: center;
