@@ -604,12 +604,7 @@ header {
   margin-bottom: -0.25rem; /* tighten below */
 }
 
-body
- {
-  background: url('/css/pl.png') repeat;
-  background-size: 400px;
-  background-position: top center;
-}
+
 
 /* Global styling for all injected text blocks */
 
@@ -717,4 +712,12 @@ body[data-type="admin-products"] {
     position: relative !important;
     z-index: 1 !important;
   }
+}
+/* FINAL BODY BACKGROUND FIX */
+body {
+  background-color: #f8f9fa !important;
+  background-image: url('/css/pl.png') !important;
+  background-repeat: repeat !important;
+  background-size: 400px !important;
+  background-position: top center !important;
 }
