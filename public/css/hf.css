@@ -1,9 +1,13 @@
-header, footer {
- /* background-color: #fdf6e3; /* Light cream tone */
-  color: #333;               /* Dark text for contrast */
-  /*padding: 1rem 2rem; */
+
+
+footer {
   border-top: 1px solid #e0dccc;
   border-bottom: 1px solid #e0dccc;
+}
+
+/* Header should NOT have borders */
+header {
+  border: none;
 }
 
 
